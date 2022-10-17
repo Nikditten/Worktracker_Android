@@ -17,6 +17,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import dtu.amd.worktracker.Component.CustomTextField
+import dtu.amd.worktracker.Component.InputSection
 import dtu.amd.worktracker.ui.theme.WorktrackerTheme
 import java.util.*
 
@@ -56,44 +58,38 @@ fun AddView(navController: NavHostController) {
                 .fillMaxSize()
                 .padding(10.dp)
         ) {
-            TextField(
-                value = title.value,
-                onValueChange = {
-                    title.value = it
-                },
-                label = {
-                    Text("Title")
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 10.dp)
-            )
+            InputSection(title = "General") {
+                CustomTextField(text = title.value, label = "Title", onChange = { title.value = it })
 
-            TextField(
-                value = company.value,
-                onValueChange = {
-                    company.value = it
-                },
-                label = {
-                    Text("Company")
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 10.dp)
-            )
+                CustomTextField(text = company.value, label = "Company", onChange = { company.value = it })
+            }
 
-            TextField(
-                value = paid.value,
-                onValueChange = {
-                    paid.value = it
-                },
-                label = {
-                    Text("Paid")
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 10.dp)
-            )
+            InputSection(title = "Date") {
+
+                CustomTextField(text = date.value, label = "Date", onChange = { date.value = it })
+
+                CustomTextField(text = start.value, label = "Start", onChange = { start.value = it })
+
+                CustomTextField(text = end.value, label = "End", onChange = { end.value = it })
+
+            }
+
+            InputSection(title = "Lunch") {
+                CustomTextField(text = lunch_held.value, label = "Lunch held", onChange = { lunch_held.value = it })
+
+                CustomTextField(text = lunch_start.value, label = "Lunch start", onChange = { lunch_start.value = it })
+
+                CustomTextField(text = lunch_end.value, label = "Lunch end", onChange = { lunch_end.value = it })
+            }
+
+            InputSection(title = "Salary") {
+                CustomTextField(text = hourly_paid.value, label = "Hourly paid", onChange = { hourly_paid.value = it })
+
+                CustomTextField(text = paid.value, label = "Paid", onChange = { paid.value = it })
+
+                CustomTextField(text = salary_period_month.value, label = "Salary period month", onChange = { salary_period_month.value = it })
+            }
+
         }
     }
 }
