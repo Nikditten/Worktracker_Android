@@ -15,7 +15,15 @@ import dtu.amd.worktracker.View.HomeView
 fun NavGraph() {
     val navController = rememberNavController()
 
-    NavHost(navController, startDestination = Destination.Edit.route) {
+    NavHost(navController, startDestination = Destination.Home.route) {
+        composable(Destination.Home.route) {
+            NavigationBar(navController = navController)
+        }
+
+        composable(Destination.Add.route) {
+            AddView(navController = navController)
+        }
+
         composable(Destination.Edit.route) {
             EditWorkView(navController = navController)
         }

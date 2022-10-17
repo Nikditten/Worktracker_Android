@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import dtu.amd.worktracker.Navigation.NavGraph
 import dtu.amd.worktracker.Navigation.NavigationBar
 import dtu.amd.worktracker.View.HomeView
 import dtu.amd.worktracker.ui.theme.WorktrackerTheme
@@ -23,7 +24,7 @@ class MainActivity : ComponentActivity() {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                 ) {
-                    NavigationBar()
+                    NavGraph()
                 }
             }
         }
@@ -34,6 +35,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun DefaultPreview() {
     WorktrackerTheme {
-        NavigationBar()
+        NavGraph()
     }
 }
