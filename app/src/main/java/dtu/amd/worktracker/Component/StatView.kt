@@ -33,7 +33,8 @@ fun StatView(title: String, value: String, half: Boolean = false) {
             .width(if (half) screenWidth / 2 else screenWidth)
             .height(screenHeight / 7)
             .background(MaterialTheme.colors.secondary),
-        elevation = 10.dp
+        elevation = 10.dp,
+        shape = RoundedCornerShape(20.dp),
     ) {
         Column(
             modifier = Modifier
