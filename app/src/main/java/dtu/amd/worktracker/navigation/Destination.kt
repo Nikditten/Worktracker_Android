@@ -1,4 +1,4 @@
-package dtu.amd.worktracker.Navigation
+package dtu.amd.worktracker.navigation
 
 // Based on lecture 5
 

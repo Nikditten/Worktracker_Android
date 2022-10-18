@@ -1,4 +1,4 @@
-package dtu.amd.worktracker.Component
+package dtu.amd.worktracker.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -21,7 +21,7 @@ fun InputSection(
             .fillMaxWidth()
             .background(MaterialTheme.colors.secondary),
         elevation = 10.dp,
-        shape = RoundedCornerShape(20.dp),
+        shape = MaterialTheme.shapes.large,
     ) {
         Column(
             modifier = Modifier.padding(20.dp)

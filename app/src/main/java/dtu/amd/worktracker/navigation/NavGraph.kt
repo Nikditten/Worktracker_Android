@@ -1,12 +1,11 @@
-package dtu.amd.worktracker.Navigation
+package dtu.amd.worktracker.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import dtu.amd.worktracker.View.AddView
-import dtu.amd.worktracker.View.EditWorkView
-import dtu.amd.worktracker.View.HomeView
+import dtu.amd.worktracker.view.AddView
+import dtu.amd.worktracker.view.EditWorkView
 
 
 // Based on Lecture 5

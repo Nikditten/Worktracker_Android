@@ -1,12 +1,9 @@
-package dtu.amd.worktracker.View
+package dtu.amd.worktracker.view
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.navigation.NavHostController
 import dtu.amd.worktracker.StatView
 
 
@@ -27,7 +24,7 @@ fun HomeView() {
         ) {
             StatView("Timer", "37", half = true)
 
-            StatView("Vagter", "12", half = true)
+            StatView("Vagter", "12", half = true, right = true)
         }
     }
 

@@ -1,7 +1,5 @@
-package dtu.amd.worktracker.View
+package dtu.amd.worktracker.view
 
-import android.widget.ScrollView
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -17,10 +15,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import dtu.amd.worktracker.Component.CustomTextField
-import dtu.amd.worktracker.Component.InputSection
+import dtu.amd.worktracker.component.CustomTextField
+import dtu.amd.worktracker.component.InputSection
 import dtu.amd.worktracker.ui.theme.WorktrackerTheme
-import java.util.*
 
 @Composable
 fun AddView(navController: NavHostController) {
@@ -88,6 +85,17 @@ fun AddView(navController: NavHostController) {
                 CustomTextField(text = paid.value, label = "Paid", onChange = { paid.value = it })
 
                 CustomTextField(text = salary_period_month.value, label = "Salary period month", onChange = { salary_period_month.value = it })
+            }
+
+            Button(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(50.dp)
+                    .clip(MaterialTheme.shapes.medium),
+                onClick = {
+
+                }) {
+                Text("Save")
             }
 
         }

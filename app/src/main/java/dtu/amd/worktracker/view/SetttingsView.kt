@@ -1,4 +1,4 @@
-package dtu.amd.worktracker.View
+package dtu.amd.worktracker.view
 
 import androidx.compose.runtime.Composable
 

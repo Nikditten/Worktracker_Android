@@ -1,10 +1,10 @@
-package dtu.amd.worktracker.Model
+package dtu.amd.worktracker.model
 
 import java.util.*
 
 data class Work(
     val id: Int,
-    val title: String,
+    var title: String,
     val company: String,
     val date: Date,
     val start: Date,

@@ -1,6 +1,5 @@
-package dtu.amd.worktracker.Navigation
+package dtu.amd.worktracker.navigation
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
@@ -15,9 +14,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.NavOptions
-import dtu.amd.worktracker.View.HomeView
-import dtu.amd.worktracker.View.SettingsView
-import dtu.amd.worktracker.View.TimelineView
+import dtu.amd.worktracker.view.HomeView
+import dtu.amd.worktracker.view.SettingsView
+import dtu.amd.worktracker.view.TimelineView
 
 @Composable
 fun NavigationBar(navController: NavHostController) {

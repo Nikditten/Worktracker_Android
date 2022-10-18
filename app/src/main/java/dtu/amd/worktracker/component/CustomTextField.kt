@@ -1,4 +1,4 @@
-package dtu.amd.worktracker.Component
+package dtu.amd.worktracker.component
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
