@@ -38,4 +38,8 @@ class Workitems() {
         }
     }
 
+    fun getByID(id: Int): Work {
+        return getWork(true).first { it.id == id }
+    }
+
 }

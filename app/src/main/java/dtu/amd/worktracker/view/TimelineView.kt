@@ -6,18 +6,28 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.NavOptions
 import dtu.amd.worktracker.component.TimelineItem
+import dtu.amd.worktracker.navigation.Destination
 import dtu.amd.worktracker.preview.data.Workitems
 
 @Composable
-fun TimelineView() {
+fun TimelineView(navController: NavHostController) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .verticalScroll(rememberScrollState()),
     ) {
         for (work in Workitems().getWork(true)) {
-            TimelineItem(work)
+            TimelineItem(work, onClick = {
+                navController.navigate(
+                    Destination.Edit.routeWithId(work.id),
+                    NavOptions.Builder()
+                        .setPopUpTo("home", inclusive = false)
+                        .build()
+                )
+            })
         }
         Spacer(modifier = Modifier.height(100.dp))
     }

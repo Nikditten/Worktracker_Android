@@ -91,7 +91,7 @@ fun AddView(navController: NavHostController) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp)
-                    .clip(MaterialTheme.shapes.medium),
+                    .clip(MaterialTheme.shapes.large),
                 onClick = {
 
                 }) {

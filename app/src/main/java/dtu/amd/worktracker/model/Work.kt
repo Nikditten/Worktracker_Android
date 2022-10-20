@@ -6,7 +6,7 @@ data class Work(
     val id: Int,
     var title: String,
     val company: String,
-    val date: Date,
+    var date: Date,
     val start: Date,
     val end: Date,
     val lunch_held: Boolean,

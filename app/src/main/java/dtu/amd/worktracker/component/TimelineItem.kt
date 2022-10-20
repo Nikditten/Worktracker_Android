@@ -1,6 +1,7 @@
 package dtu.amd.worktracker.component
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
@@ -22,13 +23,14 @@ import dtu.amd.worktracker.ui.theme.WorktrackerTheme
 import java.text.SimpleDateFormat
 
 @Composable
-fun TimelineItem(workItem: Work) {
+fun TimelineItem(workItem: Work, onClick: () -> Unit = {}) {
     Card(
         modifier = Modifier
             .padding(vertical = 10.dp)
             .fillMaxWidth()
             .height(100.dp)
-            .background(MaterialTheme.colors.secondary),
+            .background(MaterialTheme.colors.secondary)
+            .clickable { onClick() },
         elevation = 10.dp,
         shape = MaterialTheme.shapes.large,
     ) {

@@ -47,8 +47,10 @@ fun NavigationBar(navController: NavHostController) {
                 backgroundColor = MaterialTheme.colors.primary,
                 contentColor = MaterialTheme.colors.onPrimary,
                 actions = {
-                    IconButton(onClick = { /* ... */ }) {
-                        Icon(Icons.Filled.FilterAlt, "Filter")
+                    if (selectedIndex.value == 0) {
+                        IconButton(onClick = { /* ... */ }) {
+                            Icon(Icons.Filled.FilterAlt, "Filter")
+                        }
                     }
                 }
             )
@@ -98,7 +100,7 @@ fun NavigationBar(navController: NavHostController) {
         Box(modifier = Modifier.padding(10.dp)) {
             when (selectedIndex.value) {
                 0 -> HomeView()
-                1 -> TimelineView()
+                1 -> TimelineView(navController = navController)
                 2 -> SettingsView()
                 else -> HomeView()
             }

@@ -15,16 +15,16 @@ fun HomeView() {
         modifier = Modifier
             .fillMaxSize()
     ) {
-        StatView("Indtjening", "434300 DKK")
+        StatView("Earnings", "434300 DKK")
 
-        StatView("Forventet udbetaling", "340000 DKK")
+        StatView("Expected payout", "340000 DKK")
 
         Row(
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            StatView("Timer", "37", half = true)
+            StatView("Hours", "37", half = true)
 
-            StatView("Vagter", "12", half = true, right = true)
+            StatView("Shifts", "12", half = true, right = true)
         }
     }
 
