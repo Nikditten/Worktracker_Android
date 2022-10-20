@@ -19,7 +19,7 @@ fun CustomTextField(
     onChange: (String) -> Unit = {},
 ) {
     OutlinedTextField(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(top = 10.dp),
         enabled = enabled,

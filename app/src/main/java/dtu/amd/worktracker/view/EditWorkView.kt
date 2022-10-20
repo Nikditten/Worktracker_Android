@@ -58,25 +58,20 @@ fun EditWorkView(navController: NavHostController, id: Int) {
 
             InputSection(title = "Date") {
 
-                CustomTextField(
-                    text = vm.date.toString(),
-                    label = "Date",
-                    enabled = false,
-                    modifier = Modifier.clickable { vm.date = vm.showDatePickerDialog(context, vm.date) }
-                )
+                CustomTextField(text = vm.date.toString(), label = "Date", enabled = false, modifier = Modifier.clickable { vm.showDatePickerDialog(context) })
 
-                CustomTextField(text = vm.start.toString(), label = "Start", enabled = false, modifier = Modifier.clickable { vm.start = vm.showDatePickerDialog(context, vm.start) })
+                CustomTextField(text = vm.start.toString(), label = "Start", enabled = false, modifier = Modifier.clickable { vm.showTimePickerDialog(context, "start") })
 
-                CustomTextField(text = vm.end.toString(), label = "End", enabled = false, modifier = Modifier.clickable { vm.end = vm.showDatePickerDialog(context, vm.end) })
+                CustomTextField(text = vm.end.toString(), label = "End", enabled = false, modifier = Modifier.clickable { vm.showTimePickerDialog(context, "end") })
 
             }
 
             InputSection(title = "Lunch") {
                 CustomTextField(text = vm.lunch_held.toString(), label = "Lunch held", onChange = { vm.lunch_held = it.toBoolean() })
 
-                CustomTextField(text = vm.lunch_start.toString(), label = "Lunch start", enabled = false, modifier = Modifier.clickable { vm.lunch_start = vm.showDatePickerDialog(context, vm.lunch_start) })
+                CustomTextField(text = vm.lunch_start.toString(), label = "Lunch start", enabled = false, modifier = Modifier.clickable { vm.showTimePickerDialog(context, "lunch_start") })
 
-                CustomTextField(text = vm.lunch_end.toString(), label = "Lunch end", enabled = false, modifier = Modifier.clickable { vm.lunch_end = vm.showDatePickerDialog(context, vm.lunch_end) })
+                CustomTextField(text = vm.lunch_end.toString(), label = "Lunch end", enabled = false, modifier = Modifier.clickable { vm.showTimePickerDialog(context, "lunch_end") })
             }
 
             InputSection(title = "Salary") {
