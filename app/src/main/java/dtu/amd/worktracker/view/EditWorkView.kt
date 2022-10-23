@@ -8,21 +8,17 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import dtu.amd.worktracker.EditWorkViewModel
+import dtu.amd.worktracker.component.CustomDropdown
+import dtu.amd.worktracker.viewmodel.EditWorkViewModel
 import dtu.amd.worktracker.component.CustomTextField
 import dtu.amd.worktracker.component.InputSection
-import dtu.amd.worktracker.model.Work
-import dtu.amd.worktracker.preview.data.Workitems
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
+import dtu.amd.worktracker.util.AsDate
+import dtu.amd.worktracker.util.AsTime
 
 @Composable
 fun EditWorkView(navController: NavHostController, id: Int) {
@@ -32,7 +28,7 @@ fun EditWorkView(navController: NavHostController, id: Int) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Add new work") },
+                title = { Text("Edit shift") },
                 backgroundColor = MaterialTheme.colors.primary,
                 contentColor = MaterialTheme.colors.onPrimary,
                 navigationIcon = {
@@ -58,24 +54,48 @@ fun EditWorkView(navController: NavHostController, id: Int) {
 
             InputSection(title = "Date") {
 
-                CustomTextField(text = vm.date.toString(), label = "Date", enabled = false, modifier = Modifier.clickable { vm.showDatePickerDialog(context) })
+                CustomTextField(text = vm.date.AsDate(), label = "Date", enabled = false, modifier = Modifier.clickable { vm.showDatePickerDialog(context) })
 
-                CustomTextField(text = vm.start.toString(), label = "Start", enabled = false, modifier = Modifier.clickable { vm.showTimePickerDialog(context, "start") })
+                CustomTextField(text = vm.start.AsTime(), label = "Start", enabled = false, modifier = Modifier.clickable { vm.showTimePickerDialog(context, "start") })
 
-                CustomTextField(text = vm.end.toString(), label = "End", enabled = false, modifier = Modifier.clickable { vm.showTimePickerDialog(context, "end") })
+                CustomTextField(text = vm.end.AsTime(), label = "End", enabled = false, modifier = Modifier.clickable { vm.showTimePickerDialog(context, "end") })
 
             }
 
             InputSection(title = "Lunch") {
-                CustomTextField(text = vm.lunch_held.toString(), label = "Lunch held", onChange = { vm.lunch_held = it.toBoolean() })
+                CustomDropdown(
+                    label = "Lunch",
+                    options = listOf("Held", "Not held"),
+                    selectedIndex = if (vm.lunch_held) 0 else 1,
+                    onChange = {
+                        if (it == "Held") {
+                            vm.lunch_held = true
+                        } else {
+                            vm.lunch_held = false
+                        }
+                    }
+                )
 
-                CustomTextField(text = vm.lunch_start.toString(), label = "Lunch start", enabled = false, modifier = Modifier.clickable { vm.showTimePickerDialog(context, "lunch_start") })
+                if (vm.lunch_held) {
+                    CustomTextField(text = vm.lunch_start.AsTime(), label = "Lunch start", enabled = false, modifier = Modifier.clickable { vm.showTimePickerDialog(context, "lunch_start") })
 
-                CustomTextField(text = vm.lunch_end.toString(), label = "Lunch end", enabled = false, modifier = Modifier.clickable { vm.showTimePickerDialog(context, "lunch_end") })
+                    CustomTextField(text = vm.lunch_end.AsTime(), label = "Lunch end", enabled = false, modifier = Modifier.clickable { vm.showTimePickerDialog(context, "lunch_end") })
+                }
             }
 
             InputSection(title = "Salary") {
-                CustomTextField(text = vm.hourly_paid.toString(), label = "Hourly paid", onChange = { vm.hourly_paid = it.toBoolean() })
+                CustomDropdown(
+                    label = "Payment type",
+                    options = listOf("Hourly", "One time"),
+                    selectedIndex = if (vm.hourly_paid) 0 else 1,
+                    onChange = {
+                        if (it == "Hourly") {
+                            vm.hourly_paid = true
+                        } else {
+                            vm.hourly_paid = false
+                        }
+                    }
+                )
 
                 CustomTextField(text = vm.paid.toString(), label = "Paid", onChange = { vm.paid = it.toDouble() })
 

@@ -1,5 +1,6 @@
 package dtu.amd.worktracker.view
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -11,29 +12,24 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import dtu.amd.worktracker.component.CustomDropdown
 import dtu.amd.worktracker.component.CustomTextField
 import dtu.amd.worktracker.component.InputSection
 import dtu.amd.worktracker.ui.theme.WorktrackerTheme
+import dtu.amd.worktracker.util.AsDate
+import dtu.amd.worktracker.util.AsTime
+import dtu.amd.worktracker.viewmodel.AddWorkViewModel
+import dtu.amd.worktracker.viewmodel.EditWorkViewModel
 
 @Composable
 fun AddView(navController: NavHostController) {
 
-    val title = remember { mutableStateOf("") }
-    val company = remember { mutableStateOf("") }
-    val date = remember { mutableStateOf("") }
-    val start = remember { mutableStateOf("") }
-    val end = remember { mutableStateOf("") }
-    val lunch_held = remember { mutableStateOf("") }
-    val lunch_start = remember { mutableStateOf("") }
-    val lunch_end = remember { mutableStateOf("") }
-    val hourly_paid = remember { mutableStateOf("") }
-    val paid = remember { mutableStateOf("") }
-    val salary_period_month = remember { mutableStateOf("") }
-    val salary_period_year = remember { mutableStateOf("") }
+    val vm: AddWorkViewModel = AddWorkViewModel()
 
     Scaffold(
         topBar = {
@@ -49,6 +45,7 @@ fun AddView(navController: NavHostController) {
             )
         },
     ) {
+        val context = LocalContext.current
         Column(
             modifier = Modifier
                 .verticalScroll(rememberScrollState())
@@ -56,35 +53,98 @@ fun AddView(navController: NavHostController) {
                 .padding(10.dp)
         ) {
             InputSection(title = "General") {
-                CustomTextField(text = title.value, label = "Title", onChange = { title.value = it })
+                CustomTextField(text = vm.title, label = "Title", onChange = { vm.title = it })
 
-                CustomTextField(text = company.value, label = "Company", onChange = { company.value = it })
+                CustomTextField(
+                    text = vm.company,
+                    label = "Company",
+                    onChange = { vm.company = it })
             }
 
             InputSection(title = "Date") {
 
-                CustomTextField(text = date.value, label = "Date", onChange = { date.value = it })
+                CustomTextField(
+                    text = vm.date.AsDate(),
+                    label = "Date",
+                    enabled = false,
+                    modifier = Modifier.clickable { vm.showDatePickerDialog(context) })
 
-                CustomTextField(text = start.value, label = "Start", onChange = { start.value = it })
+                CustomTextField(
+                    text = vm.start.AsTime(),
+                    label = "Start",
+                    enabled = false,
+                    modifier = Modifier.clickable { vm.showTimePickerDialog(context, "start") })
 
-                CustomTextField(text = end.value, label = "End", onChange = { end.value = it })
+                CustomTextField(
+                    text = vm.end.AsTime(),
+                    label = "End",
+                    enabled = false,
+                    modifier = Modifier.clickable { vm.showTimePickerDialog(context, "end") })
 
             }
 
             InputSection(title = "Lunch") {
-                CustomTextField(text = lunch_held.value, label = "Lunch held", onChange = { lunch_held.value = it })
+                CustomDropdown(
+                    label = "Lunch",
+                    options = listOf("Held", "Not held"),
+                    selectedIndex = if (vm.lunch_held) 0 else 1,
+                    onChange = {
+                        if (it == "Held") {
+                            vm.lunch_held = true
+                        } else {
+                            vm.lunch_held = false
+                        }
+                    }
+                )
 
-                CustomTextField(text = lunch_start.value, label = "Lunch start", onChange = { lunch_start.value = it })
+                if (vm.lunch_held) {
+                    CustomTextField(
+                        text = vm.lunch_start.AsTime(),
+                        label = "Lunch start",
+                        enabled = false,
+                        modifier = Modifier.clickable {
+                            vm.showTimePickerDialog(
+                                context,
+                                "lunch_start"
+                            )
+                        })
 
-                CustomTextField(text = lunch_end.value, label = "Lunch end", onChange = { lunch_end.value = it })
+                    CustomTextField(
+                        text = vm.lunch_end.AsTime(),
+                        label = "Lunch end",
+                        enabled = false,
+                        modifier = Modifier.clickable { vm.showTimePickerDialog(context, "lunch_end") })
+                }
             }
 
             InputSection(title = "Salary") {
-                CustomTextField(text = hourly_paid.value, label = "Hourly paid", onChange = { hourly_paid.value = it })
+                CustomDropdown(
+                    label = "Payment type",
+                    options = listOf("Hourly", "One time"),
+                    selectedIndex = if (vm.hourly_paid) 0 else 1,
+                    onChange = {
+                        if (it == "Hourly") {
+                            vm.hourly_paid = true
+                        } else {
+                            vm.hourly_paid = false
+                        }
+                    }
+                )
 
-                CustomTextField(text = paid.value, label = "Paid", onChange = { paid.value = it })
+                CustomTextField(
+                    text = vm.paid.toString(),
+                    label = "Paid",
+                    onChange = { vm.paid = it.toDouble() })
 
-                CustomTextField(text = salary_period_month.value, label = "Salary period month", onChange = { salary_period_month.value = it })
+                CustomTextField(
+                    text = vm.salary_period_month.toString(),
+                    label = "Salary period month",
+                    onChange = { vm.salary_period_month = it.toInt() })
+
+                CustomTextField(
+                    text = vm.salary_period_year.toString(),
+                    label = "Salary period month",
+                    onChange = { vm.salary_period_year = it.toInt() })
             }
 
             Button(

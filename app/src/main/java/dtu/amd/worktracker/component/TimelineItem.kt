@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import dtu.amd.worktracker.model.Work
 import dtu.amd.worktracker.preview.data.Workitems
 import dtu.amd.worktracker.ui.theme.WorktrackerTheme
+import dtu.amd.worktracker.util.AsDate
 import java.text.SimpleDateFormat
 
 @Composable
@@ -75,7 +76,7 @@ fun TimelineItem(workItem: Work, onClick: () -> Unit = {}) {
                     )
                     Text(
                         // SOURCE: https://stackoverflow.com/questions/57402045/how-to-format-in-kotlin-date-in-string-or-timestamp-to-my-preferred-format
-                        text = SimpleDateFormat("dd-MM-yyyy").format(workItem.date),
+                        text = workItem.date.AsDate(),
                         color = MaterialTheme.colors.onSecondary,
                         style = MaterialTheme.typography.caption,
                         overflow = TextOverflow.Ellipsis

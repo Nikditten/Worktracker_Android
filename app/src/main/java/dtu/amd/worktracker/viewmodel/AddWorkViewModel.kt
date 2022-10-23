@@ -1,4 +1,4 @@
-package dtu.amd.worktracker
+package dtu.amd.worktracker.viewmodel
 
 import android.app.DatePickerDialog
 import android.app.ProgressDialog.show
@@ -12,25 +12,26 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import dtu.amd.worktracker.model.Work
 import dtu.amd.worktracker.preview.data.Workitems
+import dtu.amd.worktracker.util.AsDate
+import dtu.amd.worktracker.util.AsTime
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.min
 
-class EditWorkViewModel(id: Int) {
+class AddWorkViewModel() {
 
-    private val work: Work = Workitems().getByID(id = id)
-
-    var title by mutableStateOf(work.title)
-    var company by mutableStateOf(work.company)
-    var date by mutableStateOf(work.date)
-    var start by mutableStateOf(work.start)
-    var end by mutableStateOf(work.end)
-    var lunch_held by mutableStateOf(work.lunch_held)
-    var lunch_start by mutableStateOf(work.lunch_start)
-    var lunch_end by mutableStateOf(work.lunch_end)
-    var hourly_paid by mutableStateOf(work.hourly_paid)
-    var paid by mutableStateOf(work.paid)
-    var salary_period_month by mutableStateOf(work.salary_period_month)
-    var salary_period_year by mutableStateOf(work.salary_period_year)
+    var title by mutableStateOf("")
+    var company by mutableStateOf("")
+    var date by mutableStateOf(Date())
+    var start by mutableStateOf(Date())
+    var end by mutableStateOf(Date())
+    var lunch_held by mutableStateOf(true)
+    var lunch_start by mutableStateOf(Date())
+    var lunch_end by mutableStateOf(Date())
+    var hourly_paid by mutableStateOf(true)
+    var paid by mutableStateOf(0.0)
+    var salary_period_month by mutableStateOf(1)
+    var salary_period_year by mutableStateOf(2022)
 
 
     // SOURCE: https://proandroiddev.com/the-big-form-with-jetpack-compose-7bec9cde157e
@@ -74,29 +75,32 @@ class EditWorkViewModel(id: Int) {
                         start = getPickedTimeAsTime(hour, minute)
                     }
                     "end" -> {
-                        calendar.time = end
+                        end = getPickedTimeAsTime(hour, minute)
                     }
                     "lunch_start" -> {
-                        calendar.time = lunch_start
+                        lunch_start = getPickedTimeAsTime(hour, minute)
                     }
                     "lunch_end" -> {
-                        calendar.time = lunch_end
+                        lunch_end = getPickedTimeAsTime(hour, minute)
                     }
                 }
 
-            }, calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE), true
+            }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true
         ).show()
     }
 
     private fun getPickedTimeAsTime(hour: Int, minute: Int): Date {
         val calendar = Calendar.getInstance()
-        calendar.set(hour, minute)
+        calendar.set(Calendar.HOUR_OF_DAY, hour);
+        calendar.set(Calendar.MINUTE, minute);
         return calendar.time
     }
 
     private fun getPickedDateAsDate(year: Int, month: Int, day: Int): Date {
         val calendar = Calendar.getInstance()
-        calendar.set(year, month, day)
+        calendar.set(Calendar.YEAR, year)
+        calendar.set(Calendar.MONTH, month)
+        calendar.set(Calendar.DAY_OF_MONTH, day)
         return calendar.time
     }
 
