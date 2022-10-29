@@ -1,6 +1,6 @@
 package dtu.amd.worktracker.preview.data
 
-import dtu.amd.worktracker.model.Work
+import dtu.amd.worktracker.dal.model.Work
 import java.util.*
 
 class Workitems() {

@@ -14,7 +14,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import dtu.amd.worktracker.component.CustomDropdown
-import dtu.amd.worktracker.viewmodel.EditWorkViewModel
+import dtu.amd.worktracker.viewmodel.EditViewModel
 import dtu.amd.worktracker.component.CustomTextField
 import dtu.amd.worktracker.component.InputSection
 import dtu.amd.worktracker.util.AsDate
@@ -23,7 +23,7 @@ import dtu.amd.worktracker.util.AsTime
 @Composable
 fun EditWorkView(navController: NavHostController, id: Int) {
 
-    val vm: EditWorkViewModel = EditWorkViewModel(id = id)
+    val vm: EditViewModel = EditViewModel(id = id)
 
     Scaffold(
         topBar = {

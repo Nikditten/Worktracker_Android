@@ -8,8 +8,6 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
@@ -23,13 +21,12 @@ import dtu.amd.worktracker.component.InputSection
 import dtu.amd.worktracker.ui.theme.WorktrackerTheme
 import dtu.amd.worktracker.util.AsDate
 import dtu.amd.worktracker.util.AsTime
-import dtu.amd.worktracker.viewmodel.AddWorkViewModel
-import dtu.amd.worktracker.viewmodel.EditWorkViewModel
+import dtu.amd.worktracker.viewmodel.AddViewModel
 
 @Composable
 fun AddView(navController: NavHostController) {
 
-    val vm: AddWorkViewModel = AddWorkViewModel()
+    val vm: AddViewModel = AddViewModel()
 
     Scaffold(
         topBar = {

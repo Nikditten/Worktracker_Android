@@ -17,11 +17,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import dtu.amd.worktracker.model.Work
+import dtu.amd.worktracker.dal.model.Work
 import dtu.amd.worktracker.preview.data.Workitems
 import dtu.amd.worktracker.ui.theme.WorktrackerTheme
 import dtu.amd.worktracker.util.AsDate
-import java.text.SimpleDateFormat
 
 @Composable
 fun TimelineItem(workItem: Work, onClick: () -> Unit = {}) {

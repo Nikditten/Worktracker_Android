@@ -1,24 +1,14 @@
 package dtu.amd.worktracker.viewmodel
 
 import android.app.DatePickerDialog
-import android.app.ProgressDialog.show
 import android.app.TimePickerDialog
 import android.content.Context
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.unit.dp
-import dtu.amd.worktracker.model.Work
-import dtu.amd.worktracker.preview.data.Workitems
-import dtu.amd.worktracker.util.AsDate
-import dtu.amd.worktracker.util.AsTime
-import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.math.min
 
-class AddWorkViewModel() {
+class AddViewModel() {
 
     var title by mutableStateOf("")
     var company by mutableStateOf("")

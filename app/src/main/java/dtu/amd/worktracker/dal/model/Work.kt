@@ -1,11 +1,23 @@
-package dtu.amd.worktracker.model
+package dtu.amd.worktracker.dal.model
 
+import androidx.annotation.NonNull
+import androidx.room.ColumnInfo
 import java.util.*
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+
+@Entity(tableName = "work")
 data class Work(
+    @PrimaryKey(autoGenerate = true)
+    @NonNull
+    @ColumnInfo(name = "id")
     val id: Int,
+    @ColumnInfo(name = "title")
     var title: String,
     val company: String,
+    @ColumnInfo(name = "date")
     var date: Date,
     val start: Date,
     val end: Date,
