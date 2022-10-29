@@ -1,6 +1,5 @@
 package dtu.amd.worktracker.dal.dao
 
-import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import dtu.amd.worktracker.dal.model.Work

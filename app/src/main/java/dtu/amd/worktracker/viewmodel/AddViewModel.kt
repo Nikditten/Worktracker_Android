@@ -6,9 +6,15 @@ import android.content.Context
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import dtu.amd.worktracker.dal.WorkRepository
+import dtu.amd.worktracker.dal.model.Work
 import java.util.*
+import javax.inject.Inject
 
 class AddViewModel() {
+
+    @Inject
+    lateinit var workRepository: WorkRepository
 
     var title by mutableStateOf("")
     var company by mutableStateOf("")
@@ -92,6 +98,26 @@ class AddViewModel() {
         calendar.set(Calendar.MONTH, month)
         calendar.set(Calendar.DAY_OF_MONTH, day)
         return calendar.time
+    }
+
+    fun save() {
+        workRepository.addWork(
+            Work(
+                0,
+                title,
+                company,
+                date,
+                start,
+                end,
+                lunch_held,
+                lunch_start,
+                lunch_end,
+                hourly_paid,
+                paid,
+                salary_period_month,
+                salary_period_year
+            )
+        )
     }
 
 }

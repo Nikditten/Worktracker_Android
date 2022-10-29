@@ -6,13 +6,18 @@ import android.content.Context
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import dtu.amd.worktracker.dal.WorkRepository
 import dtu.amd.worktracker.dal.model.Work
 import dtu.amd.worktracker.preview.data.Workitems
 import java.util.*
+import javax.inject.Inject
 
 class EditViewModel(id: Int) {
 
-    private val work: Work = Workitems().getByID(id = id)
+    @Inject
+    lateinit var workRepository: WorkRepository
+
+    private val work: Work = workRepository.getSpecificWork(id)[0]
 
     var title by mutableStateOf(work.title)
     var company by mutableStateOf(work.company)
