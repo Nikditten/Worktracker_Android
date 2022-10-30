@@ -6,6 +6,8 @@ import androidx.room.TypeConverters
 import dtu.amd.worktracker.dal.dao.WorkDao
 import dtu.amd.worktracker.dal.model.Work
 
+// SOURCE: https://github.com/HenrikPihl/retrofit_room/tree/feature/add-room
+
 @Database(
     entities = [Work::class],
     autoMigrations = [

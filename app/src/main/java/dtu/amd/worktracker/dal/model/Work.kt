@@ -9,6 +9,8 @@ import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import dtu.amd.worktracker.dal.TypeConverter
 
+// SOURCE: https://github.com/HenrikPihl/retrofit_room/tree/feature/add-room
+
 @Entity(tableName = "work")
 data class Work(
     @PrimaryKey(autoGenerate = true)

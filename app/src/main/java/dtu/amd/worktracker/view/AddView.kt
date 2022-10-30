@@ -150,7 +150,7 @@ fun AddView(navController: NavHostController) {
                     .height(50.dp)
                     .clip(MaterialTheme.shapes.large),
                 onClick = {
-
+                    vm.save()
                 }) {
                 Text("Save")
             }

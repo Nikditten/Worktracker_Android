@@ -10,6 +10,8 @@ import dagger.hilt.components.SingletonComponent
 
 import javax.inject.Singleton
 
+// SOURCE: https://github.com/HenrikPihl/retrofit_room/tree/feature/add-room
+
 @Module
 @InstallIn(SingletonComponent::class)
 object DatabaseModule {

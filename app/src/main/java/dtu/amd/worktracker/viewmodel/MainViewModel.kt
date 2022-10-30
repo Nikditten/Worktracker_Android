@@ -3,7 +3,7 @@ package dtu.amd.worktracker.viewmodel
 import dtu.amd.worktracker.dal.WorkRepository
 import javax.inject.Inject
 
-class TimelineViewModel {
+class MainViewModel {
 
     @Inject
     lateinit var workRepository: WorkRepository

@@ -1,4 +1,4 @@
-package dtu.amd.worktracker.dal.util
+package dtu.amd.worktracker.di
 
 import dagger.Module
 import dagger.Provides
@@ -8,7 +8,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 
 // https://medium.com/androiddevelopers/create-an-application-coroutinescope-using-hilt-dd444e721528
-
+// SOURCE: https://github.com/HenrikPihl/retrofit_room/tree/feature/add-room
 @InstallIn(SingletonComponent::class)
 @Module
 object CoroutinesDispatchersModule {

@@ -11,19 +11,17 @@ import androidx.navigation.NavOptions
 import dtu.amd.worktracker.component.TimelineItem
 import dtu.amd.worktracker.navigation.Destination
 import dtu.amd.worktracker.preview.data.Workitems
-import dtu.amd.worktracker.viewmodel.TimelineViewModel
+import dtu.amd.worktracker.viewmodel.MainViewModel
 
 @Composable
 fun TimelineView(navController: NavHostController) {
-
-    val vm: TimelineViewModel = TimelineViewModel()
 
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .verticalScroll(rememberScrollState()),
     ) {
-        for (work in vm.workList) {
+        for (work in Workitems().getWork(true)) {
             TimelineItem(work, onClick = {
                 navController.navigate(
                     Destination.Edit.routeWithId(work.id),

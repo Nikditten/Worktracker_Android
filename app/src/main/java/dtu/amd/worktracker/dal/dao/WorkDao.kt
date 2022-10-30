@@ -5,6 +5,8 @@ import androidx.room.Insert
 import androidx.room.Query
 import dtu.amd.worktracker.dal.model.Work
 
+// SOURCE: https://github.com/HenrikPihl/retrofit_room/tree/feature/add-room
+
 @Dao
 interface WorkDao {
 
