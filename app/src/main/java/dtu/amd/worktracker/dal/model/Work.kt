@@ -6,7 +6,8 @@ import java.util.*
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-
+import androidx.room.TypeConverters
+import dtu.amd.worktracker.dal.TypeConverter
 
 @Entity(tableName = "work")
 data class Work(
@@ -17,12 +18,17 @@ data class Work(
     @ColumnInfo(name = "title")
     var title: String,
     val company: String,
+    @TypeConverters(TypeConverter::class)
     @ColumnInfo(name = "date")
     var date: Date,
+    @TypeConverters(TypeConverter::class)
     val start: Date,
+    @TypeConverters(TypeConverter::class)
     val end: Date,
     val lunch_held: Boolean,
+    @TypeConverters(TypeConverter::class)
     val lunch_start: Date,
+    @TypeConverters(TypeConverter::class)
     val lunch_end: Date,
     val hourly_paid: Boolean,
     val paid: Double,
