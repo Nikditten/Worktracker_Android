@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Worktracker</string>
+    <string name="save">Gem</string>
+    <string name="edit">Rediger</string>
+</resources>

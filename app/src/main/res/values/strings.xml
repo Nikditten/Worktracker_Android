@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Worktracker</string>
+    <string name="save">Save</string>
+    <string name="edit">edit</string>
 </resources>

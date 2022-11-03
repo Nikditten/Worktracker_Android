@@ -14,10 +14,7 @@ import javax.inject.Inject
 
 class EditViewModel(id: Int) {
 
-    @Inject
-    lateinit var workRepository: WorkRepository
-
-    private val work: Work = workRepository.getSpecificWork(id)[0]
+    private val work: Work = Workitems().getWork(true)[0]
 
     var title by mutableStateOf(work.title)
     var company by mutableStateOf(work.company)
