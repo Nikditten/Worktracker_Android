@@ -6,28 +6,55 @@ import android.content.Context
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import dtu.amd.worktracker.dal.WorkRepository
 import dtu.amd.worktracker.dal.model.Work
 import dtu.amd.worktracker.preview.data.Workitems
 import java.util.*
 import javax.inject.Inject
 
-class EditViewModel(id: Int) {
+@HiltViewModel
+class EditViewModel @Inject constructor(
+    workRepository: WorkRepository,
+    savedStateHandle: SavedStateHandle
+): ViewModel() {
 
-    private val work: Work = Workitems().getWork(true)[0]
+    var title by mutableStateOf("")
+    var company by mutableStateOf("")
+    var date by mutableStateOf(Date())
+    var start by mutableStateOf(Date())
+    var end by mutableStateOf(Date())
+    var lunch_held by mutableStateOf(true)
+    var lunch_start by mutableStateOf(Date())
+    var lunch_end by mutableStateOf(Date())
+    var hourly_paid by mutableStateOf(true)
+    var paid by mutableStateOf(0.0)
+    var salary_period_month by mutableStateOf(0)
+    var salary_period_year by mutableStateOf(0)
 
-    var title by mutableStateOf(work.title)
-    var company by mutableStateOf(work.company)
-    var date by mutableStateOf(work.date)
-    var start by mutableStateOf(work.start)
-    var end by mutableStateOf(work.end)
-    var lunch_held by mutableStateOf(work.lunch_held)
-    var lunch_start by mutableStateOf(work.lunch_start)
-    var lunch_end by mutableStateOf(work.lunch_end)
-    var hourly_paid by mutableStateOf(work.hourly_paid)
-    var paid by mutableStateOf(work.paid)
-    var salary_period_month by mutableStateOf(work.salary_period_month)
-    var salary_period_year by mutableStateOf(work.salary_period_year)
+    // SOURCE: https://github.com/philipplackner/MVVMTodoApp
+    init {
+        val workId = savedStateHandle.get<Int>("id")!!
+        if(workId != -1) {
+            val work = workRepository.getSpecificWork(workId)
+            if (work != null) {
+                title = work.title
+                company = work.company
+                date = work.date
+                start = work.start
+                end = work.end
+                lunch_held = work.lunch_held
+                lunch_start = work.lunch_start
+                lunch_end = work.lunch_end
+                hourly_paid = work.hourly_paid
+                paid = work.paid
+                salary_period_month = work.salary_period_month
+                salary_period_year = work.salary_period_year
+            }
+        }
+    }
 
 
     // SOURCE: https://proandroiddev.com/the-big-form-with-jetpack-compose-7bec9cde157e

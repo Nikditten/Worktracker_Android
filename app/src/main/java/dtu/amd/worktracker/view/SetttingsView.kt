@@ -12,6 +12,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import androidx.fragment.app.Fragment
 import dtu.amd.worktracker.component.CustomTextField
 import dtu.amd.worktracker.component.InputSection
 
@@ -42,41 +43,89 @@ fun SettingsView() {
             .fillMaxSize()
     ) {
         InputSection(title = "Salary") {
-            CustomTextField(text = salary.value.toString(), label = "Hourly rate", onChange = { salary.value = it.toInt() })
+            CustomTextField(
+                text = salary.value.toString(),
+                label = "Hourly rate",
+                onChange = { salary.value = it.toInt() })
         }
 
         InputSection(title = "Taxes") {
-            CustomTextField(text = tax_percentage.value.toString(), label = "Tax percentage (%)", onChange = { tax_percentage.value = it.toDouble() })
+            CustomTextField(
+                text = tax_percentage.value.toString(),
+                label = "Tax percentage (%)",
+                onChange = { tax_percentage.value = it.toDouble() })
 
-            CustomTextField(text = tax_additional.value.toString(), label = "Additional taxes (%)", onChange = { tax_additional.value = it.toDouble() })
+            CustomTextField(
+                text = tax_additional.value.toString(),
+                label = "Additional taxes (%)",
+                onChange = { tax_additional.value = it.toDouble() })
 
-            CustomTextField(text = tax_deduction.value.toString(), label = "Tax deduction (%)", onChange = { tax_deduction.value = it.toDouble() })
+            CustomTextField(
+                text = tax_deduction.value.toString(),
+                label = "Tax deduction (%)",
+                onChange = { tax_deduction.value = it.toDouble() })
         }
 
         InputSection(title = "Salary period endings") {
-            CustomTextField(text = january.value.toString(), label = "Last day in January", onChange = { january.value = it.toInt() })
+            CustomTextField(
+                text = january.value.toString(),
+                label = "Last day in January",
+                onChange = { january.value = it.toInt() })
 
-            CustomTextField(text = february.value.toString(), label = "Last day in February", onChange = { february.value = it.toInt() })
+            CustomTextField(
+                text = february.value.toString(),
+                label = "Last day in February",
+                onChange = { february.value = it.toInt() })
 
-            CustomTextField(text = marts.value.toString(), label = "Last day in Marts", onChange = { marts.value = it.toInt() })
+            CustomTextField(
+                text = marts.value.toString(),
+                label = "Last day in Marts",
+                onChange = { marts.value = it.toInt() })
 
-            CustomTextField(text = april.value.toString(), label = "Last day in April", onChange = { april.value = it.toInt() })
+            CustomTextField(
+                text = april.value.toString(),
+                label = "Last day in April",
+                onChange = { april.value = it.toInt() })
 
-            CustomTextField(text = may.value.toString(), label = "Last day in May", onChange = { may.value = it.toInt() })
+            CustomTextField(
+                text = may.value.toString(),
+                label = "Last day in May",
+                onChange = { may.value = it.toInt() })
 
-            CustomTextField(text = june.value.toString(), label = "Last day in June", onChange = { june.value = it.toInt() })
+            CustomTextField(
+                text = june.value.toString(),
+                label = "Last day in June",
+                onChange = { june.value = it.toInt() })
 
-            CustomTextField(text = july.value.toString(), label = "Last day in July", onChange = { july.value = it.toInt() })
+            CustomTextField(
+                text = july.value.toString(),
+                label = "Last day in July",
+                onChange = { july.value = it.toInt() })
 
-            CustomTextField(text = august.value.toString(), label = "Last day in August", onChange = { august.value = it.toInt() })
+            CustomTextField(
+                text = august.value.toString(),
+                label = "Last day in August",
+                onChange = { august.value = it.toInt() })
 
-            CustomTextField(text = september.value.toString(), label = "Last day in September", onChange = { september.value = it.toInt() })
+            CustomTextField(
+                text = september.value.toString(),
+                label = "Last day in September",
+                onChange = { september.value = it.toInt() })
 
-            CustomTextField(text = october.value.toString(), label = "Last day in October", onChange = { october.value = it.toInt() })
+            CustomTextField(
+                text = october.value.toString(),
+                label = "Last day in October",
+                onChange = { october.value = it.toInt() })
 
-            CustomTextField(text = november.value.toString(), label = "Last day in November", onChange = { november.value = it.toInt() })
+            CustomTextField(
+                text = november.value.toString(),
+                label = "Last day in November",
+                onChange = { november.value = it.toInt() })
 
-            CustomTextField(text = december.value.toString(), label = "Last day in December", onChange = { december.value = it.toInt() })
+            CustomTextField(
+                text = december.value.toString(),
+                label = "Last day in December",
+                onChange = { december.value = it.toInt() })
         }
 
         Button(
@@ -92,4 +141,5 @@ fun SettingsView() {
 
         Spacer(modifier = Modifier.height(100.dp))
     }
+
 }

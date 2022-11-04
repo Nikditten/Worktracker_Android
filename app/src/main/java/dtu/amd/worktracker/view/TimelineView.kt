@@ -1,27 +1,32 @@
 package dtu.amd.worktracker.view
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavOptions
 import dtu.amd.worktracker.component.TimelineItem
 import dtu.amd.worktracker.navigation.Destination
-import dtu.amd.worktracker.preview.data.Workitems
 import dtu.amd.worktracker.viewmodel.MainViewModel
+import androidx.compose.foundation.lazy.items
 
 @Composable
-fun TimelineView(navController: NavHostController) {
-
-    Column(
+fun TimelineView(
+    navController: NavHostController,
+    vm: MainViewModel = hiltViewModel()
+) {
+    val workList = vm.getAllWork().collectAsState(initial = emptyList())
+    LazyColumn(
         modifier = Modifier
             .fillMaxWidth()
-            .verticalScroll(rememberScrollState()),
     ) {
-        for (work in Workitems().getWork(true)) {
+        items(workList.value) { work ->
             TimelineItem(work, onClick = {
                 navController.navigate(
                     Destination.Edit.routeWithId(work.id),
@@ -31,6 +36,6 @@ fun TimelineView(navController: NavHostController) {
                 )
             })
         }
-        Spacer(modifier = Modifier.height(100.dp))
+        item { Spacer(modifier = Modifier.height(100.dp)) }
     }
 }

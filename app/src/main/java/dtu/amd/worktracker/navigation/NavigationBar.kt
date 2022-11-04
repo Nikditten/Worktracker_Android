@@ -1,5 +1,6 @@
 package dtu.amd.worktracker.navigation
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
@@ -17,9 +18,11 @@ import androidx.navigation.NavOptions
 import dtu.amd.worktracker.view.HomeView
 import dtu.amd.worktracker.view.SettingsView
 import dtu.amd.worktracker.view.TimelineView
+import dtu.amd.worktracker.viewmodel.MainViewModel
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun NavigationBar(navController: NavHostController) {
+fun     NavigationBar(navController: NavHostController) {
     // SOURCE: https://developer.android.com/jetpack/compose/layouts/material
     val selectedIndex = remember { mutableStateOf(0) }
     val selectedView = remember {

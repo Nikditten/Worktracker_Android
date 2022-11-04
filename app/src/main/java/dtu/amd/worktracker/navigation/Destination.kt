@@ -9,7 +9,7 @@ sealed class Destination(val route: String) {
     object Add : Destination("add")
 
     object Edit : Destination("edit/{id}") {
-        fun routeWithId(id: Int) = route.replace("{id}", id.toString()) //  /profile/100
+        fun routeWithId(id: Int) = route.replace("{id}", id.toString())
     }
 
 }

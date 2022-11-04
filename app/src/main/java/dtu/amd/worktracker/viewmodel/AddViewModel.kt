@@ -6,14 +6,17 @@ import android.content.Context
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import dtu.amd.worktracker.dal.WorkRepository
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dtu.amd.worktracker.dal.WorkRepository
 import dtu.amd.worktracker.dal.model.Work
 import java.util.*
 import javax.inject.Inject
 
-class AddViewModel() : ViewModel() {
+@HiltViewModel
+class AddViewModel @Inject constructor(
+private val workRepository: WorkRepository,
+): ViewModel() {
 
     var title by mutableStateOf("")
     var company by mutableStateOf("")
@@ -100,7 +103,23 @@ class AddViewModel() : ViewModel() {
     }
 
     fun save() {
-
+        workRepository.addWork(
+            Work(
+                id = 0,
+                title = title,
+                company = company,
+                date = date,
+                start = start,
+                end = end,
+                lunch_held = lunch_held,
+                lunch_start = lunch_start,
+                lunch_end = lunch_end,
+                hourly_paid = hourly_paid,
+                paid = paid,
+                salary_period_month = salary_period_month,
+                salary_period_year = salary_period_year
+            )
+        )
     }
 
 }

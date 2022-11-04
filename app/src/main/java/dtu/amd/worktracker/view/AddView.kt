@@ -1,5 +1,6 @@
 package dtu.amd.worktracker.view
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -14,6 +15,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import dtu.amd.worktracker.R
@@ -25,10 +28,12 @@ import dtu.amd.worktracker.util.AsDate
 import dtu.amd.worktracker.util.AsTime
 import dtu.amd.worktracker.viewmodel.AddViewModel
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun AddView(navController: NavHostController) {
-
-    val vm: AddViewModel = AddViewModel()
+fun AddView(
+    navController: NavHostController,
+    vm: AddViewModel = hiltViewModel()
+) {
 
     Scaffold(
         topBar = {
@@ -43,6 +48,7 @@ fun AddView(navController: NavHostController) {
                 },
             )
         },
+
     ) {
         val context = LocalContext.current
         Column(
@@ -158,13 +164,5 @@ fun AddView(navController: NavHostController) {
             }
 
         }
-    }
-}
-
-@Preview(locale = "da", showBackground = true)
-@Composable
-fun AddPreview() {
-    WorktrackerTheme {
-        AddView(navController = rememberNavController())
     }
 }

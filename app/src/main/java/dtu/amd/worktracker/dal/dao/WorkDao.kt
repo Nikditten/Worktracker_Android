@@ -2,15 +2,17 @@ package dtu.amd.worktracker.dal.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import dtu.amd.worktracker.dal.model.Work
+import kotlinx.coroutines.flow.Flow
 
 // SOURCE: https://github.com/HenrikPihl/retrofit_room/tree/feature/add-room
 
 @Dao
 interface WorkDao {
 
-    @Insert
+    @Insert()
     fun addWork(work: Work)
 
     @Query("SELECT * FROM work WHERE id = :id")
@@ -20,6 +22,6 @@ interface WorkDao {
     fun deleteWork(id: Int)
 
     @Query("SELECT * FROM work")
-    fun getAllWork(): List<Work>
+    fun getAllWork(): Flow<List<Work>>
 
 }

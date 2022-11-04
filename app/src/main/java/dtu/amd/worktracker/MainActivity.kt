@@ -3,17 +3,34 @@ package dtu.amd.worktracker
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import dagger.hilt.android.AndroidEntryPoint
+import dtu.amd.worktracker.navigation.Destination
 import dtu.amd.worktracker.navigation.NavGraph
+import dtu.amd.worktracker.navigation.NavigationBar
 import dtu.amd.worktracker.ui.theme.WorktrackerTheme
+import dtu.amd.worktracker.view.AddView
+import dtu.amd.worktracker.view.EditWorkView
+import dtu.amd.worktracker.viewmodel.AddViewModel
+import dtu.amd.worktracker.viewmodel.EditViewModel
+import dtu.amd.worktracker.viewmodel.MainViewModel
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    val mainVM by viewModels<MainViewModel>()
+    val addVM by viewModels<AddViewModel>()
+    val editVM by viewModels<EditViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -22,17 +39,36 @@ class MainActivity : ComponentActivity() {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                 ) {
-                    NavGraph()
+                    // Based on Lecture 5
+                    val navController = rememberNavController()
+
+                    NavHost(navController, startDestination = Destination.Home.route) {
+                        composable(Destination.Home.route) {
+                            NavigationBar(navController = navController)
+                        }
+
+                        composable(Destination.Add.route) {
+                            AddView(navController = navController)
+                        }
+
+                        composable(
+                            Destination.Edit.route,
+                            arguments = listOf(
+                                navArgument("id") {
+                                    type = NavType.IntType
+                                    defaultValue = -1
+                                }
+                            )
+                        ) {
+                            EditWorkView(
+                                navController,
+                                it.arguments?.getInt("id") ?: 0
+                            )
+                        }
+
+                    }
                 }
             }
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    WorktrackerTheme {
-        NavGraph()
     }
 }

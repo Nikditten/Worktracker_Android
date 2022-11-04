@@ -1,5 +1,6 @@
 package dtu.amd.worktracker.view
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -12,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import dtu.amd.worktracker.component.CustomDropdown
 import dtu.amd.worktracker.viewmodel.EditViewModel
@@ -20,10 +22,12 @@ import dtu.amd.worktracker.component.InputSection
 import dtu.amd.worktracker.util.AsDate
 import dtu.amd.worktracker.util.AsTime
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun EditWorkView(navController: NavHostController, id: Int) {
-
-    val vm: EditViewModel = EditViewModel(id = id)
+fun EditWorkView(
+    navController: NavHostController,
+    id: Int,
+    vm: EditViewModel = hiltViewModel()) {
 
     Scaffold(
         topBar = {
