@@ -16,7 +16,7 @@ interface WorkDao {
     fun addWork(work: Work)
 
     @Query("SELECT * FROM work WHERE id = :id")
-    fun getWork(id: Int): List<Work>
+    fun getWork(id: Int): Work?
 
     @Query("DELETE FROM work WHERE id = :id")
     fun deleteWork(id: Int)
@@ -24,4 +24,6 @@ interface WorkDao {
     @Query("SELECT * FROM work")
     fun getAllWork(): Flow<List<Work>>
 
+    @Query("SELECT SUM(:type) FROM work WHERE salary_period_month = :month AND salary_period_year = :year")
+    fun getSum(type: String, year: Int, month: Int): Double
 }

@@ -10,6 +10,9 @@ import dtu.amd.worktracker.dal.WorkRepository
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dtu.amd.worktracker.dal.model.Work
+import dtu.amd.worktracker.util.asMonth
+import dtu.amd.worktracker.util.asYear
+import dtu.amd.worktracker.util.getDiffInHours
 import java.util.*
 import javax.inject.Inject
 
@@ -28,9 +31,12 @@ private val workRepository: WorkRepository,
     var lunch_end by mutableStateOf(Date())
     var hourly_paid by mutableStateOf(true)
     var paid by mutableStateOf(0.0)
-    var salary_period_month by mutableStateOf(1)
-    var salary_period_year by mutableStateOf(2022)
+    var one_time_fee by mutableStateOf(0.0)
+    var salary_period_month by mutableStateOf(Date().asMonth())
+    var salary_period_year by mutableStateOf(Date().asYear())
 
+    var months: List<String> = listOf("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December")
+    var years: List<String> = listOf("2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030")
 
     // SOURCE: https://proandroiddev.com/the-big-form-with-jetpack-compose-7bec9cde157e
     fun showDatePickerDialog(context: Context) {
@@ -114,8 +120,9 @@ private val workRepository: WorkRepository,
                 lunch_held = lunch_held,
                 lunch_start = lunch_start,
                 lunch_end = lunch_end,
-                hourly_paid = hourly_paid,
                 paid = paid,
+                one_time_fee = one_time_fee,
+                hours = start.getDiffInHours(end),
                 salary_period_month = salary_period_month,
                 salary_period_year = salary_period_year
             )

@@ -126,7 +126,7 @@ fun AddView(
                 CustomDropdown(
                     label = "Payment type",
                     options = listOf("Hourly", "One time"),
-                    selectedIndex = if (vm.hourly_paid) 0 else 1,
+                    selectedIndex = 0,
                     onChange = {
                         if (it == "Hourly") {
                             vm.hourly_paid = true
@@ -136,20 +136,31 @@ fun AddView(
                     }
                 )
 
-                CustomTextField(
-                    text = vm.paid.toString(),
-                    label = "Paid",
-                    onChange = { vm.paid = it.toDouble() })
+                if (vm.hourly_paid) {
+                    CustomTextField(text = vm.paid.toString(), label = "Paid", onChange = { vm.paid = it.toDouble() })
+                } else {
+                    CustomTextField(text = vm.one_time_fee.toString(), label = "One time fee", onChange = { vm.one_time_fee = it.toDouble() })
+                }
 
-                CustomTextField(
-                    text = vm.salary_period_month.toString(),
+                CustomDropdown(
                     label = "Salary period month",
-                    onChange = { vm.salary_period_month = it.toInt() })
+                    options = vm.months,
+                    selectedIndex = vm.salary_period_month - 1,
+                    onChange = {
+                        vm.salary_period_month = vm.months.indexOf(it) + 1
+                    }
+                )
 
-                CustomTextField(
-                    text = vm.salary_period_year.toString(),
-                    label = "Salary period month",
-                    onChange = { vm.salary_period_year = it.toInt() })
+                println(vm.years)
+                println("SALARY PERIOD: " + vm.salary_period_year + " SELECTED: " + vm.years.indexOf(vm.salary_period_year.toString()))
+                CustomDropdown(
+                    label = "Salary period year",
+                    options = vm.years,
+                    selectedIndex = vm.years.indexOf(vm.salary_period_year.toString()),
+                    onChange = {
+                        vm.salary_period_year = it.toInt()
+                    }
+                )
             }
 
             Button(
@@ -159,6 +170,7 @@ fun AddView(
                     .clip(MaterialTheme.shapes.large),
                 onClick = {
                     vm.save()
+                    navController.popBackStack()
                 }) {
                 Text(stringResource(id = R.string.save))
             }

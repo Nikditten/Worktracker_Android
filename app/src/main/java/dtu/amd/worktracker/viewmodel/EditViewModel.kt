@@ -10,8 +10,8 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dtu.amd.worktracker.dal.WorkRepository
-import dtu.amd.worktracker.dal.model.Work
-import dtu.amd.worktracker.preview.data.Workitems
+import dtu.amd.worktracker.util.asMonth
+import dtu.amd.worktracker.util.asYear
 import java.util.*
 import javax.inject.Inject
 
@@ -31,14 +31,21 @@ class EditViewModel @Inject constructor(
     var lunch_end by mutableStateOf(Date())
     var hourly_paid by mutableStateOf(true)
     var paid by mutableStateOf(0.0)
-    var salary_period_month by mutableStateOf(0)
-    var salary_period_year by mutableStateOf(0)
+    var one_time_fee by mutableStateOf(0.0)
+    var hours by mutableStateOf(0.0)
+    var salary_period_month by mutableStateOf(Date().asMonth())
+    var salary_period_year by mutableStateOf(Date().asYear())
+
+    var months: List<String> = listOf("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December")
+    var years: List<String> = listOf("2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030")
 
     // SOURCE: https://github.com/philipplackner/MVVMTodoApp
     init {
         val workId = savedStateHandle.get<Int>("id")!!
+
         if(workId != -1) {
             val work = workRepository.getSpecificWork(workId)
+            println("workId from repo: ${work?.id}")
             if (work != null) {
                 title = work.title
                 company = work.company
@@ -48,8 +55,9 @@ class EditViewModel @Inject constructor(
                 lunch_held = work.lunch_held
                 lunch_start = work.lunch_start
                 lunch_end = work.lunch_end
-                hourly_paid = work.hourly_paid
                 paid = work.paid
+                one_time_fee = work.one_time_fee
+                hours = work.hours
                 salary_period_month = work.salary_period_month
                 salary_period_year = work.salary_period_year
             }

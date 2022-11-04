@@ -15,13 +15,10 @@ import dtu.amd.worktracker.dal.TypeConverter
 data class Work(
     @PrimaryKey(autoGenerate = true)
     @NonNull
-    @ColumnInfo(name = "id")
     val id: Int,
-    @ColumnInfo(name = "title")
     var title: String,
     val company: String,
     @TypeConverters(TypeConverter::class)
-    @ColumnInfo(name = "date")
     var date: Date,
     @TypeConverters(TypeConverter::class)
     val start: Date,
@@ -32,8 +29,9 @@ data class Work(
     val lunch_start: Date,
     @TypeConverters(TypeConverter::class)
     val lunch_end: Date,
-    val hourly_paid: Boolean,
     val paid: Double,
+    val one_time_fee: Double,
+    val hours: Double,
     val salary_period_month: Int,
     val salary_period_year: Int
 )

@@ -25,9 +25,11 @@ class WorkRepository @Inject internal constructor(
 
     fun getSpecificWork(id: Int): Work? {
         var work: Work? = null
+        println("Searching for work with id: $id")
         applicationIoScope.launch {
-            work = workDao.getWork(id).first()
+            work = workDao.getWork(id)
         }
+        println("Found work: ${work?.id}")
         return work
     }
 

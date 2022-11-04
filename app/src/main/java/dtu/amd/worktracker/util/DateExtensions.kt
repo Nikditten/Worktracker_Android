@@ -19,3 +19,23 @@ fun Date.AsTime(): String {
     val dateFormat = SimpleDateFormat(timeFormat)
     return dateFormat.format(calendar.time)
 }
+
+fun Date.getDiffInHours(end: Date): Double {
+    val diff = end.time - this.time
+    println("DATEDIFF: ${diff / (60 * 60 * 1000.0)}")
+    return diff / (60 * 60 * 1000.0)
+}
+
+fun Date.asYear(): Int {
+    val calendar = Calendar.getInstance()
+    calendar.time = this
+    println("YEAR: ${calendar.get(Calendar.YEAR)}")
+    return calendar.get(Calendar.YEAR)
+}
+
+fun Date.asMonth(): Int {
+    val calendar = Calendar.getInstance()
+    calendar.time = this
+    println("MONTH: ${calendar.get(Calendar.MONTH)}")
+    return calendar.get(Calendar.MONTH)
+}
