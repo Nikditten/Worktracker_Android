@@ -8,7 +8,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
@@ -26,8 +26,9 @@ import dtu.amd.worktracker.util.AsTime
 @Composable
 fun EditWorkView(
     navController: NavHostController,
-    id: Int,
     vm: EditViewModel = hiltViewModel()) {
+
+    var hourly_paid by remember { mutableStateOf(vm.paid > 0) }
 
     Scaffold(
         topBar = {
@@ -90,18 +91,18 @@ fun EditWorkView(
             InputSection(title = "Salary") {
                 CustomDropdown(
                     label = "Payment type",
-                    options = listOf("Hourly", "One time"),
-                    selectedIndex = if (vm.paid > 0) 0 else 1,
+                    options = listOf("Paid by hour", "One time fee"),
+                    selectedIndex = if (hourly_paid) 0 else 1,
                     onChange = {
-                        if (it == "Hourly") {
-                            vm.hourly_paid = true
+                        if (it == "Paid by hour") {
+                            hourly_paid = true
                         } else {
-                            vm.hourly_paid = false
+                            hourly_paid = false
                         }
                     }
                 )
 
-                if (vm.hourly_paid) {
+                if (hourly_paid) {
                     CustomTextField(text = vm.paid.toString(), label = "Paid", onChange = { vm.paid = it.toDouble() })
                 } else {
                     CustomTextField(text = vm.one_time_fee.toString(), label = "One time fee", onChange = { vm.one_time_fee = it.toDouble() })
@@ -132,7 +133,8 @@ fun EditWorkView(
                     .height(50.dp)
                     .clip(MaterialTheme.shapes.large),
                 onClick = {
-
+                    vm.save()
+                    navController.popBackStack()
                 }) {
                 Text("Save")
             }

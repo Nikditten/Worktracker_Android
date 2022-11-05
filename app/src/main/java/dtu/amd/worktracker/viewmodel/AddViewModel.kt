@@ -13,13 +13,14 @@ import dtu.amd.worktracker.dal.model.Work
 import dtu.amd.worktracker.util.asMonth
 import dtu.amd.worktracker.util.asYear
 import dtu.amd.worktracker.util.getDiffInHours
+import dtu.amd.worktracker.util.getMonthName
 import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
 class AddViewModel @Inject constructor(
-private val workRepository: WorkRepository,
-): ViewModel() {
+    private val workRepository: WorkRepository,
+) : ViewModel() {
 
     var title by mutableStateOf("")
     var company by mutableStateOf("")
@@ -35,8 +36,35 @@ private val workRepository: WorkRepository,
     var salary_period_month by mutableStateOf(Date().asMonth())
     var salary_period_year by mutableStateOf(Date().asYear())
 
-    var months: List<String> = listOf("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December")
-    var years: List<String> = listOf("2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030")
+    private val currentYear: Int = Date().asYear()
+
+    var months: List<String> = listOf(
+        1.getMonthName(),
+        2.getMonthName(),
+        3.getMonthName(),
+        4.getMonthName(),
+        5.getMonthName(),
+        6.getMonthName(),
+        7.getMonthName(),
+        8.getMonthName(),
+        9.getMonthName(),
+        10.getMonthName(),
+        11.getMonthName(),
+        12.getMonthName()
+    )
+    var years: List<String> = listOf(
+        (currentYear - 5).toString(),
+        (currentYear - 4).toString(),
+        (currentYear - 3).toString(),
+        (currentYear - 2).toString(),
+        (currentYear - 1).toString(),
+        (currentYear).toString(),
+        (currentYear + 1).toString(),
+        (currentYear + 2).toString(),
+        (currentYear + 3).toString(),
+        (currentYear + 4).toString(),
+        (currentYear + 5).toString()
+    )
 
     // SOURCE: https://proandroiddev.com/the-big-form-with-jetpack-compose-7bec9cde157e
     fun showDatePickerDialog(context: Context) {
@@ -72,7 +100,7 @@ private val workRepository: WorkRepository,
         }
         TimePickerDialog(
             context,
-            {_, hour, minute ->
+            { _, hour, minute ->
 
                 when (type) {
                     "start" -> {

@@ -5,22 +5,30 @@ import android.app.TimePickerDialog
 import android.content.Context
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dtu.amd.worktracker.dal.WorkRepository
+import dtu.amd.worktracker.dal.model.Work
 import dtu.amd.worktracker.util.asMonth
 import dtu.amd.worktracker.util.asYear
+import dtu.amd.worktracker.util.getMonthName
 import java.util.*
 import javax.inject.Inject
+
 
 @HiltViewModel
 class EditViewModel @Inject constructor(
     workRepository: WorkRepository,
+    // SOURCE: https://github.com/philipplackner/MVVMTodoApp/blob/master/app/src/main/java/com/plcoding/mvvmtodoapp/ui/add_edit_todo/AddEditTodoViewModel.kt
     savedStateHandle: SavedStateHandle
-): ViewModel() {
+) : ViewModel() {
 
+    var hourly_paid by mutableStateOf(true)
+
+    var id = savedStateHandle.get<Int>("id") ?: -1
     var title by mutableStateOf("")
     var company by mutableStateOf("")
     var date by mutableStateOf(Date())
@@ -29,22 +37,45 @@ class EditViewModel @Inject constructor(
     var lunch_held by mutableStateOf(true)
     var lunch_start by mutableStateOf(Date())
     var lunch_end by mutableStateOf(Date())
-    var hourly_paid by mutableStateOf(true)
     var paid by mutableStateOf(0.0)
     var one_time_fee by mutableStateOf(0.0)
     var hours by mutableStateOf(0.0)
     var salary_period_month by mutableStateOf(Date().asMonth())
     var salary_period_year by mutableStateOf(Date().asYear())
 
-    var months: List<String> = listOf("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December")
-    var years: List<String> = listOf("2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030")
+    private val currentYear: Int = Date().asYear()
 
-    // SOURCE: https://github.com/philipplackner/MVVMTodoApp
+    var months: List<String> = listOf(
+        1.getMonthName(),
+        2.getMonthName(),
+        3.getMonthName(),
+        4.getMonthName(),
+        5.getMonthName(),
+        6.getMonthName(),
+        7.getMonthName(),
+        8.getMonthName(),
+        9.getMonthName(),
+        10.getMonthName(),
+        11.getMonthName(),
+        12.getMonthName()
+    )
+    var years: List<String> = listOf(
+        (currentYear - 5).toString(),
+        (currentYear - 4).toString(),
+        (currentYear - 3).toString(),
+        (currentYear - 2).toString(),
+        (currentYear - 1).toString(),
+        (currentYear).toString(),
+        (currentYear + 1).toString(),
+        (currentYear + 2).toString(),
+        (currentYear + 3).toString(),
+        (currentYear + 4).toString(),
+        (currentYear + 5).toString()
+    )
+
     init {
-        val workId = savedStateHandle.get<Int>("id")!!
-
-        if(workId != -1) {
-            val work = workRepository.getSpecificWork(workId)
+        if (id != -1) {
+            val work = workRepository.getSpecificWork(id)
             println("workId from repo: ${work?.id}")
             if (work != null) {
                 title = work.title
@@ -62,6 +93,26 @@ class EditViewModel @Inject constructor(
                 salary_period_year = work.salary_period_year
             }
         }
+    }
+
+    fun save() {
+        val work = Work(
+            id = id,
+            title = title,
+            company = company,
+            date = date,
+            start = start,
+            end = end,
+            lunch_held = lunch_held,
+            lunch_start = lunch_start,
+            lunch_end = lunch_end,
+            paid = paid,
+            one_time_fee = one_time_fee,
+            hours = hours,
+            salary_period_month = salary_period_month,
+            salary_period_year = salary_period_year
+        )
+        //workRepository.addWork(work)
     }
 
 
@@ -99,7 +150,7 @@ class EditViewModel @Inject constructor(
         }
         TimePickerDialog(
             context,
-            {_, hour, minute ->
+            { _, hour, minute ->
 
                 when (type) {
                     "start" -> {

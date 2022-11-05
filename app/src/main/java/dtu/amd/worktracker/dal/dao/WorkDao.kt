@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface WorkDao {
 
-    @Insert()
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addWork(work: Work)
 
     @Query("SELECT * FROM work WHERE id = :id")

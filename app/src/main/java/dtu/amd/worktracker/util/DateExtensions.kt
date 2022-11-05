@@ -5,6 +5,7 @@ import java.util.*
 
 private var dateFormat = "dd-MM-yyyy"
 private var timeFormat = "HH:mm"
+private var monthFormat = "MMMM"
 
 fun Date.AsDate(): String {
     val calendar = Calendar.getInstance()
@@ -38,4 +39,11 @@ fun Date.asMonth(): Int {
     calendar.time = this
     println("MONTH: ${calendar.get(Calendar.MONTH)}")
     return calendar.get(Calendar.MONTH)
+}
+
+fun Date.asMonthName(): String {
+    val calendar = Calendar.getInstance()
+    calendar.time = this
+    val dateFormat = SimpleDateFormat(monthFormat)
+    return dateFormat.format(calendar.time)
 }

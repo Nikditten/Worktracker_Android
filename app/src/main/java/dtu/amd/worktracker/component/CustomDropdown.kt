@@ -55,7 +55,8 @@ fun CustomDropdown(label: String, selectedIndex: Int, options: List<String>, onC
             trailingIcon = {
                 Icon(icon,"Expand",
                     Modifier.clickable { mExpanded = !mExpanded })
-            }
+            },
+            readOnly = true,
         )
 
         // Create a drop-down menu with list of cities,

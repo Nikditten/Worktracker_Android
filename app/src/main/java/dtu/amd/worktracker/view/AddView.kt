@@ -8,7 +8,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
@@ -35,6 +35,9 @@ fun AddView(
     vm: AddViewModel = hiltViewModel()
 ) {
 
+    var hourly_paid by remember { mutableStateOf(true) }
+    var lunch_held by remember { mutableStateOf(true) }
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -49,7 +52,7 @@ fun AddView(
             )
         },
 
-    ) {
+        ) {
         val context = LocalContext.current
         Column(
             modifier = Modifier
@@ -92,17 +95,17 @@ fun AddView(
                 CustomDropdown(
                     label = "Lunch",
                     options = listOf("Held", "Not held"),
-                    selectedIndex = if (vm.lunch_held) 0 else 1,
+                    selectedIndex = 0,
                     onChange = {
                         if (it == "Held") {
-                            vm.lunch_held = true
+                            lunch_held = true
                         } else {
-                            vm.lunch_held = false
+                            lunch_held = false
                         }
                     }
                 )
 
-                if (vm.lunch_held) {
+                if (lunch_held) {
                     CustomTextField(
                         text = vm.lunch_start.AsTime(),
                         label = "Lunch start",
@@ -125,18 +128,18 @@ fun AddView(
             InputSection(title = "Salary") {
                 CustomDropdown(
                     label = "Payment type",
-                    options = listOf("Hourly", "One time"),
+                    options = listOf("Paid by hour", "One time fee"),
                     selectedIndex = 0,
                     onChange = {
-                        if (it == "Hourly") {
-                            vm.hourly_paid = true
+                        if (it == "Paid by hour") {
+                            hourly_paid = true
                         } else {
-                            vm.hourly_paid = false
+                            hourly_paid = false
                         }
                     }
                 )
 
-                if (vm.hourly_paid) {
+                if (hourly_paid) {
                     CustomTextField(text = vm.paid.toString(), label = "Paid", onChange = { vm.paid = it.toDouble() })
                 } else {
                     CustomTextField(text = vm.one_time_fee.toString(), label = "One time fee", onChange = { vm.one_time_fee = it.toDouble() })
@@ -151,8 +154,6 @@ fun AddView(
                     }
                 )
 
-                println(vm.years)
-                println("SALARY PERIOD: " + vm.salary_period_year + " SELECTED: " + vm.years.indexOf(vm.salary_period_year.toString()))
                 CustomDropdown(
                     label = "Salary period year",
                     options = vm.years,

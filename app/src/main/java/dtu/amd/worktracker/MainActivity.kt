@@ -61,8 +61,7 @@ class MainActivity : ComponentActivity() {
                             )
                         ) {
                             EditWorkView(
-                                navController,
-                                it.arguments?.getInt("id") ?: 0
+                                navController
                             )
                         }
 
