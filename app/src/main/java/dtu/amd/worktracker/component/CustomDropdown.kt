@@ -45,6 +45,7 @@ fun CustomDropdown(label: String, selectedIndex: Int, options: List<String>, onC
             onValueChange = { onChange(it) },
             modifier = Modifier
                 .fillMaxWidth()
+                .padding(top = 10.dp)
                 .onGloballyPositioned { coordinates ->
                     // This value is used to assign to
                     // the DropDown the same width
