@@ -22,7 +22,7 @@ import dtu.amd.worktracker.viewmodel.MainViewModel
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun     NavigationBar(navController: NavHostController) {
+fun NavigationBar(navController: NavHostController) {
     // SOURCE: https://developer.android.com/jetpack/compose/layouts/material
     val selectedIndex = remember { mutableStateOf(0) }
     val selectedView = remember {
@@ -67,7 +67,7 @@ fun     NavigationBar(navController: NavHostController) {
             ) {
                 // SOURCE: https://www.jetpackcompose.net/scaffold
                 BottomNavigationItem(icon = {
-                    Icon(imageVector = Icons.Filled.Home,"Home")
+                    Icon(imageVector = Icons.Filled.Home, "Home")
                 },
                     label = { Text(text = "Home") },
                     selected = (selectedIndex.value == 0),
@@ -77,7 +77,7 @@ fun     NavigationBar(navController: NavHostController) {
                     })
 
                 BottomNavigationItem(icon = {
-                    Icon(imageVector = Icons.Filled.Timeline,"Timeline")
+                    Icon(imageVector = Icons.Filled.Timeline, "Timeline")
                 },
                     label = { Text(text = "Timeline") },
                     selected = (selectedIndex.value == 1),
@@ -87,7 +87,7 @@ fun     NavigationBar(navController: NavHostController) {
                     })
 
                 BottomNavigationItem(icon = {
-                    Icon(imageVector = Icons.Filled.Settings,"Settings")
+                    Icon(imageVector = Icons.Filled.Settings, "Settings")
                 },
                     label = { Text(text = "Settings") },
                     selected = (selectedIndex.value == 2),

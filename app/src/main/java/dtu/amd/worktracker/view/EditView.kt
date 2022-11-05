@@ -89,24 +89,8 @@ fun EditWorkView(
             }
 
             InputSection(title = "Salary") {
-                CustomDropdown(
-                    label = "Payment type",
-                    options = listOf("Paid by hour", "One time fee"),
-                    selectedIndex = if (hourly_paid) 0 else 1,
-                    onChange = {
-                        if (it == "Paid by hour") {
-                            hourly_paid = true
-                        } else {
-                            hourly_paid = false
-                        }
-                    }
-                )
 
-                if (hourly_paid) {
-                    CustomTextField(text = vm.paid.toString(), label = "Paid", onChange = { vm.paid = it.toDouble() })
-                } else {
-                    CustomTextField(text = vm.one_time_fee.toString(), label = "One time fee", onChange = { vm.one_time_fee = it.toDouble() })
-                }
+                CustomTextField(text = vm.paid.toString(), label = "Paid", onChange = { vm.paid = it.toDouble() })
 
                 CustomDropdown(
                     label = "Salary period month",

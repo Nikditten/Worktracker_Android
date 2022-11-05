@@ -6,7 +6,7 @@ import android.content.Context
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import dtu.amd.worktracker.dal.WorkRepository
+import dtu.amd.worktracker.dal.WorkRepositoryImpl
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dtu.amd.worktracker.dal.model.Work
@@ -19,7 +19,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AddViewModel @Inject constructor(
-    private val workRepository: WorkRepository,
+    private val workRepositoryImpl: WorkRepositoryImpl,
 ) : ViewModel() {
 
     var title by mutableStateOf("")
@@ -30,9 +30,7 @@ class AddViewModel @Inject constructor(
     var lunch_held by mutableStateOf(true)
     var lunch_start by mutableStateOf(Date())
     var lunch_end by mutableStateOf(Date())
-    var hourly_paid by mutableStateOf(true)
     var paid by mutableStateOf(0.0)
-    var one_time_fee by mutableStateOf(0.0)
     var salary_period_month by mutableStateOf(Date().asMonth())
     var salary_period_year by mutableStateOf(Date().asYear())
 
@@ -137,7 +135,7 @@ class AddViewModel @Inject constructor(
     }
 
     fun save() {
-        workRepository.addWork(
+        workRepositoryImpl.addWork(
             Work(
                 id = 0,
                 title = title,
@@ -149,7 +147,6 @@ class AddViewModel @Inject constructor(
                 lunch_start = lunch_start,
                 lunch_end = lunch_end,
                 paid = paid,
-                one_time_fee = one_time_fee,
                 hours = start.getDiffInHours(end),
                 salary_period_month = salary_period_month,
                 salary_period_year = salary_period_year

@@ -39,33 +39,7 @@ class MainActivity : ComponentActivity() {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                 ) {
-                    // Based on Lecture 5
-                    val navController = rememberNavController()
-
-                    NavHost(navController, startDestination = Destination.Home.route) {
-                        composable(Destination.Home.route) {
-                            NavigationBar(navController = navController)
-                        }
-
-                        composable(Destination.Add.route) {
-                            AddView(navController = navController)
-                        }
-
-                        composable(
-                            Destination.Edit.route,
-                            arguments = listOf(
-                                navArgument("id") {
-                                    type = NavType.IntType
-                                    defaultValue = -1
-                                }
-                            )
-                        ) {
-                            EditWorkView(
-                                navController
-                            )
-                        }
-
-                    }
+                    NavGraph()
                 }
             }
         }

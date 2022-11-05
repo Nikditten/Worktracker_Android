@@ -30,7 +30,6 @@ data class Work(
     @TypeConverters(TypeConverter::class)
     val lunch_end: Date,
     val paid: Double,
-    val one_time_fee: Double,
     val hours: Double,
     val salary_period_month: Int,
     val salary_period_year: Int

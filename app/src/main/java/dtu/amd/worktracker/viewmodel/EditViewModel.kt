@@ -5,12 +5,11 @@ import android.app.TimePickerDialog
 import android.content.Context
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dtu.amd.worktracker.dal.WorkRepository
+import dtu.amd.worktracker.dal.WorkRepositoryImpl
 import dtu.amd.worktracker.dal.model.Work
 import dtu.amd.worktracker.util.asMonth
 import dtu.amd.worktracker.util.asYear
@@ -21,12 +20,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class EditViewModel @Inject constructor(
-    workRepository: WorkRepository,
+    private val workRepositoryImpl: WorkRepositoryImpl,
     // SOURCE: https://github.com/philipplackner/MVVMTodoApp/blob/master/app/src/main/java/com/plcoding/mvvmtodoapp/ui/add_edit_todo/AddEditTodoViewModel.kt
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
-
-    var hourly_paid by mutableStateOf(true)
 
     var id = savedStateHandle.get<Int>("id") ?: -1
     var title by mutableStateOf("")
@@ -38,7 +35,6 @@ class EditViewModel @Inject constructor(
     var lunch_start by mutableStateOf(Date())
     var lunch_end by mutableStateOf(Date())
     var paid by mutableStateOf(0.0)
-    var one_time_fee by mutableStateOf(0.0)
     var hours by mutableStateOf(0.0)
     var salary_period_month by mutableStateOf(Date().asMonth())
     var salary_period_year by mutableStateOf(Date().asYear())
@@ -75,7 +71,7 @@ class EditViewModel @Inject constructor(
 
     init {
         if (id != -1) {
-            val work = workRepository.getSpecificWork(id)
+            val work = workRepositoryImpl.getSpecificWork(id)
             println("workId from repo: ${work?.id}")
             if (work != null) {
                 title = work.title
@@ -87,7 +83,6 @@ class EditViewModel @Inject constructor(
                 lunch_start = work.lunch_start
                 lunch_end = work.lunch_end
                 paid = work.paid
-                one_time_fee = work.one_time_fee
                 hours = work.hours
                 salary_period_month = work.salary_period_month
                 salary_period_year = work.salary_period_year
@@ -107,12 +102,11 @@ class EditViewModel @Inject constructor(
             lunch_start = lunch_start,
             lunch_end = lunch_end,
             paid = paid,
-            one_time_fee = one_time_fee,
             hours = hours,
             salary_period_month = salary_period_month,
             salary_period_year = salary_period_year
         )
-        //workRepository.addWork(work)
+        workRepositoryImpl.addWork(work)
     }
 
 
