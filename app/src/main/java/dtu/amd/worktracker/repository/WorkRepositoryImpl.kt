@@ -16,7 +16,7 @@ import javax.inject.Singleton
 class WorkRepositoryImpl @Inject internal constructor(
     private val workDao: WorkDao,
     @ApplicationIoScope private val applicationIoScope: CoroutineScope
-): WorkRepository {
+) : WorkRepository {
 
     override fun addWork(work: Work) {
         applicationIoScope.launch {
@@ -42,6 +42,38 @@ class WorkRepositoryImpl @Inject internal constructor(
 
     override fun getAllWork(): Flow<List<Work>> {
         return workDao.getAllWork()
+    }
+
+    override fun getEarningsByMonth(year: Int, month: Int): Double {
+        var earnings: Double = 0.0
+        applicationIoScope.launch {
+            earnings = workDao.getEarningsByMonth(year, month)
+        }
+        return earnings
+    }
+
+    override fun getHoursByMonth(year: Int, month: Int): Double {
+        var hours: Double = 0.0
+        applicationIoScope.launch {
+            hours = workDao.getHoursByMonth(year, month)
+        }
+        return hours
+    }
+
+    override fun getEarningsByYear(year: Int): Double {
+        var earnings: Double = 0.0
+        applicationIoScope.launch {
+            earnings = workDao.getEarningsByYear(year)
+        }
+        return earnings
+    }
+
+    override fun getHoursByYear(year: Int): Double {
+        var hours: Double = 0.0
+        applicationIoScope.launch {
+            hours = workDao.getHoursByYear(year)
+        }
+        return hours
     }
 
 }

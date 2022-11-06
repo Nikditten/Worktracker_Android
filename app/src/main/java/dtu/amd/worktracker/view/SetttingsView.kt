@@ -7,125 +7,111 @@ import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.fragment.app.Fragment
+import androidx.hilt.navigation.compose.hiltViewModel
+import dtu.amd.worktracker.R
 import dtu.amd.worktracker.component.CustomTextField
 import dtu.amd.worktracker.component.InputSection
+import dtu.amd.worktracker.util.getMonthName
+import dtu.amd.worktracker.viewmodel.SettingsViewModel
 
 @Composable
-fun SettingsView() {
-    val salary = remember { mutableStateOf(0) }
-
-    val tax_deduction = remember { mutableStateOf(0.0) }
-    val tax_percentage = remember { mutableStateOf(0.0) }
-    val tax_additional = remember { mutableStateOf(0.0) }
-
-    val january = remember { mutableStateOf(0) }
-    val february = remember { mutableStateOf(0) }
-    val marts = remember { mutableStateOf(0) }
-    val april = remember { mutableStateOf(0) }
-    val may = remember { mutableStateOf(0) }
-    val june = remember { mutableStateOf(0) }
-    val july = remember { mutableStateOf(0) }
-    val august = remember { mutableStateOf(0) }
-    val september = remember { mutableStateOf(0) }
-    val october = remember { mutableStateOf(0) }
-    val november = remember { mutableStateOf(0) }
-    val december = remember { mutableStateOf(0) }
+fun SettingsView(
+    vm: SettingsViewModel = hiltViewModel()
+) {
 
     Column(
         modifier = Modifier
             .verticalScroll(rememberScrollState())
             .fillMaxSize()
     ) {
-        InputSection(title = "Salary") {
+        InputSection(title = stringResource(R.string.salary)) {
             CustomTextField(
-                text = salary.value.toString(),
-                label = "Hourly rate",
-                onChange = { salary.value = it.toInt() })
+                text = vm.salary.toString(),
+                label = stringResource(R.string.hourly_rate),
+                onChange = { vm.salary = it.toDouble() })
         }
 
-        InputSection(title = "Taxes") {
+        InputSection(title = stringResource(R.string.taxes)) {
             CustomTextField(
-                text = tax_percentage.value.toString(),
-                label = "Tax percentage (%)",
-                onChange = { tax_percentage.value = it.toDouble() })
+                text = vm.tax_percentage.toString(),
+                label = stringResource(R.string.tax_percentage),
+                onChange = { vm.tax_percentage = it.toDouble() })
 
             CustomTextField(
-                text = tax_additional.value.toString(),
-                label = "Additional taxes (%)",
-                onChange = { tax_additional.value = it.toDouble() })
+                text = vm.tax_additional.toString(),
+                label = stringResource(R.string.additional_taxes),
+                onChange = { vm.tax_additional = it.toDouble() })
 
             CustomTextField(
-                text = tax_deduction.value.toString(),
-                label = "Tax deduction (%)",
-                onChange = { tax_deduction.value = it.toDouble() })
+                text = vm.tax_deduction.toString(),
+                label = stringResource(R.string.tax_deduction),
+                onChange = { vm.tax_deduction = it.toDouble() })
         }
 
-        InputSection(title = "Salary period endings") {
+        InputSection(title = stringResource(R.string.salary_period_ending)) {
             CustomTextField(
-                text = january.value.toString(),
-                label = "Last day in January",
-                onChange = { january.value = it.toInt() })
+                text = vm.january.toString(),
+                label = stringResource(R.string.last_day_in) + " " + (0).getMonthName(),
+                onChange = { vm.january = it.toInt() })
 
             CustomTextField(
-                text = february.value.toString(),
-                label = "Last day in February",
-                onChange = { february.value = it.toInt() })
+                text = vm.february.toString(),
+                label = stringResource(R.string.last_day_in) + " " + (1).getMonthName(),
+                onChange = { vm.february = it.toInt() })
 
             CustomTextField(
-                text = marts.value.toString(),
-                label = "Last day in Marts",
-                onChange = { marts.value = it.toInt() })
+                text = vm.marts.toString(),
+                label = stringResource(R.string.last_day_in) + " " + (2).getMonthName(),
+                onChange = { vm.marts = it.toInt() })
 
             CustomTextField(
-                text = april.value.toString(),
-                label = "Last day in April",
-                onChange = { april.value = it.toInt() })
+                text = vm.april.toString(),
+                label = stringResource(R.string.last_day_in) + " " + (3).getMonthName(),
+                onChange = { vm.april = it.toInt() })
 
             CustomTextField(
-                text = may.value.toString(),
-                label = "Last day in May",
-                onChange = { may.value = it.toInt() })
+                text = vm.may.toString(),
+                label = stringResource(R.string.last_day_in) + " " + (4).getMonthName(),
+                onChange = { vm.may = it.toInt() })
 
             CustomTextField(
-                text = june.value.toString(),
-                label = "Last day in June",
-                onChange = { june.value = it.toInt() })
+                text = vm.june.toString(),
+                label = stringResource(R.string.last_day_in) + " " + (5).getMonthName(),
+                onChange = { vm.june = it.toInt() })
 
             CustomTextField(
-                text = july.value.toString(),
-                label = "Last day in July",
-                onChange = { july.value = it.toInt() })
+                text = vm.july.toString(),
+                label = stringResource(R.string.last_day_in) + " " + (6).getMonthName(),
+                onChange = { vm.july = it.toInt() })
 
             CustomTextField(
-                text = august.value.toString(),
-                label = "Last day in August",
-                onChange = { august.value = it.toInt() })
+                text = vm.august.toString(),
+                label = stringResource(R.string.last_day_in) + " " + (7).getMonthName(),
+                onChange = { vm.august = it.toInt() })
 
             CustomTextField(
-                text = september.value.toString(),
-                label = "Last day in September",
-                onChange = { september.value = it.toInt() })
+                text = vm.september.toString(),
+                label = stringResource(R.string.last_day_in) + " " + (8).getMonthName(),
+                onChange = { vm.september = it.toInt() })
 
             CustomTextField(
-                text = october.value.toString(),
-                label = "Last day in October",
-                onChange = { october.value = it.toInt() })
+                text = vm.october.toString(),
+                label = stringResource(R.string.last_day_in) + " " + (9).getMonthName(),
+                onChange = { vm.october = it.toInt() })
 
             CustomTextField(
-                text = november.value.toString(),
-                label = "Last day in November",
-                onChange = { november.value = it.toInt() })
+                text = vm.november.toString(),
+                label = stringResource(R.string.last_day_in) + " " + (10).getMonthName(),
+                onChange = { vm.november = it.toInt() })
 
             CustomTextField(
-                text = december.value.toString(),
-                label = "Last day in December",
-                onChange = { december.value = it.toInt() })
+                text = vm.december.toString(),
+                label = stringResource(R.string.last_day_in) + " " + (11).getMonthName(),
+                onChange = { vm.december = it.toInt() })
         }
 
         Button(
@@ -136,7 +122,7 @@ fun SettingsView() {
             onClick = {
 
             }) {
-            Text("Save")
+            Text(stringResource(R.string.save))
         }
 
         Spacer(modifier = Modifier.height(100.dp))

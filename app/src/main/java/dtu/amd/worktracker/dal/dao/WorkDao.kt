@@ -24,6 +24,15 @@ interface WorkDao {
     @Query("SELECT * FROM work")
     fun getAllWork(): Flow<List<Work>>
 
-    @Query("SELECT SUM(:type) FROM work WHERE salary_period_month = :month AND salary_period_year = :year")
-    fun getSum(type: String, year: Int, month: Int): Double
+    @Query("SELECT SUM(paid) FROM work WHERE salary_period_month = :month AND salary_period_year = :year")
+    fun getEarningsByMonth(year: Int, month: Int): Double
+
+    @Query("SELECT SUM(hours) FROM work WHERE salary_period_month = :month AND salary_period_year = :year")
+    fun getHoursByMonth(year: Int, month: Int): Double
+
+    @Query("SELECT SUM(paid) FROM work WHERE salary_period_year = :year")
+    fun getEarningsByYear(year: Int): Double
+
+    @Query("SELECT SUM(hours) FROM work WHERE salary_period_year = :year")
+    fun getHoursByYear(year: Int): Double
 }

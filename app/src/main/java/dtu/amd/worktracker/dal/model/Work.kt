@@ -29,6 +29,7 @@ data class Work(
     val lunch_start: Date,
     @TypeConverters(TypeConverter::class)
     val lunch_end: Date,
+    val hourly_rate: Double,
     val paid: Double,
     val hours: Double,
     val salary_period_month: Int,

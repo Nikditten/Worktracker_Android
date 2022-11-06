@@ -10,10 +10,7 @@ import dtu.amd.worktracker.dal.WorkRepositoryImpl
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dtu.amd.worktracker.dal.model.Work
-import dtu.amd.worktracker.util.asMonth
-import dtu.amd.worktracker.util.asYear
-import dtu.amd.worktracker.util.getDiffInHours
-import dtu.amd.worktracker.util.getMonthName
+import dtu.amd.worktracker.util.*
 import java.util.*
 import javax.inject.Inject
 
@@ -34,35 +31,9 @@ class AddViewModel @Inject constructor(
     var salary_period_month by mutableStateOf(Date().asMonth())
     var salary_period_year by mutableStateOf(Date().asYear())
 
-    private val currentYear: Int = Date().asYear()
+    var months: List<String> = listOfMonths
 
-    var months: List<String> = listOf(
-        1.getMonthName(),
-        2.getMonthName(),
-        3.getMonthName(),
-        4.getMonthName(),
-        5.getMonthName(),
-        6.getMonthName(),
-        7.getMonthName(),
-        8.getMonthName(),
-        9.getMonthName(),
-        10.getMonthName(),
-        11.getMonthName(),
-        12.getMonthName()
-    )
-    var years: List<String> = listOf(
-        (currentYear - 5).toString(),
-        (currentYear - 4).toString(),
-        (currentYear - 3).toString(),
-        (currentYear - 2).toString(),
-        (currentYear - 1).toString(),
-        (currentYear).toString(),
-        (currentYear + 1).toString(),
-        (currentYear + 2).toString(),
-        (currentYear + 3).toString(),
-        (currentYear + 4).toString(),
-        (currentYear + 5).toString()
-    )
+    var years: List<String> = listOfYears
 
     // SOURCE: https://proandroiddev.com/the-big-form-with-jetpack-compose-7bec9cde157e
     fun showDatePickerDialog(context: Context) {
@@ -146,9 +117,10 @@ class AddViewModel @Inject constructor(
                 lunch_held = lunch_held,
                 lunch_start = lunch_start,
                 lunch_end = lunch_end,
-                paid = paid,
+                paid = paid * start.getDiffInHours(end),
+                hourly_rate = paid,
                 hours = start.getDiffInHours(end),
-                salary_period_month = salary_period_month,
+                salary_period_month = salary_period_month + 1,
                 salary_period_year = salary_period_year
             )
         )

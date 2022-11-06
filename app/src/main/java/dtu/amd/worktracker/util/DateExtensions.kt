@@ -24,7 +24,7 @@ fun Date.AsTime(): String {
 fun Date.getDiffInHours(end: Date): Double {
     val diff = end.time - this.time
     println("DATEDIFF: ${diff / (60 * 60 * 1000.0)}")
-    return diff / (60 * 60 * 1000.0)
+    return (diff / (60 * 60 * 1000.0)).RoundTo2Decimals()
 }
 
 fun Date.asYear(): Int {

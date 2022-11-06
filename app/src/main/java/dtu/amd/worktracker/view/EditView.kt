@@ -1,6 +1,7 @@
 package dtu.amd.worktracker.view
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -8,13 +9,17 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import dtu.amd.worktracker.R
 import dtu.amd.worktracker.component.CustomDropdown
 import dtu.amd.worktracker.viewmodel.EditViewModel
 import dtu.amd.worktracker.component.CustomTextField
@@ -28,17 +33,23 @@ fun EditWorkView(
     navController: NavHostController,
     vm: EditViewModel = hiltViewModel()) {
 
-    var hourly_paid by remember { mutableStateOf(vm.paid > 0) }
-
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Edit shift") },
+                title = { Text(stringResource(R.string.edit_shift)) },
                 backgroundColor = MaterialTheme.colors.primary,
                 contentColor = MaterialTheme.colors.onPrimary,
+                actions = {
+                    IconButton(onClick = {
+                        vm.deleteWork()
+                        navController.popBackStack()
+                    }) {
+                        Icon(Icons.Filled.Delete, stringResource(R.string.delete))
+                    }
+                },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(Icons.Filled.ArrowBack, "Back")
+                        Icon(Icons.Filled.ArrowBack, stringResource(R.string.back))
                     }
                 },
             )
@@ -51,49 +62,45 @@ fun EditWorkView(
                 .fillMaxSize()
                 .padding(10.dp)
         ) {
-            InputSection(title = "General") {
-                CustomTextField(text = vm.title, label = "Title", onChange = { vm.title = it })
+            InputSection(title = stringResource(R.string.generel)) {
+                CustomTextField(text = vm.title, label = stringResource(R.string.title), onChange = { vm.title = it })
 
-                CustomTextField(text = vm.company, label = "Company", onChange = { vm.company = it })
+                CustomTextField(text = vm.company, label = stringResource(R.string.company), onChange = { vm.company = it })
             }
 
-            InputSection(title = "Date") {
+            InputSection(title = stringResource(R.string.date)) {
 
-                CustomTextField(text = vm.date.AsDate(), label = "Date", enabled = false, modifier = Modifier.clickable { vm.showDatePickerDialog(context) })
+                CustomTextField(text = vm.date.AsDate(), label = stringResource(R.string.date), enabled = false, modifier = Modifier.clickable { vm.showDatePickerDialog(context) })
 
-                CustomTextField(text = vm.start.AsTime(), label = "Start", enabled = false, modifier = Modifier.clickable { vm.showTimePickerDialog(context, "start") })
+                CustomTextField(text = vm.start.AsTime(), label = stringResource(R.string.start), enabled = false, modifier = Modifier.clickable { vm.showTimePickerDialog(context, "start") })
 
-                CustomTextField(text = vm.end.AsTime(), label = "End", enabled = false, modifier = Modifier.clickable { vm.showTimePickerDialog(context, "end") })
+                CustomTextField(text = vm.end.AsTime(), label = stringResource(R.string.end), enabled = false, modifier = Modifier.clickable { vm.showTimePickerDialog(context, "end") })
 
             }
 
-            InputSection(title = "Lunch") {
+            InputSection(title = stringResource(R.string.lunch)) {
                 CustomDropdown(
                     label = "Lunch",
-                    options = listOf("Held", "Not held"),
+                    options = listOf(stringResource(R.string.held), stringResource(R.string.not_held)),
                     selectedIndex = if (vm.lunch_held) 0 else 1,
                     onChange = {
-                        if (it == "Held") {
-                            vm.lunch_held = true
-                        } else {
-                            vm.lunch_held = false
-                        }
+                        vm.lunch_held = it == "Held"
                     }
                 )
 
                 if (vm.lunch_held) {
-                    CustomTextField(text = vm.lunch_start.AsTime(), label = "Lunch start", enabled = false, modifier = Modifier.clickable { vm.showTimePickerDialog(context, "lunch_start") })
+                    CustomTextField(text = vm.lunch_start.AsTime(), label = stringResource(R.string.lunch_start), enabled = false, modifier = Modifier.clickable { vm.showTimePickerDialog(context, "lunch_start") })
 
-                    CustomTextField(text = vm.lunch_end.AsTime(), label = "Lunch end", enabled = false, modifier = Modifier.clickable { vm.showTimePickerDialog(context, "lunch_end") })
+                    CustomTextField(text = vm.lunch_end.AsTime(), label = stringResource(R.string.lunch_end), enabled = false, modifier = Modifier.clickable { vm.showTimePickerDialog(context, "lunch_end") })
                 }
             }
 
-            InputSection(title = "Salary") {
+            InputSection(title = stringResource(R.string.salary)) {
 
-                CustomTextField(text = vm.paid.toString(), label = "Paid", onChange = { vm.paid = it.toDouble() })
+                CustomTextField(text = vm.paid.toString(), label = stringResource(R.string.paid), onChange = { vm.paid = it.toDouble() })
 
                 CustomDropdown(
-                    label = "Salary period month",
+                    label = stringResource(R.string.salary_period_month),
                     options = vm.months,
                     selectedIndex = vm.salary_period_month - 1,
                     onChange = {
@@ -102,7 +109,7 @@ fun EditWorkView(
                 )
 
                 CustomDropdown(
-                    label = "Salary period year",
+                    label = stringResource(R.string.salary_period_year),
                     options = vm.years,
                     selectedIndex = vm.years.indexOf(vm.salary_period_year.toString()),
                     onChange = {

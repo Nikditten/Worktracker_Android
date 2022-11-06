@@ -13,13 +13,13 @@ import androidx.navigation.NavHostController
 import androidx.navigation.NavOptions
 import dtu.amd.worktracker.component.TimelineItem
 import dtu.amd.worktracker.navigation.Destination
-import dtu.amd.worktracker.viewmodel.MainViewModel
 import androidx.compose.foundation.lazy.items
+import dtu.amd.worktracker.viewmodel.TimelineViewModel
 
 @Composable
 fun TimelineView(
     navController: NavHostController,
-    vm: MainViewModel = hiltViewModel()
+    vm: TimelineViewModel = hiltViewModel()
 ) {
     val workList = vm.getAllWork().collectAsState(initial = emptyList())
     LazyColumn(
