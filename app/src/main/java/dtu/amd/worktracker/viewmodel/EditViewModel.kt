@@ -14,6 +14,7 @@ import dtu.amd.worktracker.dal.model.Work
 import dtu.amd.worktracker.util.*
 import dtu.amd.worktracker.util.DATES.listOfMonths
 import dtu.amd.worktracker.util.DATES.listOfYears
+import kotlinx.coroutines.runBlocking
 import java.util.*
 import javax.inject.Inject
 
@@ -34,7 +35,8 @@ class EditViewModel @Inject constructor(
     var lunch_held by mutableStateOf(true)
     var lunch_start by mutableStateOf(Date())
     var lunch_end by mutableStateOf(Date())
-    var paid by mutableStateOf(0.0)
+    var paid by mutableStateOf("")
+    var hourly_rate by mutableStateOf(0.0)
     var hours by mutableStateOf(0.0)
     var salary_period_month by mutableStateOf(Date().asMonth())
     var salary_period_year by mutableStateOf(Date().asYear())
@@ -44,6 +46,10 @@ class EditViewModel @Inject constructor(
     var years: List<String> = listOfYears
 
     init {
+        getWork()
+    }
+
+    fun getWork() {
         if (id != -1) {
             val work = workRepositoryImpl.getSpecificWork(id)
             println("workId from repo: ${work?.id}")
@@ -56,7 +62,8 @@ class EditViewModel @Inject constructor(
                 lunch_held = work.lunch_held
                 lunch_start = work.lunch_start
                 lunch_end = work.lunch_end
-                paid = work.paid
+                paid = work.paid.toString()
+                hourly_rate = work.hourly_rate
                 hours = work.hours
                 salary_period_month = work.salary_period_month
                 salary_period_year = work.salary_period_year
@@ -64,7 +71,7 @@ class EditViewModel @Inject constructor(
         }
     }
 
-    fun deleteWork() {
+    fun deleteWork()  {
         workRepositoryImpl.deleteWork(id)
     }
 
@@ -79,8 +86,8 @@ class EditViewModel @Inject constructor(
             lunch_held = lunch_held,
             lunch_start = lunch_start,
             lunch_end = lunch_end,
-            paid = paid * start.getDiffInHours(end),
-            hourly_rate = paid,
+            paid = paid.toDouble() * start.getDiffInHours(end),
+            hourly_rate = paid.toDouble(),
             hours = hours,
             salary_period_month = salary_period_month + 1,
             salary_period_year = salary_period_year

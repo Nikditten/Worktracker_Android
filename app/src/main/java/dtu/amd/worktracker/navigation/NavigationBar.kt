@@ -1,6 +1,7 @@
 package dtu.amd.worktracker.navigation
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
@@ -12,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.NavOptions
@@ -20,7 +22,6 @@ import dtu.amd.worktracker.view.SettingsView
 import dtu.amd.worktracker.view.TimelineView
 import dtu.amd.worktracker.viewmodel.MainViewModel
 
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun NavigationBar(navController: NavHostController) {
     // SOURCE: https://developer.android.com/jetpack/compose/layouts/material
@@ -43,7 +44,10 @@ fun NavigationBar(navController: NavHostController) {
                         .build()
                 )
             }) {
-                Icon(Icons.Filled.Add, contentDescription = "Add")
+                Icon(
+                    Icons.Filled.Add,
+                    contentDescription = "Add"
+                )
             }
         },
         isFloatingActionButtonDocked = true,
@@ -55,7 +59,13 @@ fun NavigationBar(navController: NavHostController) {
                 actions = {
                     if (selectedIndex.value == 0) {
                         IconButton(onClick = { !showFilter.value }) {
-                            Icon(Icons.Filled.FilterAlt, "Filter")
+                            Icon(
+                                Icons.Filled.FilterAlt,
+                                "Filter",
+                                tint = showFilter.value.let {
+                                    if (it) Color.White else Color.Gray
+                                }
+                            )
                         }
                     }
                 }
@@ -102,7 +112,7 @@ fun NavigationBar(navController: NavHostController) {
                 Spacer(modifier = Modifier.weight(1f))
             }
         }
-    ) {
+    ) { padding ->
         Box(modifier = Modifier.padding(10.dp)) {
             when (selectedIndex.value) {
                 0 -> HomeView(showFilter.value)

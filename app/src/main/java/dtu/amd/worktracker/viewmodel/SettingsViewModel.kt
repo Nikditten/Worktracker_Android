@@ -6,6 +6,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dtu.amd.worktracker.repository.DataStoreRepository
 import dtu.amd.worktracker.util.PREF_KEYS.APRIL
 import dtu.amd.worktracker.util.PREF_KEYS.AUGUST
 import dtu.amd.worktracker.util.PREF_KEYS.DECEMBER
@@ -22,67 +23,75 @@ import dtu.amd.worktracker.util.PREF_KEYS.SEPTEMBER
 import dtu.amd.worktracker.util.PREF_KEYS.TAX_ADDITIONAL
 import dtu.amd.worktracker.util.PREF_KEYS.TAX_DEDUCTION
 import dtu.amd.worktracker.util.PREF_KEYS.TAX_PERCENTAGE
+import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
-class SettingsViewModel(): ViewModel() {
+@HiltViewModel
+class SettingsViewModel @Inject constructor(
+    private val repo: DataStoreRepository
+):ViewModel() {
 
-    var salary by mutableStateOf(0.0)
+    var salary by mutableStateOf("")
 
-    var tax_deduction by mutableStateOf(0.0)
-    var tax_percentage by mutableStateOf(0.0)
-    var tax_additional by mutableStateOf(0.0)
+    var tax_deduction by mutableStateOf("")
+    var tax_percentage by mutableStateOf("")
+    var tax_additional by mutableStateOf("")
 
-    var january by mutableStateOf(0)
-    var february by mutableStateOf(0)
-    var marts by mutableStateOf(0)
-    var april by mutableStateOf(0)
-    var may by mutableStateOf(0)
-    var june by mutableStateOf(0)
-    var july by mutableStateOf(0)
-    var august by mutableStateOf(0)
-    var september by mutableStateOf(0)
-    var october by mutableStateOf(0)
-    var november by mutableStateOf(0)
-    var december by mutableStateOf(0)
+    var january by mutableStateOf("")
+    var february by mutableStateOf("")
+    var marts by mutableStateOf("")
+    var april by mutableStateOf("")
+    var may by mutableStateOf("")
+    var june by mutableStateOf("")
+    var july by mutableStateOf("")
+    var august by mutableStateOf("")
+    var september by mutableStateOf("")
+    var october by mutableStateOf("")
+    var november by mutableStateOf("")
+    var december by mutableStateOf("")
 
-//    init {
-//        salary = repo.getDouble(SALARY)
-//        tax_deduction = repo.getDouble(TAX_DEDUCTION)
-//        tax_percentage = repo.getDouble(TAX_PERCENTAGE)
-//        tax_additional = repo.getDouble(TAX_ADDITIONAL)
-//        january = repo.getInt(JANUARY)
-//        february = repo.getInt(FEBRUARY)
-//        marts = repo.getInt(MARCH)
-//        april = repo.getInt(APRIL)
-//        may = repo.getInt(MAY)
-//        june = repo.getInt(JUNE)
-//        july = repo.getInt(JULY)
-//        august = repo.getInt(AUGUST)
-//        september = repo.getInt(SEPTEMBER)
-//        october = repo.getInt(OCTOBER)
-//        november = repo.getInt(NOVEMBER)
-//        december = repo.getInt(DECEMBER)
-//    }
-//
-//    fun save() {
-//        repo.setDouble(SALARY, salary)
-//
-//        repo.setDouble(TAX_DEDUCTION, tax_deduction)
-//        repo.setDouble(TAX_PERCENTAGE, tax_percentage)
-//        repo.setDouble(TAX_ADDITIONAL, tax_additional)
-//
-//        repo.setInt(JANUARY, january)
-//        repo.setInt(FEBRUARY, february)
-//        repo.setInt(MARCH, marts)
-//        repo.setInt(APRIL, april)
-//        repo.setInt(MAY, may)
-//        repo.setInt(JUNE, june)
-//        repo.setInt(JULY, july)
-//        repo.setInt(AUGUST, august)
-//        repo.setInt(SEPTEMBER, september)
-//        repo.setInt(OCTOBER, october)
-//        repo.setInt(NOVEMBER, november)
-//        repo.setInt(DECEMBER, december)
-//    }
+    init {
+        getValues()
+    }
+
+    fun getValues() = runBlocking {
+        salary = repo.getDouble(SALARY, 0.0).toString()
+        tax_deduction = repo.getDouble(TAX_DEDUCTION, 0.0).toString()
+        tax_percentage = repo.getDouble(TAX_PERCENTAGE, 0.0).toString()
+        tax_additional = repo.getDouble(TAX_ADDITIONAL, 0.0).toString()
+        january = repo.getInt(JANUARY, 0).toString()
+        february = repo.getInt(FEBRUARY, 0).toString()
+        marts = repo.getInt(MARCH, 0).toString()
+        april = repo.getInt(APRIL, 0).toString()
+        may = repo.getInt(MAY, 0).toString()
+        june = repo.getInt(JUNE, 0).toString()
+        july = repo.getInt(JULY, 0).toString()
+        august = repo.getInt(AUGUST, 0).toString()
+        september = repo.getInt(SEPTEMBER, 0).toString()
+        october = repo.getInt(OCTOBER, 0).toString()
+        november = repo.getInt(NOVEMBER, 0).toString()
+        december = repo.getInt(DECEMBER, 0).toString()
+    }
+
+    fun save() = runBlocking {
+        repo.setDouble(SALARY, salary.toDouble())
+
+        repo.setDouble(TAX_DEDUCTION, tax_deduction.toDouble())
+        repo.setDouble(TAX_PERCENTAGE, tax_percentage.toDouble())
+        repo.setDouble(TAX_ADDITIONAL, tax_additional.toDouble())
+
+        repo.setInt(JANUARY, january.toInt())
+        repo.setInt(FEBRUARY, february.toInt())
+        repo.setInt(MARCH, marts.toInt())
+        repo.setInt(APRIL, april.toInt())
+        repo.setInt(MAY, may.toInt())
+        repo.setInt(JUNE, june.toInt())
+        repo.setInt(JULY, july.toInt())
+        repo.setInt(AUGUST, august.toInt())
+        repo.setInt(SEPTEMBER, september.toInt())
+        repo.setInt(OCTOBER, october.toInt())
+        repo.setInt(NOVEMBER, november.toInt())
+        repo.setInt(DECEMBER, december.toInt())
+    }
 
 }

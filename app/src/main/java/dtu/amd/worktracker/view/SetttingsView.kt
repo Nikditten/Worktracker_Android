@@ -16,6 +16,7 @@ import dtu.amd.worktracker.R
 import dtu.amd.worktracker.component.CustomTextField
 import dtu.amd.worktracker.component.InputSection
 import dtu.amd.worktracker.util.getMonthName
+import dtu.amd.worktracker.viewmodel.AddViewModel
 import dtu.amd.worktracker.viewmodel.SettingsViewModel
 
 @Composable
@@ -30,88 +31,88 @@ fun SettingsView(
     ) {
         InputSection(title = stringResource(R.string.salary)) {
             CustomTextField(
-                text = vm.salary.toString(),
+                text = vm.salary,
                 label = stringResource(R.string.hourly_rate),
-                onChange = { vm.salary = it.toDouble() })
+                onChange = { vm.salary = it })
         }
 
         InputSection(title = stringResource(R.string.taxes)) {
             CustomTextField(
-                text = vm.tax_percentage.toString(),
+                text = vm.tax_percentage,
                 label = stringResource(R.string.tax_percentage),
-                onChange = { vm.tax_percentage = it.toDouble() })
+                onChange = { vm.tax_percentage = it })
 
             CustomTextField(
-                text = vm.tax_additional.toString(),
+                text = vm.tax_additional,
                 label = stringResource(R.string.additional_taxes),
-                onChange = { vm.tax_additional = it.toDouble() })
+                onChange = { vm.tax_additional = it })
 
             CustomTextField(
-                text = vm.tax_deduction.toString(),
+                text = vm.tax_deduction,
                 label = stringResource(R.string.tax_deduction),
-                onChange = { vm.tax_deduction = it.toDouble() })
+                onChange = { vm.tax_deduction = it })
         }
 
         InputSection(title = stringResource(R.string.salary_period_ending)) {
             CustomTextField(
-                text = vm.january.toString(),
+                text = vm.january,
                 label = stringResource(R.string.last_day_in) + " " + (0).getMonthName(),
-                onChange = { vm.january = it.toInt() })
+                onChange = { vm.january = it })
 
             CustomTextField(
-                text = vm.february.toString(),
+                text = vm.february,
                 label = stringResource(R.string.last_day_in) + " " + (1).getMonthName(),
-                onChange = { vm.february = it.toInt() })
+                onChange = { vm.february = it })
 
             CustomTextField(
-                text = vm.marts.toString(),
+                text = vm.marts,
                 label = stringResource(R.string.last_day_in) + " " + (2).getMonthName(),
-                onChange = { vm.marts = it.toInt() })
+                onChange = { vm.marts = it })
 
             CustomTextField(
-                text = vm.april.toString(),
+                text = vm.april,
                 label = stringResource(R.string.last_day_in) + " " + (3).getMonthName(),
-                onChange = { vm.april = it.toInt() })
+                onChange = { vm.april = it })
 
             CustomTextField(
-                text = vm.may.toString(),
+                text = vm.may,
                 label = stringResource(R.string.last_day_in) + " " + (4).getMonthName(),
-                onChange = { vm.may = it.toInt() })
+                onChange = { vm.may = it })
 
             CustomTextField(
-                text = vm.june.toString(),
+                text = vm.june,
                 label = stringResource(R.string.last_day_in) + " " + (5).getMonthName(),
-                onChange = { vm.june = it.toInt() })
+                onChange = { vm.june = it })
 
             CustomTextField(
-                text = vm.july.toString(),
+                text = vm.july,
                 label = stringResource(R.string.last_day_in) + " " + (6).getMonthName(),
-                onChange = { vm.july = it.toInt() })
+                onChange = { vm.july = it })
 
             CustomTextField(
-                text = vm.august.toString(),
+                text = vm.august,
                 label = stringResource(R.string.last_day_in) + " " + (7).getMonthName(),
-                onChange = { vm.august = it.toInt() })
+                onChange = { vm.august = it })
 
             CustomTextField(
-                text = vm.september.toString(),
+                text = vm.september,
                 label = stringResource(R.string.last_day_in) + " " + (8).getMonthName(),
-                onChange = { vm.september = it.toInt() })
+                onChange = { vm.september = it })
 
             CustomTextField(
-                text = vm.october.toString(),
+                text = vm.october,
                 label = stringResource(R.string.last_day_in) + " " + (9).getMonthName(),
-                onChange = { vm.october = it.toInt() })
+                onChange = { vm.october = it })
 
             CustomTextField(
-                text = vm.november.toString(),
+                text = vm.november,
                 label = stringResource(R.string.last_day_in) + " " + (10).getMonthName(),
-                onChange = { vm.november = it.toInt() })
+                onChange = { vm.november = it })
 
             CustomTextField(
-                text = vm.december.toString(),
+                text = vm.december,
                 label = stringResource(R.string.last_day_in) + " " + (11).getMonthName(),
-                onChange = { vm.december = it.toInt() })
+                onChange = { vm.december = it })
         }
 
         Button(
@@ -120,7 +121,7 @@ fun SettingsView(
                 .height(50.dp)
                 .clip(MaterialTheme.shapes.large),
             onClick = {
-
+                vm.save()
             }) {
             Text(stringResource(R.string.save))
         }

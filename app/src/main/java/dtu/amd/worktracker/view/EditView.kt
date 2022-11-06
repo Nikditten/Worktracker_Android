@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -16,6 +17,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -27,11 +29,11 @@ import dtu.amd.worktracker.component.InputSection
 import dtu.amd.worktracker.util.AsDate
 import dtu.amd.worktracker.util.AsTime
 
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun EditWorkView(
     navController: NavHostController,
-    vm: EditViewModel = hiltViewModel()) {
+    vm: EditViewModel = hiltViewModel()
+) {
 
     Scaffold(
         topBar = {
@@ -54,7 +56,7 @@ fun EditWorkView(
                 },
             )
         },
-    ) {
+    ) { padding ->
         val context = LocalContext.current
         Column(
             modifier = Modifier
@@ -63,25 +65,46 @@ fun EditWorkView(
                 .padding(10.dp)
         ) {
             InputSection(title = stringResource(R.string.generel)) {
-                CustomTextField(text = vm.title, label = stringResource(R.string.title), onChange = { vm.title = it })
+                CustomTextField(
+                    text = vm.title,
+                    label = stringResource(R.string.title),
+                    onChange = { vm.title = it })
 
-                CustomTextField(text = vm.company, label = stringResource(R.string.company), onChange = { vm.company = it })
+                CustomTextField(
+                    text = vm.company,
+                    label = stringResource(R.string.company),
+                    onChange = { vm.company = it })
             }
 
             InputSection(title = stringResource(R.string.date)) {
 
-                CustomTextField(text = vm.date.AsDate(), label = stringResource(R.string.date), enabled = false, modifier = Modifier.clickable { vm.showDatePickerDialog(context) })
+                CustomTextField(
+                    text = vm.date.AsDate(),
+                    label = stringResource(R.string.date),
+                    enabled = false,
+                    modifier = Modifier.clickable { vm.showDatePickerDialog(context) })
 
-                CustomTextField(text = vm.start.AsTime(), label = stringResource(R.string.start), enabled = false, modifier = Modifier.clickable { vm.showTimePickerDialog(context, "start") })
+                CustomTextField(
+                    text = vm.start.AsTime(),
+                    label = stringResource(R.string.start),
+                    enabled = false,
+                    modifier = Modifier.clickable { vm.showTimePickerDialog(context, "start") })
 
-                CustomTextField(text = vm.end.AsTime(), label = stringResource(R.string.end), enabled = false, modifier = Modifier.clickable { vm.showTimePickerDialog(context, "end") })
+                CustomTextField(
+                    text = vm.end.AsTime(),
+                    label = stringResource(R.string.end),
+                    enabled = false,
+                    modifier = Modifier.clickable { vm.showTimePickerDialog(context, "end") })
 
             }
 
             InputSection(title = stringResource(R.string.lunch)) {
                 CustomDropdown(
                     label = "Lunch",
-                    options = listOf(stringResource(R.string.held), stringResource(R.string.not_held)),
+                    options = listOf(
+                        stringResource(R.string.held),
+                        stringResource(R.string.not_held)
+                    ),
                     selectedIndex = if (vm.lunch_held) 0 else 1,
                     onChange = {
                         vm.lunch_held = it == "Held"
@@ -89,15 +112,38 @@ fun EditWorkView(
                 )
 
                 if (vm.lunch_held) {
-                    CustomTextField(text = vm.lunch_start.AsTime(), label = stringResource(R.string.lunch_start), enabled = false, modifier = Modifier.clickable { vm.showTimePickerDialog(context, "lunch_start") })
+                    CustomTextField(
+                        text = vm.lunch_start.AsTime(),
+                        label = stringResource(R.string.lunch_start),
+                        enabled = false,
+                        modifier = Modifier.clickable {
+                            vm.showTimePickerDialog(
+                                context,
+                                "lunch_start"
+                            )
+                        })
 
-                    CustomTextField(text = vm.lunch_end.AsTime(), label = stringResource(R.string.lunch_end), enabled = false, modifier = Modifier.clickable { vm.showTimePickerDialog(context, "lunch_end") })
+                    CustomTextField(
+                        text = vm.lunch_end.AsTime(),
+                        label = stringResource(R.string.lunch_end),
+                        enabled = false,
+                        modifier = Modifier.clickable {
+                            vm.showTimePickerDialog(
+                                context,
+                                "lunch_end"
+                            )
+                        })
                 }
             }
 
             InputSection(title = stringResource(R.string.salary)) {
 
-                CustomTextField(text = vm.paid.toString(), label = stringResource(R.string.paid), onChange = { vm.paid = it.toDouble() })
+                CustomTextField(
+                    text = vm.paid,
+                    label = stringResource(R.string.paid),
+                    onChange = { vm.paid = it },
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                )
 
                 CustomDropdown(
                     label = stringResource(R.string.salary_period_month),

@@ -13,6 +13,7 @@ import dtu.amd.worktracker.dal.model.Work
 import dtu.amd.worktracker.util.*
 import dtu.amd.worktracker.util.DATES.listOfMonths
 import dtu.amd.worktracker.util.DATES.listOfYears
+import kotlinx.coroutines.runBlocking
 import java.util.*
 import javax.inject.Inject
 
@@ -29,7 +30,7 @@ class AddViewModel @Inject constructor(
     var lunch_held by mutableStateOf(true)
     var lunch_start by mutableStateOf(Date())
     var lunch_end by mutableStateOf(Date())
-    var paid by mutableStateOf(0.0)
+    var paid by mutableStateOf("")
     var salary_period_month by mutableStateOf(Date().asMonth())
     var salary_period_year by mutableStateOf(Date().asYear())
 
@@ -119,8 +120,8 @@ class AddViewModel @Inject constructor(
                 lunch_held = lunch_held,
                 lunch_start = lunch_start,
                 lunch_end = lunch_end,
-                paid = paid * start.getDiffInHours(end),
-                hourly_rate = paid,
+                paid = paid.toDouble() * start.getDiffInHours(end),
+                hourly_rate = paid.toDouble(),
                 hours = start.getDiffInHours(end),
                 salary_period_month = salary_period_month + 1,
                 salary_period_year = salary_period_year

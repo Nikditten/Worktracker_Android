@@ -1,6 +1,7 @@
 package dtu.amd.worktracker.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dtu.amd.worktracker.dal.WorkRepositoryImpl
 import dtu.amd.worktracker.dal.model.Work
@@ -8,6 +9,8 @@ import dtu.amd.worktracker.util.DATES
 import dtu.amd.worktracker.util.asMonth
 import dtu.amd.worktracker.util.asYear
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import java.util.*
 import javax.inject.Inject
 

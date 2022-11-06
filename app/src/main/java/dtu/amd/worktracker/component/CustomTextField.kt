@@ -2,6 +2,7 @@ package dtu.amd.worktracker.component
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -17,6 +18,7 @@ fun CustomTextField(
     label: String,
     enabled: Boolean = true,
     onChange: (String) -> Unit = {},
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
 ) {
     OutlinedTextField(
         modifier = modifier
@@ -24,6 +26,7 @@ fun CustomTextField(
             .padding(top = 10.dp),
         enabled = enabled,
         value = text,
+        keyboardOptions = keyboardOptions,
         onValueChange = {
             onChange(it)
         },

@@ -15,7 +15,7 @@ import javax.inject.Singleton
 @Singleton
 class WorkRepositoryImpl @Inject internal constructor(
     private val workDao: WorkDao,
-    @ApplicationIoScope private val applicationIoScope: CoroutineScope
+    @ApplicationIoScope private val applicationIoScope: CoroutineScope,
 ) : WorkRepository {
 
     override fun addWork(work: Work) {
