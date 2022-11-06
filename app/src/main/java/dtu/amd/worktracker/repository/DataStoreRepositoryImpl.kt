@@ -48,7 +48,6 @@ class DataStoreRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getInt(key: String, default: Int): Int {
-        println("KEY $key VALUE ${context.dataStore.data.first()[intPreferencesKey(key)] ?: default}")
         return context.dataStore.data.first()[intPreferencesKey(key)] ?: default
     }
 
@@ -56,7 +55,6 @@ class DataStoreRepositoryImpl @Inject constructor(
         val salaryPeriod = mutableListOf<Int>(Date().asYear())
         val currentMonth: Int = Date().asMonth()
         val lastDayInMonth: Int = getInt("month_$currentMonth", -1)
-        println("DATE: ${Date().asDate()} LAST DAY: $lastDayInMonth MONTH: $currentMonth")
         if (lastDayInMonth != -1 && lastDayInMonth < Date().asDate()) {
             if (currentMonth == 12) {
                 salaryPeriod.add(1)

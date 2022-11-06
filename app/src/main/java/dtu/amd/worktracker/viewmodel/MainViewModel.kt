@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dtu.amd.worktracker.dal.WorkRepositoryImpl
 import dtu.amd.worktracker.dal.model.Work
+import dtu.amd.worktracker.repository.DataStoreRepository
 import dtu.amd.worktracker.util.DATES
 import dtu.amd.worktracker.util.asMonth
 import dtu.amd.worktracker.util.asYear
@@ -17,6 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val workRepositoryImpl: WorkRepositoryImpl,
+    private val repo: DataStoreRepository
 ) : ViewModel() {
 
     var months: List<String> = DATES.listOfMonths
@@ -30,6 +32,18 @@ class MainViewModel @Inject constructor(
     var selectedYear: Int = currentYear
 
     var monthlyPeriod: Boolean = true
+
+    init {
+        getCurrentSalaryPeriod()
+    }
+
+    fun getCurrentSalaryPeriod() = runBlocking {
+        val period = repo.getSalaryPeriod()
+        currentMonth = period[1]
+        currentYear = period[0]
+        selectedMonth = currentMonth
+        selectedYear = currentYear
+    }
 
     fun getEarnings(): Double {
         if (monthlyPeriod) {
