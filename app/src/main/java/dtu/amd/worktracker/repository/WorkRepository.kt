@@ -10,6 +10,8 @@ interface WorkRepository {
     fun getAllWork(): Flow<List<Work>>
     fun getEarningsByMonth(year: Int, month: Int): Double
     fun getHoursByMonth(year: Int, month: Int): Double
+    fun getShiftsByMonth(year: Int, month: Int): Int
     fun getEarningsByYear(year: Int): Double
     fun getHoursByYear(year: Int): Double
+    fun getShiftsByYear(year: Int): Int
 }

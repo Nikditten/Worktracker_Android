@@ -12,6 +12,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import dtu.amd.worktracker.dal.WorkRepositoryImpl
 import dtu.amd.worktracker.dal.model.Work
 import dtu.amd.worktracker.util.*
+import dtu.amd.worktracker.util.DATES.listOfMonths
+import dtu.amd.worktracker.util.DATES.listOfYears
 import java.util.*
 import javax.inject.Inject
 

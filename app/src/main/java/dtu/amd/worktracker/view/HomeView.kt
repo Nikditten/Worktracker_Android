@@ -9,11 +9,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import dtu.amd.worktracker.R
 import dtu.amd.worktracker.StatView
+import dtu.amd.worktracker.component.CustomDropdown
 import dtu.amd.worktracker.viewmodel.MainViewModel
 
 
 @Composable
 fun HomeView(
+    showFilter: Boolean = true,
     vm: MainViewModel = hiltViewModel()
 ) {
 
@@ -22,16 +24,46 @@ fun HomeView(
         modifier = Modifier
             .fillMaxSize()
     ) {
-        StatView(title = stringResource(R.string.earnings), value = "${vm.getEarningsByMonth()} DKK")
 
-        StatView(title = stringResource(R.string.expected_payout), value = "340000 DKK")
+        if (showFilter) {
+            CustomDropdown(
+                label = stringResource(R.string.period),
+                options = listOf(stringResource(R.string.month), stringResource(R.string.year)),
+                selectedIndex = 0,
+                onChange = {
+                    vm.monthlyPeriod = it == "Month"
+                }
+            )
+
+            CustomDropdown(
+                label = stringResource(R.string.salary_period_month),
+                options = vm.months,
+                selectedIndex = vm.selectedMonth - 1,
+                onChange = {
+                    vm.selectedMonth = vm.months.indexOf(it) + 1
+                }
+            )
+
+            CustomDropdown(
+                label = stringResource(R.string.salary_period_year),
+                options = vm.years,
+                selectedIndex = vm.years.indexOf(vm.selectedYear.toString()),
+                onChange = {
+                    vm.selectedYear = it.toInt()
+                },
+            )
+        }
+
+        StatView(title = stringResource(R.string.earnings), value = "${vm.getEarnings()} DKK")
+
+        StatView(title = stringResource(R.string.expected_payout), value = "${vm.getExpectedPayout()} DKK")
 
         Row(
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            StatView(title = stringResource(R.string.hours), value = "37", half = true)
+            StatView(title = stringResource(R.string.hours), value = "${vm.getHours()}", half = true)
 
-            StatView(title = stringResource(R.string.shifts), value = "12", half = true, right = true)
+            StatView(title = stringResource(R.string.shifts), value = "${vm.getShifts()}", half = true, right = true)
         }
     }
 

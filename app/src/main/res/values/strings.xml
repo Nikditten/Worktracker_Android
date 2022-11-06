@@ -32,4 +32,7 @@
     <string name="tax_deduction">Tax deduction (%)</string>
     <string name="salary_period_ending">Salary period endings</string>
     <string name="last_day_in">Last day in</string>
+    <string name="period">Period</string>
+    <string name="year">Year</string>
+    <string name="month">Month</string>
 </resources>

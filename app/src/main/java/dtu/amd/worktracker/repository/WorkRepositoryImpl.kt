@@ -60,6 +60,14 @@ class WorkRepositoryImpl @Inject internal constructor(
         return hours
     }
 
+    override fun getShiftsByMonth(year: Int, month: Int): Int {
+        var shifts: Int = 0
+        applicationIoScope.launch {
+            shifts = workDao.getShiftsByMonth(year, month)
+        }
+        return shifts
+    }
+
     override fun getEarningsByYear(year: Int): Double {
         var earnings: Double = 0.0
         applicationIoScope.launch {
@@ -74,6 +82,14 @@ class WorkRepositoryImpl @Inject internal constructor(
             hours = workDao.getHoursByYear(year)
         }
         return hours
+    }
+
+    override fun getShiftsByYear(year: Int): Int {
+        var shifts: Int = 0
+        applicationIoScope.launch {
+            shifts = workDao.getShiftsByYear(year)
+        }
+        return shifts
     }
 
 }

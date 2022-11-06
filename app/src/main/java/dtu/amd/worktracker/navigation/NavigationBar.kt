@@ -24,6 +24,9 @@ import dtu.amd.worktracker.viewmodel.MainViewModel
 @Composable
 fun NavigationBar(navController: NavHostController) {
     // SOURCE: https://developer.android.com/jetpack/compose/layouts/material
+
+    val showFilter = remember { mutableStateOf(false) }
+
     val selectedIndex = remember { mutableStateOf(0) }
     val selectedView = remember {
         mutableStateOf(
@@ -51,7 +54,7 @@ fun NavigationBar(navController: NavHostController) {
                 contentColor = MaterialTheme.colors.onPrimary,
                 actions = {
                     if (selectedIndex.value == 0) {
-                        IconButton(onClick = { /* ... */ }) {
+                        IconButton(onClick = { !showFilter.value }) {
                             Icon(Icons.Filled.FilterAlt, "Filter")
                         }
                     }
@@ -102,10 +105,10 @@ fun NavigationBar(navController: NavHostController) {
     ) {
         Box(modifier = Modifier.padding(10.dp)) {
             when (selectedIndex.value) {
-                0 -> HomeView()
+                0 -> HomeView(showFilter.value)
                 1 -> TimelineView(navController = navController)
                 2 -> SettingsView()
-                else -> HomeView()
+                else -> HomeView(showFilter.value)
             }
         }
     }

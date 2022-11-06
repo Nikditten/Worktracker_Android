@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dtu.amd.worktracker.dal.WorkRepositoryImpl
 import dtu.amd.worktracker.dal.model.Work
+import dtu.amd.worktracker.util.DATES
 import dtu.amd.worktracker.util.asMonth
 import dtu.amd.worktracker.util.asYear
 import kotlinx.coroutines.flow.Flow
@@ -15,14 +16,49 @@ class MainViewModel @Inject constructor(
     private val workRepositoryImpl: WorkRepositoryImpl,
 ) : ViewModel() {
 
+    var months: List<String> = DATES.listOfMonths
+
+    var years: List<String> = DATES.listOfYears
+
     var currentMonth: Int = Date().asMonth()
     var currentYear: Int = Date().asYear()
 
     var selectedMonth: Int = currentMonth
     var selectedYear: Int = currentYear
 
-    fun getEarningsByMonth(): Double {
-        return workRepositoryImpl.getEarningsByMonth(selectedMonth, selectedYear)
+    var monthlyPeriod: Boolean = true
+
+    fun getEarnings(): Double {
+        if (monthlyPeriod) {
+            return workRepositoryImpl.getEarningsByMonth(selectedYear, selectedMonth)
+        } else {
+            return workRepositoryImpl.getEarningsByYear(selectedYear)
+        }
+    }
+
+
+    fun getExpectedPayout(): Double {
+        if (monthlyPeriod) {
+            return 0.0
+        } else {
+            return 0.0
+        }
+    }
+
+    fun getHours(): Double {
+        if (monthlyPeriod) {
+            return workRepositoryImpl.getHoursByMonth(selectedYear, selectedMonth)
+        } else {
+            return workRepositoryImpl.getHoursByYear(selectedYear)
+        }
+    }
+
+    fun getShifts(): Int {
+        if (monthlyPeriod) {
+            return workRepositoryImpl.getShiftsByMonth(selectedYear, selectedMonth)
+        } else {
+            return workRepositoryImpl.getShiftsByYear(selectedYear)
+        }
     }
 
 }
