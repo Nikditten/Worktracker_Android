@@ -56,62 +56,62 @@ fun SettingsView(
         InputSection(title = stringResource(R.string.salary_period_ending)) {
             CustomTextField(
                 text = vm.january,
-                label = stringResource(R.string.last_day_in) + " " + (0).getMonthName(),
+                label = stringResource(R.string.last_day_in) + " " + (1).getMonthName(),
                 onChange = { vm.january = it })
 
             CustomTextField(
                 text = vm.february,
-                label = stringResource(R.string.last_day_in) + " " + (1).getMonthName(),
+                label = stringResource(R.string.last_day_in) + " " + (2).getMonthName(),
                 onChange = { vm.february = it })
 
             CustomTextField(
                 text = vm.marts,
-                label = stringResource(R.string.last_day_in) + " " + (2).getMonthName(),
+                label = stringResource(R.string.last_day_in) + " " + (3).getMonthName(),
                 onChange = { vm.marts = it })
 
             CustomTextField(
                 text = vm.april,
-                label = stringResource(R.string.last_day_in) + " " + (3).getMonthName(),
+                label = stringResource(R.string.last_day_in) + " " + (4).getMonthName(),
                 onChange = { vm.april = it })
 
             CustomTextField(
                 text = vm.may,
-                label = stringResource(R.string.last_day_in) + " " + (4).getMonthName(),
+                label = stringResource(R.string.last_day_in) + " " + (5).getMonthName(),
                 onChange = { vm.may = it })
 
             CustomTextField(
                 text = vm.june,
-                label = stringResource(R.string.last_day_in) + " " + (5).getMonthName(),
+                label = stringResource(R.string.last_day_in) + " " + (6).getMonthName(),
                 onChange = { vm.june = it })
 
             CustomTextField(
                 text = vm.july,
-                label = stringResource(R.string.last_day_in) + " " + (6).getMonthName(),
+                label = stringResource(R.string.last_day_in) + " " + (7).getMonthName(),
                 onChange = { vm.july = it })
 
             CustomTextField(
                 text = vm.august,
-                label = stringResource(R.string.last_day_in) + " " + (7).getMonthName(),
+                label = stringResource(R.string.last_day_in) + " " + (8).getMonthName(),
                 onChange = { vm.august = it })
 
             CustomTextField(
                 text = vm.september,
-                label = stringResource(R.string.last_day_in) + " " + (8).getMonthName(),
+                label = stringResource(R.string.last_day_in) + " " + (9).getMonthName(),
                 onChange = { vm.september = it })
 
             CustomTextField(
                 text = vm.october,
-                label = stringResource(R.string.last_day_in) + " " + (9).getMonthName(),
+                label = stringResource(R.string.last_day_in) + " " + (10).getMonthName(),
                 onChange = { vm.october = it })
 
             CustomTextField(
                 text = vm.november,
-                label = stringResource(R.string.last_day_in) + " " + (10).getMonthName(),
+                label = stringResource(R.string.last_day_in) + " " + (11).getMonthName(),
                 onChange = { vm.november = it })
 
             CustomTextField(
                 text = vm.december,
-                label = stringResource(R.string.last_day_in) + " " + (11).getMonthName(),
+                label = stringResource(R.string.last_day_in) + " " + (12).getMonthName(),
                 onChange = { vm.december = it })
         }
 

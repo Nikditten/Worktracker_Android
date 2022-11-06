@@ -6,7 +6,6 @@ object DATES {
     private val currentYear: Int = Date().asYear()
 
     var listOfMonths: List<String> = listOf(
-        0.getMonthName(),
         1.getMonthName(),
         2.getMonthName(),
         3.getMonthName(),
@@ -17,7 +16,8 @@ object DATES {
         8.getMonthName(),
         9.getMonthName(),
         10.getMonthName(),
-        11.getMonthName()
+        11.getMonthName(),
+        12.getMonthName()
     )
 
     var listOfYears: List<String> = listOf(

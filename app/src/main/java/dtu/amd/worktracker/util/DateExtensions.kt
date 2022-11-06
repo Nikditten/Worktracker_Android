@@ -21,24 +21,33 @@ fun Date.AsTime(): String {
     return dateFormat.format(calendar.time)
 }
 
-fun Date.getDiffInHours(end: Date): Double {
+fun Date.getDiffInHours(end: Date, lunch: Boolean = false, lunch_start: Date, lunch_end: Date): Double {
     val diff = end.time - this.time
-    println("DATEDIFF: ${diff / (60 * 60 * 1000.0)}")
-    return (diff / (60 * 60 * 1000.0)).RoundTo2Decimals()
+    var total = (diff / (60 * 60 * 1000.0)).RoundTo2Decimals()
+    if (lunch) {
+        val lunchDiff = lunch_end.time - lunch_start.time
+        val lunchTotal = (lunchDiff / (60 * 60 * 1000.0)).RoundTo2Decimals()
+        total -= lunchTotal
+    }
+    return total
 }
 
 fun Date.asYear(): Int {
     val calendar = Calendar.getInstance()
     calendar.time = this
-    println("YEAR: ${calendar.get(Calendar.YEAR)}")
     return calendar.get(Calendar.YEAR)
 }
 
 fun Date.asMonth(): Int {
     val calendar = Calendar.getInstance()
     calendar.time = this
-    println("MONTH: ${calendar.get(Calendar.MONTH)}")
-    return calendar.get(Calendar.MONTH)
+    return calendar.get(Calendar.MONTH) + 1
+}
+
+fun Date.asDate(): Int {
+    val calendar = Calendar.getInstance()
+    calendar.time = this
+    return calendar.get(Calendar.DAY_OF_MONTH)
 }
 
 fun Date.asMonthName(): String {

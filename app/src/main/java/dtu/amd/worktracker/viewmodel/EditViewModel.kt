@@ -76,6 +76,7 @@ class EditViewModel @Inject constructor(
     }
 
     fun save() {
+        hours = start.getDiffInHours(end, lunch_held, lunch_start, lunch_end)
         val work = Work(
             id = id,
             title = title,
@@ -86,7 +87,7 @@ class EditViewModel @Inject constructor(
             lunch_held = lunch_held,
             lunch_start = lunch_start,
             lunch_end = lunch_end,
-            paid = paid.toDouble() * start.getDiffInHours(end),
+            paid = paid.toDouble() * hours,
             hourly_rate = paid.toDouble(),
             hours = hours,
             salary_period_month = salary_period_month + 1,

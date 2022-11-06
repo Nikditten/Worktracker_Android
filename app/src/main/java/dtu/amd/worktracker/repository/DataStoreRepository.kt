@@ -9,5 +9,5 @@ interface DataStoreRepository {
     suspend fun getString(key: String, default: String): String
     suspend fun getDouble(key: String, default: Double): Double
     suspend fun getInt(key: String, default: Int): Int
-
+    suspend fun getSalaryPeriod(): List<Int>
 }

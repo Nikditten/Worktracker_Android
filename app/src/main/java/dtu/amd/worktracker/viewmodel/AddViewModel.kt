@@ -10,6 +10,8 @@ import dtu.amd.worktracker.dal.WorkRepositoryImpl
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dtu.amd.worktracker.dal.model.Work
+import dtu.amd.worktracker.repository.DataStoreRepository
+import dtu.amd.worktracker.repository.DataStoreRepositoryImpl
 import dtu.amd.worktracker.util.*
 import dtu.amd.worktracker.util.DATES.listOfMonths
 import dtu.amd.worktracker.util.DATES.listOfYears
@@ -20,6 +22,7 @@ import javax.inject.Inject
 @HiltViewModel
 class AddViewModel @Inject constructor(
     private val workRepositoryImpl: WorkRepositoryImpl,
+    private val pref: DataStoreRepository
 ) : ViewModel() {
 
     var title by mutableStateOf("")
@@ -37,6 +40,16 @@ class AddViewModel @Inject constructor(
     var months: List<String> = listOfMonths
 
     var years: List<String> = listOfYears
+
+    init {
+        getSalaryPeriod()
+    }
+
+    fun getSalaryPeriod() = runBlocking {
+        val period = pref.getSalaryPeriod()
+        salary_period_month = period[1]
+        salary_period_year = period[0]
+    }
 
     // SOURCE: https://proandroiddev.com/the-big-form-with-jetpack-compose-7bec9cde157e
     fun showDatePickerDialog(context: Context) {
@@ -109,6 +122,7 @@ class AddViewModel @Inject constructor(
     }
 
     fun save() {
+        val hours = start.getDiffInHours(end, lunch_held, lunch_start, lunch_end)
         workRepositoryImpl.addWork(
             Work(
                 id = 0,
@@ -120,9 +134,9 @@ class AddViewModel @Inject constructor(
                 lunch_held = lunch_held,
                 lunch_start = lunch_start,
                 lunch_end = lunch_end,
-                paid = paid.toDouble() * start.getDiffInHours(end),
+                paid = paid.toDouble() * hours,
                 hourly_rate = paid.toDouble(),
-                hours = start.getDiffInHours(end),
+                hours = hours,
                 salary_period_month = salary_period_month + 1,
                 salary_period_year = salary_period_year
             )
