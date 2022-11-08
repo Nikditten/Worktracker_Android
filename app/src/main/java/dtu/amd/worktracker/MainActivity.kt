@@ -27,9 +27,6 @@ import dtu.amd.worktracker.viewmodel.MainViewModel
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    val mainVM by viewModels<MainViewModel>()
-    val addVM by viewModels<AddViewModel>()
-    val editVM by viewModels<EditViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -54,9 +54,9 @@ fun HomeView(
             )
         }
 
-        StatView(title = stringResource(R.string.earnings), value = "${vm.getEarnings()} DKK")
+        StatView(title = stringResource(R.string.earnings), value = "${vm.getEarnings()}")
 
-        StatView(title = stringResource(R.string.expected_payout), value = "${vm.getExpectedPayout()} DKK")
+        StatView(title = stringResource(R.string.expected_payout), value = "${vm.getExpectedPayout()}")
 
         Row(
             verticalAlignment = Alignment.CenterVertically,
