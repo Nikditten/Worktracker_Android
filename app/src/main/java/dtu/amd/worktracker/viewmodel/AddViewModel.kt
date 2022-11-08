@@ -34,8 +34,8 @@ class AddViewModel @Inject constructor(
     var lunch_start by mutableStateOf(Date())
     var lunch_end by mutableStateOf(Date())
     var paid by mutableStateOf("")
-    var salary_period_month by mutableStateOf(Date().asMonth())
-    var salary_period_year by mutableStateOf(Date().asYear())
+    var salary_period_month by mutableStateOf(Date().AsMonth())
+    var salary_period_year by mutableStateOf(Date().AsYear())
 
     var months: List<String> = listOfMonths
 
@@ -43,12 +43,22 @@ class AddViewModel @Inject constructor(
 
     init {
         getSalaryPeriod()
+        getSalary()
     }
 
     fun getSalaryPeriod() = runBlocking {
         val period = pref.getSalaryPeriod()
         salary_period_month = period[1]
         salary_period_year = period[0]
+    }
+
+    fun getSalary() = runBlocking {
+        val prefPaid = pref.getDouble(PREF_KEYS.SALARY, 0.0)
+        if (prefPaid == 0.0) {
+            paid = ""
+        } else {
+            paid = prefPaid.toString()
+        }
     }
 
     // SOURCE: https://proandroiddev.com/the-big-form-with-jetpack-compose-7bec9cde157e
@@ -123,24 +133,30 @@ class AddViewModel @Inject constructor(
 
     fun save() {
         val hours = start.getDiffInHours(end, lunch_held, lunch_start, lunch_end)
-        workRepositoryImpl.addWork(
-            Work(
-                id = 0,
-                title = title,
-                company = company,
-                date = date,
-                start = start,
-                end = end,
-                lunch_held = lunch_held,
-                lunch_start = lunch_start,
-                lunch_end = lunch_end,
-                paid = paid.toDouble() * hours,
-                hourly_rate = paid.toDouble(),
-                hours = hours,
-                salary_period_month = salary_period_month + 1,
-                salary_period_year = salary_period_year
-            )
+        val work = Work(
+            id = 0,
+            title = title,
+            company = company,
+            date = date,
+            start = start,
+            end = end,
+            lunch_held = lunch_held,
+            lunch_start = lunch_start,
+            lunch_end = lunch_end,
+            paid = paid.toDouble() * hours,
+            hourly_rate = paid.toDouble(),
+            hours = hours,
+            salary_period_month = salary_period_month + 1,
+            salary_period_year = salary_period_year
         )
+
+        if (work.title.isEmpty() && work.company.isNotEmpty()) {
+            work.title = "Shift at ${work.company}"
+        } else if (work.title.isEmpty() && work.company.isEmpty()) {
+            work.title = "Shift at ${work.date.AsDate()}"
+        }
+
+        workRepositoryImpl.addWork(work)
     }
 
 }

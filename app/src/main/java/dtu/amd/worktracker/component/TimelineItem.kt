@@ -13,9 +13,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import dtu.amd.worktracker.R
 import dtu.amd.worktracker.dal.model.Work
 import dtu.amd.worktracker.util.AsDate
 
@@ -55,38 +58,55 @@ fun TimelineItem(workItem: Work, onClick: () -> Unit = {}) {
                 horizontalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier
                     .fillMaxWidth()
+
             ) {
                 Column(
-
+                    modifier = Modifier
+                        .padding(end = 15.dp)
                 ) {
                     Text(
                         text = workItem.title,
                         color = MaterialTheme.colors.onSecondary,
                         style = MaterialTheme.typography.h6,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
                     )
                     Text(
                         text = workItem.company,
                         color = MaterialTheme.colors.onSecondary,
-                        style = MaterialTheme.typography.caption
+                        style = MaterialTheme.typography.caption,
+                        overflow = TextOverflow.Ellipsis
                     )
                     Text(
                         // SOURCE: https://stackoverflow.com/questions/57402045/how-to-format-in-kotlin-date-in-string-or-timestamp-to-my-preferred-format
                         text = workItem.date.AsDate(),
                         color = MaterialTheme.colors.onSecondary,
                         style = MaterialTheme.typography.caption,
+                        maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
                 }
 
-                Text(
-                    text = "+" + workItem.paid.toString(),
-                    color = MaterialTheme.colors.onSecondary,
-                    style = MaterialTheme.typography.h5,
-                    fontWeight = FontWeight.Bold,
+                Column(
                     modifier = Modifier
-                        .padding(end = 10.dp)
-                )
+                        .padding(end = 10.dp),
+                    horizontalAlignment = Alignment.End
+                ) {
+                    Text(
+                        text = "+" + workItem.paid.toString(),
+                        color = MaterialTheme.colors.onSecondary,
+                        style = MaterialTheme.typography.h5,
+                        fontWeight = FontWeight.Bold,
+                    )
+
+                    Text(
+                        text = workItem.hours.toString() + " " + stringResource(R.string.hours),
+                        color = MaterialTheme.colors.onSecondary,
+                        style = MaterialTheme.typography.caption,
+                        fontWeight = FontWeight.Bold,
+                    )
+                }
             }
         }
     }

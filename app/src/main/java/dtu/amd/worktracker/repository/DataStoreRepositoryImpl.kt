@@ -5,9 +5,9 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.preferencesDataStore
 import dtu.amd.worktracker.di.ApplicationIoScope
-import dtu.amd.worktracker.util.asDate
-import dtu.amd.worktracker.util.asMonth
-import dtu.amd.worktracker.util.asYear
+import dtu.amd.worktracker.util.AsDay
+import dtu.amd.worktracker.util.AsMonth
+import dtu.amd.worktracker.util.AsYear
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -52,10 +52,10 @@ class DataStoreRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getSalaryPeriod(): List<Int> {
-        val salaryPeriod = mutableListOf<Int>(Date().asYear())
-        val currentMonth: Int = Date().asMonth()
+        val salaryPeriod = mutableListOf<Int>(Date().AsYear())
+        val currentMonth: Int = Date().AsMonth()
         val lastDayInMonth: Int = getInt("month_$currentMonth", -1)
-        if (lastDayInMonth != -1 && lastDayInMonth < Date().asDate()) {
+        if (lastDayInMonth != -1 && lastDayInMonth < Date().AsDay()) {
             if (currentMonth == 12) {
                 salaryPeriod.add(1)
             } else {

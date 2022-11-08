@@ -38,8 +38,8 @@ class EditViewModel @Inject constructor(
     var paid by mutableStateOf("")
     var hourly_rate by mutableStateOf(0.0)
     var hours by mutableStateOf(0.0)
-    var salary_period_month by mutableStateOf(Date().asMonth())
-    var salary_period_year by mutableStateOf(Date().asYear())
+    var salary_period_month by mutableStateOf(Date().AsMonth())
+    var salary_period_year by mutableStateOf(Date().AsYear())
 
     var months: List<String> = listOfMonths
 
@@ -93,6 +93,13 @@ class EditViewModel @Inject constructor(
             salary_period_month = salary_period_month + 1,
             salary_period_year = salary_period_year
         )
+
+        if (work.title.isEmpty() && work.company.isNotEmpty()) {
+            work.title = "Shift at ${work.company}"
+        } else if (work.title.isEmpty() && work.company.isEmpty()) {
+            work.title = "Shift at ${work.date.AsDate()}"
+        }
+
         workRepositoryImpl.addWork(work)
     }
 

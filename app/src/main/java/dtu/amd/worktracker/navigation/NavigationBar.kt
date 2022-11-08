@@ -26,7 +26,7 @@ import dtu.amd.worktracker.viewmodel.MainViewModel
 fun NavigationBar(navController: NavHostController) {
     // SOURCE: https://developer.android.com/jetpack/compose/layouts/material
 
-    val showFilter = remember { mutableStateOf(false) }
+    val showFilter = remember { mutableStateOf(true) }
 
     val selectedIndex = remember { mutableStateOf(0) }
     val selectedView = remember {

@@ -3,7 +3,7 @@ package dtu.amd.worktracker.util
 import java.util.*
 
 object DATES {
-    private val currentYear: Int = Date().asYear()
+    private val currentYear: Int = Date().AsYear()
 
     var listOfMonths: List<String> = listOf(
         1.getMonthName(),

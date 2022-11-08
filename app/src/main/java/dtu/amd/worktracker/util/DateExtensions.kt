@@ -32,19 +32,19 @@ fun Date.getDiffInHours(end: Date, lunch: Boolean = false, lunch_start: Date, lu
     return total
 }
 
-fun Date.asYear(): Int {
+fun Date.AsYear(): Int {
     val calendar = Calendar.getInstance()
     calendar.time = this
     return calendar.get(Calendar.YEAR)
 }
 
-fun Date.asMonth(): Int {
+fun Date.AsMonth(): Int {
     val calendar = Calendar.getInstance()
     calendar.time = this
     return calendar.get(Calendar.MONTH) + 1
 }
 
-fun Date.asDate(): Int {
+fun Date.AsDay(): Int {
     val calendar = Calendar.getInstance()
     calendar.time = this
     return calendar.get(Calendar.DAY_OF_MONTH)

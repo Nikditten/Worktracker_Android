@@ -6,9 +6,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import dtu.amd.worktracker.dal.WorkRepositoryImpl
 import dtu.amd.worktracker.dal.model.Work
 import dtu.amd.worktracker.repository.DataStoreRepository
+import dtu.amd.worktracker.util.AsMonth
+import dtu.amd.worktracker.util.AsYear
 import dtu.amd.worktracker.util.DATES
-import dtu.amd.worktracker.util.asMonth
-import dtu.amd.worktracker.util.asYear
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -25,8 +25,8 @@ class MainViewModel @Inject constructor(
 
     var years: List<String> = DATES.listOfYears
 
-    var currentMonth: Int = Date().asMonth()
-    var currentYear: Int = Date().asYear()
+    var currentMonth: Int = Date().AsMonth()
+    var currentYear: Int = Date().AsYear()
 
     var selectedMonth: Int = currentMonth
     var selectedYear: Int = currentYear
