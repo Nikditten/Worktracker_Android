@@ -5,13 +5,13 @@ import kotlinx.coroutines.flow.Flow
 
 interface WorkRepository {
     fun addWork(work: Work)
-    fun getSpecificWork(id: Int): Work?
+    fun getSpecificWork(id: Int): Flow<Work>
     fun deleteWork(id: Int)
     fun getAllWork(): Flow<List<Work>>
-    fun getEarningsByMonth(year: Int, month: Int): Double
-    fun getHoursByMonth(year: Int, month: Int): Double
-    fun getShiftsByMonth(year: Int, month: Int): Int
-    fun getEarningsByYear(year: Int): Double
-    fun getHoursByYear(year: Int): Double
-    fun getShiftsByYear(year: Int): Int
+    fun getEarningsByMonth(year: Int, month: Int): Flow<Double>
+    fun getHoursByMonth(year: Int, month: Int): Flow<Double>
+    fun getShiftsByMonth(year: Int, month: Int): Flow<Int>
+    fun getEarningsByYear(year: Int): Flow<Double>
+    fun getHoursByYear(year: Int): Flow<Double>
+    fun getShiftsByYear(year: Int): Flow<Int>
 }

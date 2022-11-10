@@ -36,8 +36,6 @@ fun AddView(
     vm: AddViewModel = hiltViewModel()
 ) {
 
-    var lunch_held by remember { mutableStateOf(true) }
-
     Scaffold(
         topBar = {
             TopAppBar(
@@ -135,9 +133,9 @@ fun AddView(
             InputSection(title = stringResource(R.string.salary)) {
 
                 CustomTextField(
-                    text = vm.paid,
+                    text = vm.hourly_rate,
                     label = stringResource(R.string.paid),
-                    onChange = { vm.paid = it },
+                    onChange = { vm.hourly_rate = it },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
                 )
 

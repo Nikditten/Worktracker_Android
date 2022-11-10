@@ -107,6 +107,7 @@ fun EditWorkView(
                     ),
                     selectedIndex = if (vm.lunch_held) 0 else 1,
                     onChange = {
+                        println("Lunch held: $it")
                         vm.lunch_held = it == "Held"
                     }
                 )
@@ -139,17 +140,18 @@ fun EditWorkView(
             InputSection(title = stringResource(R.string.salary)) {
 
                 CustomTextField(
-                    text = vm.paid,
+                    text = vm.hourly_rate,
                     label = stringResource(R.string.paid),
-                    onChange = { vm.paid = it },
+                    onChange = { vm.hourly_rate = it },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
                 )
 
                 CustomDropdown(
                     label = stringResource(R.string.salary_period_month),
                     options = vm.months,
-                    selectedIndex = vm.salary_period_month - 1,
+                    selectedIndex = vm.salary_period_month,
                     onChange = {
+                        println("Selected month: $it")
                         vm.salary_period_month = vm.months.indexOf(it) + 1
                     }
                 )
@@ -159,9 +161,21 @@ fun EditWorkView(
                     options = vm.years,
                     selectedIndex = vm.years.indexOf(vm.salary_period_year.toString()),
                     onChange = {
+                        println("Selected year: $it")
                         vm.salary_period_year = it.toInt()
                     }
                 )
+            }
+
+            InputSection(title = stringResource(R.string.statistics)) {
+
+                CustomTextField(
+                    text = vm.paid.toString(),
+                    label = stringResource(R.string.earnings),
+                    onChange = {},
+                    enabled = false
+                )
+
             }
 
             Button(

@@ -24,14 +24,8 @@ class WorkRepositoryImpl @Inject internal constructor(
         }
     }
 
-    override fun getSpecificWork(id: Int): Work? {
-        var work: Work? = null
-        println("Searching for work with id: $id")
-        applicationIoScope.launch {
-            work = workDao.getWork(id)
-        }
-        println("Found work: ${work?.id}")
-        return work
+    override fun getSpecificWork(id: Int): Flow<Work> {
+        return workDao.getWork(id)
     }
 
     override fun deleteWork(id: Int) {
@@ -44,52 +38,28 @@ class WorkRepositoryImpl @Inject internal constructor(
         return workDao.getAllWork()
     }
 
-    override fun getEarningsByMonth(year: Int, month: Int): Double {
-        var earnings: Double = 0.0
-        applicationIoScope.launch {
-            earnings = workDao.getEarningsByMonth(year, month)
-        }
-        return earnings
+    override fun getEarningsByMonth(year: Int, month: Int): Flow<Double> {
+        return workDao.getEarningsByMonth(year, month)
     }
 
-    override fun getHoursByMonth(year: Int, month: Int): Double {
-        var hours: Double = 0.0
-        applicationIoScope.launch {
-            hours = workDao.getHoursByMonth(year, month)
-        }
-        return hours
+    override fun getHoursByMonth(year: Int, month: Int): Flow<Double> {
+        return workDao.getHoursByMonth(year, month)
     }
 
-    override fun getShiftsByMonth(year: Int, month: Int): Int {
-        var shifts: Int = 0
-        applicationIoScope.launch {
-            shifts = workDao.getShiftsByMonth(year, month)
-        }
-        return shifts
+    override fun getShiftsByMonth(year: Int, month: Int): Flow<Int> {
+        return workDao.getShiftsByMonth(year, month)
     }
 
-    override fun getEarningsByYear(year: Int): Double {
-        var earnings: Double = 0.0
-        applicationIoScope.launch {
-            earnings = workDao.getEarningsByYear(year)
-        }
-        return earnings
+    override fun getEarningsByYear(year: Int): Flow<Double> {
+        return workDao.getEarningsByYear(year)
     }
 
-    override fun getHoursByYear(year: Int): Double {
-        var hours: Double = 0.0
-        applicationIoScope.launch {
-            hours = workDao.getHoursByYear(year)
-        }
-        return hours
+    override fun getHoursByYear(year: Int): Flow<Double> {
+        return workDao.getHoursByYear(year)
     }
 
-    override fun getShiftsByYear(year: Int): Int {
-        var shifts: Int = 0
-        applicationIoScope.launch {
-            shifts = workDao.getShiftsByYear(year)
-        }
-        return shifts
+    override fun getShiftsByYear(year: Int): Flow<Int> {
+        return workDao.getShiftsByYear(year)
     }
 
 }

@@ -13,11 +13,13 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
+import javax.inject.Singleton
 
 // SOURCE: https://github.com/dhruvRj18/DataStoreYT
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
+@Singleton
 class DataStoreRepositoryImpl @Inject constructor(
     private val context: Context
 ) : DataStoreRepository {

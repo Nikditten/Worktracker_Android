@@ -16,7 +16,7 @@ interface WorkDao {
     fun addWork(work: Work)
 
     @Query("SELECT * FROM work WHERE id = :id")
-    fun getWork(id: Int): Work?
+    fun getWork(id: Int): Flow<Work>
 
     @Query("DELETE FROM work WHERE id = :id")
     fun deleteWork(id: Int)
@@ -25,21 +25,21 @@ interface WorkDao {
     fun getAllWork(): Flow<List<Work>>
 
     @Query("SELECT SUM(paid) FROM work WHERE salary_period_month = :month AND salary_period_year = :year")
-    fun getEarningsByMonth(year: Int, month: Int): Double
+    fun getEarningsByMonth(year: Int, month: Int): Flow<Double>
 
     @Query("SELECT SUM(hours) FROM work WHERE salary_period_month = :month AND salary_period_year = :year")
-    fun getHoursByMonth(year: Int, month: Int): Double
+    fun getHoursByMonth(year: Int, month: Int): Flow<Double>
 
     @Query("SELECT COUNT(*) FROM work WHERE salary_period_month = :month AND salary_period_year = :year")
-    fun getShiftsByMonth(year: Int, month: Int): Int
+    fun getShiftsByMonth(year: Int, month: Int): Flow<Int>
 
     @Query("SELECT SUM(paid) FROM work WHERE salary_period_year = :year")
-    fun getEarningsByYear(year: Int): Double
+    fun getEarningsByYear(year: Int): Flow<Double>
 
     @Query("SELECT SUM(hours) FROM work WHERE salary_period_year = :year")
-    fun getHoursByYear(year: Int): Double
+    fun getHoursByYear(year: Int): Flow<Double>
 
     @Query("SELECT COUNT(*) FROM work WHERE salary_period_year = :year")
-    fun getShiftsByYear(year: Int): Int
+    fun getShiftsByYear(year: Int): Flow<Int>
 
 }

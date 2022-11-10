@@ -1,5 +1,8 @@
 package dtu.amd.worktracker.viewmodel
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -10,6 +13,8 @@ import dtu.amd.worktracker.util.AsMonth
 import dtu.amd.worktracker.util.AsYear
 import dtu.amd.worktracker.util.DATES
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.util.*
@@ -21,20 +26,23 @@ class MainViewModel @Inject constructor(
     private val repo: DataStoreRepository
 ) : ViewModel() {
 
-    var months: List<String> = DATES.listOfMonths
-
-    var years: List<String> = DATES.listOfYears
 
     var currentMonth: Int = Date().AsMonth()
     var currentYear: Int = Date().AsYear()
 
-    var selectedMonth: Int = currentMonth
-    var selectedYear: Int = currentYear
+    var selectedMonth: Int by mutableStateOf(currentMonth)
+    var selectedYear: Int by mutableStateOf(currentYear)
 
     var monthlyPeriod: Boolean = true
 
+    var earnings: Double by mutableStateOf(0.0)
+    var expectedIncome: Double = 0.0
+    var hours: Double by mutableStateOf(0.0)
+    var shifts: Int by mutableStateOf(0)
+
     init {
         getCurrentSalaryPeriod()
+        getStats()
     }
 
     fun getCurrentSalaryPeriod() = runBlocking {
@@ -45,37 +53,20 @@ class MainViewModel @Inject constructor(
         selectedYear = currentYear
     }
 
-    fun getEarnings(): Double {
-        if (monthlyPeriod) {
-            return workRepositoryImpl.getEarningsByMonth(selectedYear, selectedMonth)
-        } else {
-            return workRepositoryImpl.getEarningsByYear(selectedYear)
-        }
-    }
+    fun getStats() = runBlocking {
 
-
-    fun getExpectedPayout(): Double {
         if (monthlyPeriod) {
-            return 0.0
+            earnings = workRepositoryImpl.getEarningsByMonth(selectedYear, selectedMonth).first()
+            expectedIncome = 0.0
+            hours = workRepositoryImpl.getHoursByMonth(selectedYear, selectedMonth).first() ?: 0.0
+            shifts = workRepositoryImpl.getShiftsByMonth(selectedYear, selectedMonth).first() ?: 0
         } else {
-            return 0.0
+            earnings = workRepositoryImpl.getEarningsByYear(selectedYear).first() ?: 0.0
+            expectedIncome = 0.0
+            hours = workRepositoryImpl.getHoursByYear(selectedYear).first() ?: 0.0
+            shifts = workRepositoryImpl.getShiftsByYear(selectedYear).first() ?: 0
         }
-    }
 
-    fun getHours(): Double {
-        if (monthlyPeriod) {
-            return workRepositoryImpl.getHoursByMonth(selectedYear, selectedMonth)
-        } else {
-            return workRepositoryImpl.getHoursByYear(selectedYear)
-        }
-    }
-
-    fun getShifts(): Int {
-        if (monthlyPeriod) {
-            return workRepositoryImpl.getShiftsByMonth(selectedYear, selectedMonth)
-        } else {
-            return workRepositoryImpl.getShiftsByYear(selectedYear)
-        }
     }
 
 }

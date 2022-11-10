@@ -42,7 +42,7 @@ fun CustomDropdown(label: String, selectedIndex: Int, options: List<String>, onC
         // with icon and not expanded
         OutlinedTextField(
             value = selected,
-            onValueChange = { onChange(it) },
+            onValueChange = { println("VALUE: " + it) },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 10.dp)
@@ -71,6 +71,7 @@ fun CustomDropdown(label: String, selectedIndex: Int, options: List<String>, onC
                 DropdownMenuItem(onClick = {
                     selected = label
                     mExpanded = false
+                    onChange(label)
                 }) {
                     Text(text = label)
                 }

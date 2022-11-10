@@ -33,7 +33,7 @@ class AddViewModel @Inject constructor(
     var lunch_held by mutableStateOf(true)
     var lunch_start by mutableStateOf(Date())
     var lunch_end by mutableStateOf(Date())
-    var paid by mutableStateOf("")
+    var hourly_rate by mutableStateOf("")
     var salary_period_month by mutableStateOf(Date().AsMonth())
     var salary_period_year by mutableStateOf(Date().AsYear())
 
@@ -48,6 +48,7 @@ class AddViewModel @Inject constructor(
 
     fun getSalaryPeriod() = runBlocking {
         val period = pref.getSalaryPeriod()
+        println("Salary period: " + period)
         salary_period_month = period[1]
         salary_period_year = period[0]
     }
@@ -55,9 +56,9 @@ class AddViewModel @Inject constructor(
     fun getSalary() = runBlocking {
         val prefPaid = pref.getDouble(PREF_KEYS.SALARY, 0.0)
         if (prefPaid == 0.0) {
-            paid = ""
+            hourly_rate = ""
         } else {
-            paid = prefPaid.toString()
+            hourly_rate = prefPaid.toString()
         }
     }
 
@@ -143,10 +144,10 @@ class AddViewModel @Inject constructor(
             lunch_held = lunch_held,
             lunch_start = lunch_start,
             lunch_end = lunch_end,
-            paid = paid.toDouble() * hours,
-            hourly_rate = paid.toDouble(),
+            paid = hourly_rate.toDouble() * hours,
+            hourly_rate = hourly_rate.toDouble(),
             hours = hours,
-            salary_period_month = salary_period_month + 1,
+            salary_period_month = salary_period_month,
             salary_period_year = salary_period_year
         )
 
