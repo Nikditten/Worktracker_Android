@@ -38,27 +38,27 @@ class WorkRepositoryImpl @Inject internal constructor(
         return workDao.getAllWork()
     }
 
-    override fun getEarningsByMonth(year: Int, month: Int): Flow<Double> {
+    override fun getEarningsByMonth(year: Int, month: Int): Flow<Double?> {
         return workDao.getEarningsByMonth(year, month)
     }
 
-    override fun getHoursByMonth(year: Int, month: Int): Flow<Double> {
+    override fun getHoursByMonth(year: Int, month: Int): Flow<Double?> {
         return workDao.getHoursByMonth(year, month)
     }
 
-    override fun getShiftsByMonth(year: Int, month: Int): Flow<Int> {
+    override fun getShiftsByMonth(year: Int, month: Int): Flow<Int?> {
         return workDao.getShiftsByMonth(year, month)
     }
 
-    override fun getEarningsByYear(year: Int): Flow<Double> {
+    override fun getEarningsByYear(year: Int): Flow<Double?> {
         return workDao.getEarningsByYear(year)
     }
 
-    override fun getHoursByYear(year: Int): Flow<Double> {
+    override fun getHoursByYear(year: Int): Flow<Double?> {
         return workDao.getHoursByYear(year)
     }
 
-    override fun getShiftsByYear(year: Int): Flow<Int> {
+    override fun getShiftsByYear(year: Int): Flow<Int?> {
         return workDao.getShiftsByYear(year)
     }
 

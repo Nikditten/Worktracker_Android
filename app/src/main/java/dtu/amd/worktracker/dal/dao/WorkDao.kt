@@ -25,21 +25,21 @@ interface WorkDao {
     fun getAllWork(): Flow<List<Work>>
 
     @Query("SELECT SUM(paid) FROM work WHERE salary_period_month = :month AND salary_period_year = :year")
-    fun getEarningsByMonth(year: Int, month: Int): Flow<Double>
+    fun getEarningsByMonth(year: Int, month: Int): Flow<Double?>
 
     @Query("SELECT SUM(hours) FROM work WHERE salary_period_month = :month AND salary_period_year = :year")
-    fun getHoursByMonth(year: Int, month: Int): Flow<Double>
+    fun getHoursByMonth(year: Int, month: Int): Flow<Double?>
 
     @Query("SELECT COUNT(*) FROM work WHERE salary_period_month = :month AND salary_period_year = :year")
-    fun getShiftsByMonth(year: Int, month: Int): Flow<Int>
+    fun getShiftsByMonth(year: Int, month: Int): Flow<Int?>
 
     @Query("SELECT SUM(paid) FROM work WHERE salary_period_year = :year")
-    fun getEarningsByYear(year: Int): Flow<Double>
+    fun getEarningsByYear(year: Int): Flow<Double?>
 
     @Query("SELECT SUM(hours) FROM work WHERE salary_period_year = :year")
-    fun getHoursByYear(year: Int): Flow<Double>
+    fun getHoursByYear(year: Int): Flow<Double?>
 
     @Query("SELECT COUNT(*) FROM work WHERE salary_period_year = :year")
-    fun getShiftsByYear(year: Int): Flow<Int>
+    fun getShiftsByYear(year: Int): Flow<Int?>
 
 }

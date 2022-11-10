@@ -2,6 +2,7 @@ package dtu.amd.worktracker.navigation
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
@@ -15,6 +16,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.NavOptions
 import dtu.amd.worktracker.view.HomeView
@@ -27,6 +29,7 @@ fun NavigationBar(navController: NavHostController) {
     // SOURCE: https://developer.android.com/jetpack/compose/layouts/material
 
     val showFilter = remember { mutableStateOf(false) }
+
 
     val selectedIndex = remember { mutableStateOf(0) }
     val selectedView = remember {
@@ -58,6 +61,7 @@ fun NavigationBar(navController: NavHostController) {
                 contentColor = MaterialTheme.colors.onPrimary,
                 actions = {
                     if (selectedIndex.value == 0) {
+
                         IconButton(onClick = { showFilter.value = !showFilter.value }) {
                             Icon(
                                 Icons.Filled.FilterAlt,

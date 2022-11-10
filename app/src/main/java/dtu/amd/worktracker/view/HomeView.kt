@@ -1,6 +1,8 @@
 package dtu.amd.worktracker.view
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
@@ -27,65 +29,72 @@ fun HomeView(
     vm: MainViewModel = hiltViewModel()
 ) {
 
-    Column(
+    val earnings = vm.getEarnings().collectAsState(initial = 0.0)
+    val hours = vm.getHours().collectAsState(initial = 0.0)
+    val shifts = vm.getShifts().collectAsState(initial = 0)
+
+    LazyColumn(
         verticalArrangement = Arrangement.Top,
         modifier = Modifier
             .fillMaxSize()
     ) {
 
         if (showFilter) {
-            Row(
-                modifier = Modifier
-                    .padding()
-                    .fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween,
-            ) {
-                IconButton(onClick = {
-                    vm.selectedMonth--
-                    if (vm.selectedMonth < 1) {
-                        vm.selectedMonth = 12
-                        vm.selectedYear--
-                    }
-                }) {
-                    Icon(
-                        imageVector = Icons.Default.ArrowLeft,
-                        contentDescription = "Previous month"
-                    )
-                }
-
-                Text(
-                    text = vm.selectedMonth.getMonthName() + " " + vm.selectedYear,
+            item {
+                Row(
                     modifier = Modifier
-                        .align(Alignment.CenterVertically)
-                        .padding(8.dp)
-                )
-
-                IconButton(onClick = {
-                    vm.selectedMonth++
-                    if (vm.selectedMonth > 12) {
-                        vm.selectedMonth = 1
-                        vm.selectedYear++
+                        .padding()
+                        .fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                ) {
+                    IconButton(onClick = {
+                        vm.decrementPeriod()
+                    }) {
+                        Icon(
+                            imageVector = Icons.Default.ArrowLeft,
+                            contentDescription = "Previous month"
+                        )
                     }
-                }) {
-                    Icon(
-                        imageVector = Icons.Default.ArrowRight,
-                        contentDescription = "Next month"
+
+                    Text(
+                        text = if (vm.monthlyPeriod) {
+                            vm.selectedMonth.getMonthName() + " " + vm.selectedYear
+                        } else {
+                            vm.selectedYear.toString()
+                        },
+                        modifier = Modifier
+                            .align(Alignment.CenterVertically)
+                            .padding(8.dp)
+                            .clickable {
+                                vm.resetPeriod()
+                            },
                     )
+
+                    IconButton(onClick = {
+                        vm.incrementPeriod()
+                    }) {
+                        Icon(
+                            imageVector = Icons.Default.ArrowRight,
+                            contentDescription = "Next month"
+                        )
+                    }
                 }
             }
         }
 
-        StatView(title = stringResource(R.string.earnings), value = "${vm.earnings}")
+        item {StatView(title = stringResource(R.string.earnings), value = "${earnings.value ?: 0.0}")}
 
-        StatView(title = stringResource(R.string.expected_payout), value = "${vm.expectedIncome}")
+        item {StatView(title = stringResource(R.string.expected_payout), value = "${0.0}")}
 
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            StatView(title = stringResource(R.string.hours), value = "${vm.hours}", half = true)
+        item {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                StatView(title = stringResource(R.string.hours), value = "${hours.value ?: 0.0}", half = true)
 
-            StatView(title = stringResource(R.string.shifts), value = "${vm.shifts}", half = true, right = true)
+                StatView(title = stringResource(R.string.shifts), value = "${shifts.value ?: 0}", half = true, right = true)
+            }
         }
     }
 

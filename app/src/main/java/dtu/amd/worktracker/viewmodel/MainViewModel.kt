@@ -1,5 +1,6 @@
 package dtu.amd.worktracker.viewmodel
 
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -33,16 +34,10 @@ class MainViewModel @Inject constructor(
     var selectedMonth: Int by mutableStateOf(currentMonth)
     var selectedYear: Int by mutableStateOf(currentYear)
 
-    var monthlyPeriod: Boolean = true
-
-    var earnings: Double by mutableStateOf(0.0)
-    var expectedIncome: Double = 0.0
-    var hours: Double by mutableStateOf(0.0)
-    var shifts: Int by mutableStateOf(0)
+    var monthlyPeriod: Boolean by mutableStateOf(true)
 
     init {
         getCurrentSalaryPeriod()
-        getStats()
     }
 
     fun getCurrentSalaryPeriod() = runBlocking {
@@ -53,20 +48,51 @@ class MainViewModel @Inject constructor(
         selectedYear = currentYear
     }
 
-    fun getStats() = runBlocking {
+    fun getEarnings(): Flow<Double?> {
+        return workRepositoryImpl.getEarningsByMonth(selectedMonth, selectedYear)
+    }
 
+    fun getHours(): Flow<Double?> {
+        return workRepositoryImpl.getHoursByMonth(selectedYear, selectedMonth)
+    }
+
+    fun getShifts(): Flow<Int?> {
+        return workRepositoryImpl.getShiftsByMonth(selectedYear, selectedMonth)
+    }
+
+    fun incrementPeriod() {
         if (monthlyPeriod) {
-            earnings = workRepositoryImpl.getEarningsByMonth(selectedYear, selectedMonth).first()
-            expectedIncome = 0.0
-            hours = workRepositoryImpl.getHoursByMonth(selectedYear, selectedMonth).first() ?: 0.0
-            shifts = workRepositoryImpl.getShiftsByMonth(selectedYear, selectedMonth).first() ?: 0
+            if (selectedMonth == 12) {
+                selectedMonth = 1
+                selectedYear++
+            } else {
+                selectedMonth++
+            }
         } else {
-            earnings = workRepositoryImpl.getEarningsByYear(selectedYear).first() ?: 0.0
-            expectedIncome = 0.0
-            hours = workRepositoryImpl.getHoursByYear(selectedYear).first() ?: 0.0
-            shifts = workRepositoryImpl.getShiftsByYear(selectedYear).first() ?: 0
+            selectedYear++
         }
+    }
 
+    fun decrementPeriod() {
+        if (monthlyPeriod) {
+            if (selectedMonth == 1) {
+                selectedMonth = 12
+                selectedYear--
+            } else {
+                selectedMonth--
+            }
+        } else {
+            selectedYear--
+        }
+    }
+
+    fun changePeriod() {
+        monthlyPeriod = !monthlyPeriod
+    }
+
+    fun resetPeriod() {
+        selectedMonth = currentMonth
+        selectedYear = currentYear
     }
 
 }
