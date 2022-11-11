@@ -1,6 +1,7 @@
 package dtu.amd.worktracker.view
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Icon
@@ -13,12 +14,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import dtu.amd.worktracker.R
 import dtu.amd.worktracker.StatView
 import dtu.amd.worktracker.component.CustomDropdown
+import dtu.amd.worktracker.util.RoundTo2Decimals
 import dtu.amd.worktracker.util.getMonthName
 import dtu.amd.worktracker.viewmodel.MainViewModel
 
@@ -30,6 +33,7 @@ fun HomeView(
 ) {
 
     val earnings = vm.getEarnings().collectAsState(initial = 0.0)
+    val expectedEarnings = vm.getExptectedEarnings()
     val hours = vm.getHours().collectAsState(initial = 0.0)
     val shifts = vm.getShifts().collectAsState(initial = 0)
 
@@ -66,9 +70,13 @@ fun HomeView(
                         modifier = Modifier
                             .align(Alignment.CenterVertically)
                             .padding(8.dp)
-                            .clickable {
-                                vm.resetPeriod()
-                            },
+                                // SOURCE: https://developer.android.com/jetpack/compose/gestures
+                            .pointerInput(Unit) {
+                                detectTapGestures(
+                                    onDoubleTap = { vm.resetPeriod() },
+                                    onTap = { vm.changePeriod() }
+                                )
+                            }
                     )
 
                     IconButton(onClick = {
@@ -85,7 +93,7 @@ fun HomeView(
 
         item {StatView(title = stringResource(R.string.earnings), value = "${earnings.value ?: 0.0}")}
 
-        item {StatView(title = stringResource(R.string.expected_payout), value = "${0.0}")}
+        item {StatView(title = stringResource(R.string.expected_payout), value = "${expectedEarnings.RoundTo2Decimals()}")}
 
         item {
             Row(

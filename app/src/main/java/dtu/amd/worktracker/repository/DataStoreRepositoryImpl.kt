@@ -57,7 +57,7 @@ class DataStoreRepositoryImpl @Inject constructor(
         val salaryPeriod = mutableListOf<Int>(Date().AsYear())
         val currentMonth: Int = Date().AsMonth()
         val lastDayInMonth: Int = getInt("month_$currentMonth", -1)
-        if (lastDayInMonth != -1 && lastDayInMonth < Date().AsDay()) {
+        if (lastDayInMonth > 0 && lastDayInMonth < Date().AsDay()) {
             if (currentMonth == 12) {
                 salaryPeriod.add(1)
             } else {

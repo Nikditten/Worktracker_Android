@@ -28,9 +28,13 @@
     <string name="shifts">Vagter</string>
     <string name="hourly_rate">Timeløn</string>
     <string name="taxes">Skat</string>
-    <string name="tax_percentage">Skatteprocent</string>
-    <string name="additional_taxes">Yderligere skat</string>
+    <string name="tax_percentage">Skatteprocent (%)</string>
+    <string name="additional_taxes">Yderligere skat (%)</string>
     <string name="tax_deduction">Skattefradrag</string>
     <string name="salary_period_ending">Sidste dag i løn perioden</string>
     <string name="last_day_in">Sidste dag i</string>
+    <string name="period">Periode</string>
+    <string name="year">År</string>
+    <string name="month">Måned</string>
+    <string name="statistics">Statistik</string>
 </resources>

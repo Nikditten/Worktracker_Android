@@ -21,7 +21,7 @@ interface WorkDao {
     @Query("DELETE FROM work WHERE id = :id")
     fun deleteWork(id: Int)
 
-    @Query("SELECT * FROM work")
+    @Query("SELECT * FROM work ORDER BY date DESC")
     fun getAllWork(): Flow<List<Work>>
 
     @Query("SELECT SUM(paid) FROM work WHERE salary_period_month = :month AND salary_period_year = :year")

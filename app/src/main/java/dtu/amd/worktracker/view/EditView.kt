@@ -28,6 +28,7 @@ import dtu.amd.worktracker.component.CustomTextField
 import dtu.amd.worktracker.component.InputSection
 import dtu.amd.worktracker.util.AsDate
 import dtu.amd.worktracker.util.AsTime
+import dtu.amd.worktracker.util.RoundTo2Decimals
 
 @Composable
 fun EditWorkView(
@@ -149,7 +150,7 @@ fun EditWorkView(
                 CustomDropdown(
                     label = stringResource(R.string.salary_period_month),
                     options = vm.months,
-                    selectedIndex = vm.salary_period_month,
+                    selectedIndex = vm.salary_period_month - 1,
                     onChange = {
                         println("Selected month: $it")
                         vm.salary_period_month = vm.months.indexOf(it) + 1
@@ -170,8 +171,15 @@ fun EditWorkView(
             InputSection(title = stringResource(R.string.statistics)) {
 
                 CustomTextField(
-                    text = vm.paid.toString(),
+                    text = vm.paid.RoundTo2Decimals().toString(),
                     label = stringResource(R.string.earnings),
+                    onChange = {},
+                    enabled = false
+                )
+
+                CustomTextField(
+                    text = vm.hours.RoundTo2Decimals().toString(),
+                    label = stringResource(R.string.hours),
                     onChange = {},
                     enabled = false
                 )

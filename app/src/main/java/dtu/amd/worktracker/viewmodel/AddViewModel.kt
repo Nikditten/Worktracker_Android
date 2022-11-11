@@ -158,6 +158,7 @@ class AddViewModel @Inject constructor(
         }
 
         workRepositoryImpl.addWork(work)
+        println("ADDED WORK $work")
     }
 
 }

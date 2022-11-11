@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import dtu.amd.worktracker.R
 import dtu.amd.worktracker.dal.model.Work
 import dtu.amd.worktracker.util.AsDate
+import dtu.amd.worktracker.util.RoundTo2Decimals
 
 @Composable
 fun TimelineItem(workItem: Work, onClick: () -> Unit = {}) {
@@ -94,7 +95,7 @@ fun TimelineItem(workItem: Work, onClick: () -> Unit = {}) {
                     horizontalAlignment = Alignment.End
                 ) {
                     Text(
-                        text = "+" + workItem.paid.toString(),
+                        text = "+" + workItem.paid.RoundTo2Decimals(),
                         color = MaterialTheme.colors.onSecondary,
                         style = MaterialTheme.typography.h5,
                         fontWeight = FontWeight.Bold,

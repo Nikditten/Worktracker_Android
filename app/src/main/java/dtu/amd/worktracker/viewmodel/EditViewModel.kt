@@ -54,7 +54,6 @@ class EditViewModel @Inject constructor(
     fun getWork() {
         if (id != -1) {
             val work: Work = runBlocking { workRepositoryImpl.getSpecificWork(id).first() }
-            println("WORK: $work")
             title = work.title
             company = work.company
             date = work.date
@@ -66,8 +65,10 @@ class EditViewModel @Inject constructor(
             paid = work.paid
             hourly_rate = work.hourly_rate.toString()
             hours = work.hours
-            salary_period_month = work.salary_period_month - 1
+            salary_period_month = work.salary_period_month
             salary_period_year = work.salary_period_year
+
+            println("GOT WORK $work")
         }
     }
 
@@ -101,6 +102,7 @@ class EditViewModel @Inject constructor(
         }
 
         workRepositoryImpl.addWork(work)
+        println("ADDED WORK $work")
     }
 
 
