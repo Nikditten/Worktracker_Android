@@ -6,6 +6,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import dtu.amd.worktracker.dal.AppDatabase
 import dtu.amd.worktracker.dal.dao.WorkDao
 import dtu.amd.worktracker.dal.model.Work
+import dtu.amd.worktracker.util.AsMonth
+import dtu.amd.worktracker.util.AsYear
 import dtu.amd.worktracker.util.asMonth
 import dtu.amd.worktracker.util.asYear
 import kotlinx.coroutines.flow.first
@@ -54,8 +56,8 @@ class DatabaseUnitTest {
             paid = 180.0 * 4.0,
             hourly_rate = 180.0,
             hours = 4.0,
-            salary_period_month = Date().asMonth(),
-            salary_period_year = Date().asYear()
+            salary_period_month = Date().AsMonth(),
+            salary_period_year = Date().AsYear()
         )
 
         workDao.addWork(work)
@@ -82,8 +84,8 @@ class DatabaseUnitTest {
             paid = 180.0 * 4.0,
             hourly_rate = 180.0,
             hours = 4.0,
-            salary_period_month = Date().asMonth(),
-            salary_period_year = Date().asYear()
+            salary_period_month = Date().AsMonth(),
+            salary_period_year = Date().AsYear()
         )
 
         workDao.addWork(work)
