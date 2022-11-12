@@ -8,8 +8,6 @@ import dtu.amd.worktracker.dal.dao.WorkDao
 import dtu.amd.worktracker.dal.model.Work
 import dtu.amd.worktracker.util.AsMonth
 import dtu.amd.worktracker.util.AsYear
-import dtu.amd.worktracker.util.asMonth
-import dtu.amd.worktracker.util.asYear
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.After
