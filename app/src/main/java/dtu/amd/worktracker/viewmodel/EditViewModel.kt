@@ -78,6 +78,9 @@ class EditViewModel @Inject constructor(
 
     fun save() {
         hours = start.getDiffInHours(end, lunch_held, lunch_start, lunch_end)
+        if (hourly_rate == "") {
+            hourly_rate = "0"
+        }
         val work = Work(
             id = id,
             title = title,
