@@ -1,17 +1,13 @@
 package dtu.amd.worktracker
 
-import android.view.Surface
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import dtu.amd.worktracker.component.CustomDropdown
-import dtu.amd.worktracker.navigation.NavGraph
 import dtu.amd.worktracker.ui.theme.WorktrackerTheme
 
 import org.junit.Test
@@ -26,7 +22,7 @@ import org.junit.Rule
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 @RunWith(AndroidJUnit4::class)
-class ExampleInstrumentedTest {
+class UITest {
 
     @get:Rule
     val composeTestRule = createComposeRule()
