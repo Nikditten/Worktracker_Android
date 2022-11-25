@@ -39,8 +39,6 @@ fun CustomDropdown(label: String, selectedIndex: Int, options: List<String>, onC
 
     Column() {
 
-        // Create an Outlined Text Field
-        // with icon and not expanded
         OutlinedTextField(
             value = selected,
             onValueChange = { println("VALUE: " + it) },
@@ -48,8 +46,6 @@ fun CustomDropdown(label: String, selectedIndex: Int, options: List<String>, onC
                 .fillMaxWidth()
                 .padding(top = 10.dp)
                 .onGloballyPositioned { coordinates ->
-                    // This value is used to assign to
-                    // the DropDown the same width
                     mTextFieldSize = coordinates.size.toSize()
                 }
                 .testTag("TextField"),
@@ -61,8 +57,6 @@ fun CustomDropdown(label: String, selectedIndex: Int, options: List<String>, onC
             readOnly = true,
         )
 
-        // Create a drop-down menu with list of cities,
-        // when clicked, set the Text Field text as the city selected
         DropdownMenu(
             expanded = mExpanded,
             onDismissRequest = { mExpanded = false },
