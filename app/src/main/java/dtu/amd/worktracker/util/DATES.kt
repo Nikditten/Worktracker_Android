@@ -3,8 +3,10 @@ package dtu.amd.worktracker.util
 import java.util.*
 
 object DATES {
+    // get current year
     private val currentYear: Int = Date().AsYear()
 
+    // list of months as strings based on locale
     var listOfMonths: List<String> = listOf(
         1.getMonthName(),
         2.getMonthName(),
@@ -20,6 +22,7 @@ object DATES {
         12.getMonthName()
     )
 
+    // list of years as strings
     var listOfYears: List<String> = listOf(
         (currentYear - 5).toString(),
         (currentYear - 4).toString(),

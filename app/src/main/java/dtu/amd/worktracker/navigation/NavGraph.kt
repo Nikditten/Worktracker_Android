@@ -16,6 +16,8 @@ fun NavGraph() {
     // Based on Lecture 5
     val navController = rememberNavController()
 
+    // This is used to navigate between the different views
+
     NavHost(navController, startDestination = Destination.Home.route) {
         composable(Destination.Home.route) {
             NavigationBar(navController = navController)
@@ -27,6 +29,7 @@ fun NavGraph() {
 
         composable(
             Destination.Edit.route,
+            // This is used to give the id to the edit view
             arguments = listOf(
                 navArgument("id") {
                     type = NavType.IntType

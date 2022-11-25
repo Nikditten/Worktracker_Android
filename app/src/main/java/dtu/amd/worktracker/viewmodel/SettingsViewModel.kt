@@ -31,6 +31,7 @@ class SettingsViewModel @Inject constructor(
     private val repo: DataStoreRepository
 ):ViewModel() {
 
+    // Variable for the input fields
     var salary by mutableStateOf("")
 
     var tax_deduction by mutableStateOf("")
@@ -54,6 +55,8 @@ class SettingsViewModel @Inject constructor(
         getValues()
     }
 
+
+    // Get values from DataStore using CoroutineScope
     fun getValues() = runBlocking {
         salary = repo.getDouble(SALARY, 0.0).toString()
         tax_deduction = repo.getDouble(TAX_DEDUCTION, 0.0).toString()
@@ -73,6 +76,7 @@ class SettingsViewModel @Inject constructor(
         december = repo.getInt(DECEMBER, 0).toString()
     }
 
+    // Save values to DataStore using CoroutineScope
     fun save() = runBlocking {
         repo.setDouble(SALARY, salary.toDouble())
 

@@ -1,6 +1,7 @@
 package dtu.amd.worktracker.util
 
 object PREF_KEYS {
+    // DataStore keys
     const val SALARY = "salary"
 
     const val TAX_PERCENTAGE = "tax_percentage"

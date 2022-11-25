@@ -16,6 +16,8 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object DatabaseModule {
 
+    // Provide a database instance as singleton. Used to create a database instance
+    // Object created as a singleton, so only one instance of the database is created
     @Singleton
     @Provides
     fun provideDatabase(
@@ -29,6 +31,7 @@ object DatabaseModule {
             .build()
     }
 
+    // Provide a dao instance as singleton. Used to create a dao instance
     @Singleton
     @Provides
     fun provideWorkDao(database: AppDatabase) = database.workDao()

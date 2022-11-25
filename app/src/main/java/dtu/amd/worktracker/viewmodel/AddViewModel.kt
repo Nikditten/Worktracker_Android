@@ -25,6 +25,8 @@ class AddViewModel @Inject constructor(
     private val pref: DataStoreRepository
 ) : ViewModel() {
 
+
+    // Variables for the input fields
     var title by mutableStateOf("")
     var company by mutableStateOf("")
     var date by mutableStateOf(Date())
@@ -46,13 +48,14 @@ class AddViewModel @Inject constructor(
         getSalary()
     }
 
+    // Get the salary period from the data store
     fun getSalaryPeriod() = runBlocking {
         val period = pref.getSalaryPeriod()
-        println("Salary period: " + period)
         salary_period_month = period[1]
         salary_period_year = period[0]
     }
 
+    // Get the hourly rate from the data store
     fun getSalary() = runBlocking {
         val prefPaid = pref.getDouble(PREF_KEYS.SALARY, 0.0)
         if (prefPaid == 0.0) {
@@ -65,6 +68,7 @@ class AddViewModel @Inject constructor(
     // SOURCE: https://proandroiddev.com/the-big-form-with-jetpack-compose-7bec9cde157e
     fun showDatePickerDialog(context: Context) {
         val calendar = Calendar.getInstance()
+        // Set the calendar to the current date
         calendar.time = date
 
         DatePickerDialog(
@@ -80,6 +84,8 @@ class AddViewModel @Inject constructor(
 
     fun showTimePickerDialog(context: Context, type: String) {
         val calendar = Calendar.getInstance()
+        // Set the calendar to the current date
+        // This picker is used by multiple fields, so we need to check which one is being used
         when (type) {
             "start" -> {
                 calendar.time = start
@@ -117,6 +123,7 @@ class AddViewModel @Inject constructor(
         ).show()
     }
 
+    // Format picked time as a Date object
     private fun getPickedTimeAsTime(hour: Int, minute: Int): Date {
         val calendar = Calendar.getInstance()
         calendar.set(Calendar.HOUR_OF_DAY, hour);
@@ -124,6 +131,7 @@ class AddViewModel @Inject constructor(
         return calendar.time
     }
 
+    // Format picked date as a Date object
     private fun getPickedDateAsDate(year: Int, month: Int, day: Int): Date {
         val calendar = Calendar.getInstance()
         calendar.set(Calendar.YEAR, year)
@@ -132,8 +140,11 @@ class AddViewModel @Inject constructor(
         return calendar.time
     }
 
+    // Add the work to the database
     fun save() {
+        // Calculate the total hours
         val hours = start.getDiffInHours(end, lunch_held, lunch_start, lunch_end)
+        // If hourly rate is empty set it to 0
         if (hourly_rate == "") {
             hourly_rate = "0"
         }
@@ -154,14 +165,15 @@ class AddViewModel @Inject constructor(
             salary_period_year = salary_period_year
         )
 
+        // If title is empty, set it to default calculated value
         if (work.title.isEmpty() && work.company.isNotEmpty()) {
             work.title = "Shift at ${work.company}"
         } else if (work.title.isEmpty() && work.company.isEmpty()) {
             work.title = "Shift at ${work.date.AsDate()}"
         }
 
+        // Save the work to the database
         workRepositoryImpl.addWork(work)
-        println("ADDED WORK $work")
     }
 
 }

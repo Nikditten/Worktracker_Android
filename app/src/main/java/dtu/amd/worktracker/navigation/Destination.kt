@@ -4,6 +4,8 @@ package dtu.amd.worktracker.navigation
 
 sealed class Destination(val route: String) {
 
+    // Routing for the app
+
     object Home : Destination("home")
 
     object Add : Destination("add")

@@ -13,6 +13,7 @@ class TimelineViewModel @Inject constructor(
     private val workRepositoryImpl: WorkRepositoryImpl,
 ): ViewModel() {
 
+    // Get all work from the database as a flow of list of work
     fun getAllWork(): Flow<List<Work>> {
         return workRepositoryImpl.getAllWork()
     }

@@ -28,6 +28,7 @@ class EditViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
+    // Variables for the input fields
     var id = savedStateHandle.get<Int>("id") ?: -1
     var title by mutableStateOf("")
     var company by mutableStateOf("")
@@ -51,6 +52,7 @@ class EditViewModel @Inject constructor(
         getWork()
     }
 
+    // Get the work from the database based on ID
     fun getWork() {
         if (id != -1) {
             val work: Work = runBlocking { workRepositoryImpl.getSpecificWork(id).first() }
@@ -72,12 +74,16 @@ class EditViewModel @Inject constructor(
         }
     }
 
+    // Delete the work from the database based on ID
     fun deleteWork()  {
         workRepositoryImpl.deleteWork(id)
     }
 
+    // Save the work to the database
     fun save() {
+        // Calculate the hours
         hours = start.getDiffInHours(end, lunch_held, lunch_start, lunch_end)
+        // If the hourly rate is empty set it to 0
         if (hourly_rate == "") {
             hourly_rate = "0"
         }
@@ -98,20 +104,22 @@ class EditViewModel @Inject constructor(
             salary_period_year = salary_period_year
         )
 
+        // Set title to company if title is empty or default calculated value if company is empty
         if (work.title.isEmpty() && work.company.isNotEmpty()) {
             work.title = "Shift at ${work.company}"
         } else if (work.title.isEmpty() && work.company.isEmpty()) {
             work.title = "Shift at ${work.date.AsDate()}"
         }
 
+        // Save the work to the database
         workRepositoryImpl.addWork(work)
-        println("ADDED WORK $work")
     }
 
 
     // SOURCE: https://proandroiddev.com/the-big-form-with-jetpack-compose-7bec9cde157e
     fun showDatePickerDialog(context: Context) {
         val calendar = Calendar.getInstance()
+        // Set the calendar to the date of the work
         calendar.time = date
 
         DatePickerDialog(
@@ -127,6 +135,7 @@ class EditViewModel @Inject constructor(
 
     fun showTimePickerDialog(context: Context, type: String) {
         val calendar = Calendar.getInstance()
+        // This picker is used by multiple fields, so we need to check which one is being used
         when (type) {
             "start" -> {
                 calendar.time = start
@@ -164,6 +173,7 @@ class EditViewModel @Inject constructor(
         ).show()
     }
 
+    // Format the picked time as a Date object
     private fun getPickedTimeAsTime(hour: Int, minute: Int): Date {
         val calendar = Calendar.getInstance()
         calendar.set(Calendar.HOUR_OF_DAY, hour);
@@ -171,6 +181,7 @@ class EditViewModel @Inject constructor(
         return calendar.time
     }
 
+    // Format the picked date as a Date object
     private fun getPickedDateAsDate(year: Int, month: Int, day: Int): Date {
         val calendar = Calendar.getInstance()
         calendar.set(Calendar.YEAR, year)

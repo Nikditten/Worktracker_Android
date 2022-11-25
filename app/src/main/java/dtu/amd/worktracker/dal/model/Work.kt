@@ -13,6 +13,9 @@ import dtu.amd.worktracker.dal.TypeConverter
 
 @Entity(tableName = "work")
 data class Work(
+
+    // TypeConverter is used to convert the Date to a Long and back again
+
     @PrimaryKey(autoGenerate = true)
     @NonNull
     val id: Int,

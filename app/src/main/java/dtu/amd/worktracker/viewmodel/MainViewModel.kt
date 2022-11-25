@@ -41,6 +41,8 @@ class MainViewModel @Inject constructor(
         getCurrentSalaryPeriod()
     }
 
+    // Get the salary period from the data store and set the current month and year
+    // This is runned with CoroutineScope because it is a suspend function
     fun getCurrentSalaryPeriod() = runBlocking {
         val period = repo.getSalaryPeriod()
         currentMonth = period[1]
@@ -49,6 +51,7 @@ class MainViewModel @Inject constructor(
         selectedYear = currentYear
     }
 
+    // Get earnings for either month or year
     fun getEarnings(): Flow<Double?> {
         if (monthlyPeriod) {
             return workRepositoryImpl.getEarningsByMonth(selectedYear, selectedMonth)
@@ -57,6 +60,7 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    // Calculate the total amount the user can expect to be paid for either month or year
     fun getExptectedEarnings(): Double {
         var earnings = 0.0
         val tax_percentage = runBlocking { repo.getDouble(PREF_KEYS.TAX_PERCENTAGE, 0.0) / 100 }
@@ -78,6 +82,7 @@ class MainViewModel @Inject constructor(
         return earnings
     }
 
+    // Get the total amount of hours worked for either month or year
     fun getHours(): Flow<Double?> {
         if (monthlyPeriod) {
             return workRepositoryImpl.getHoursByMonth(selectedYear, selectedMonth)
@@ -86,6 +91,7 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    // Get the total amount of shifts for either month or year
     fun getShifts(): Flow<Int?> {
         if (monthlyPeriod) {
             return workRepositoryImpl.getShiftsByMonth(selectedYear, selectedMonth)
@@ -94,6 +100,7 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    // Increment the selected month and year if selected month is december then increment the year and set the month to january
     fun incrementPeriod() {
         if (monthlyPeriod) {
             if (selectedMonth == 12) {
@@ -107,6 +114,7 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    // Decrement the selected month and year if selected month is january then decrement the year and set the month to december
     fun decrementPeriod() {
         if (monthlyPeriod) {
             if (selectedMonth == 1) {
@@ -120,10 +128,12 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    // Toggle between monthly and yearly period
     fun changePeriod() {
         monthlyPeriod = !monthlyPeriod
     }
 
+    // Reset the selected month and year to the current month and year
     fun resetPeriod() {
         selectedMonth = currentMonth
         selectedYear = currentYear

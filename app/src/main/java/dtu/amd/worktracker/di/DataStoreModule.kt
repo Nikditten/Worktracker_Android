@@ -16,6 +16,8 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object DataStoreModule {
+
+    // Provide a data store repository instance as singleton. Used to create a data store repository instance
     @Singleton
     @Provides
     fun providesDatstoreRepo(

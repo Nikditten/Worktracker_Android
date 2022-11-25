@@ -26,6 +26,7 @@ annotation class ApplicationIoScope
 @Module
 object CoroutinesScopesModule {
 
+    // provide a CoroutineScope with a SupervisorJob and the main dispatcher as singleton
     @Singleton
     @ApplicationCoroutineScope
     @Provides
@@ -33,6 +34,7 @@ object CoroutinesScopesModule {
         @MainDispatcher dispatcher: CoroutineDispatcher
     ): CoroutineScope = CoroutineScope(SupervisorJob() + dispatcher)
 
+    // provide a IO CoroutineScope with a SupervisorJob and the io dispatcher as singleton
     @Singleton
     @ApplicationIoScope
     @Provides
