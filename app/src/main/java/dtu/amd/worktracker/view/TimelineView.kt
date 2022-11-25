@@ -21,6 +21,7 @@ fun TimelineView(
     navController: NavHostController,
     vm: TimelineViewModel = hiltViewModel()
 ) {
+    // get list of work from viewmodel
     val workList = vm.getAllWork().collectAsState(initial = emptyList())
     LazyColumn(
         modifier = Modifier

@@ -19,6 +19,7 @@ import dtu.amd.worktracker.ui.theme.WorktrackerTheme
 @Composable
 fun StatView(title: String, value: String, half: Boolean = false, right: Boolean = false) {
     // https://stackoverflow.com/questions/68919900/screen-width-and-height-in-jetpack-compose
+    // Get screen size
     val configuration = LocalConfiguration.current
     val screenHeight = configuration.screenHeightDp.dp
     val screenWidth = configuration.screenWidthDp.dp

@@ -32,6 +32,7 @@ fun HomeView(
     vm: MainViewModel = hiltViewModel()
 ) {
 
+    // Collect flows from viewmodel
     val earnings = vm.getEarnings().collectAsState(initial = 0.0)
     val expectedEarnings = vm.getExptectedEarnings()
     val hours = vm.getHours().collectAsState(initial = 0.0)

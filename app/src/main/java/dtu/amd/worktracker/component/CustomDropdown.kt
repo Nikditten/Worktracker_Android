@@ -25,13 +25,17 @@ import androidx.compose.ui.unit.toSize
 @Composable
 fun CustomDropdown(label: String, selectedIndex: Int, options: List<String>, onChange: (String) -> Unit) {
 
+    // Dropdown state
     var mExpanded by remember { mutableStateOf(false) }
+    // Size of the textfield
     var mTextFieldSize by remember { mutableStateOf(Size.Zero)}
 
+    // Selected option
     var selected by remember {
         mutableStateOf(options[selectedIndex])
     }
 
+    // Icon based on dropdown state
     val icon = if (mExpanded)
         Icons.Filled.KeyboardArrowUp
     else
@@ -52,6 +56,7 @@ fun CustomDropdown(label: String, selectedIndex: Int, options: List<String>, onC
             label = {Text(label)},
             trailingIcon = {
                 Icon(icon,"Expand",
+                    // Change state on click
                     Modifier.clickable { mExpanded = !mExpanded }.testTag("Expand"))
             },
             readOnly = true,
