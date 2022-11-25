@@ -1,12 +1,24 @@
 package dtu.amd.worktracker
 
+import android.view.Surface
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.test.*
+import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import dtu.amd.worktracker.component.CustomDropdown
+import dtu.amd.worktracker.navigation.NavGraph
+import dtu.amd.worktracker.ui.theme.WorktrackerTheme
 
 import org.junit.Test
 import org.junit.runner.RunWith
 
 import org.junit.Assert.*
+import org.junit.Rule
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -15,10 +27,31 @@ import org.junit.Assert.*
  */
 @RunWith(AndroidJUnit4::class)
 class ExampleInstrumentedTest {
+
+    @get:Rule
+    val composeTestRule = createComposeRule()
+
     @Test
-    fun useAppContext() {
-        // Context of the app under test.
-        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("dtu.amd.worktracker", appContext.packageName)
+    fun myTest() {
+
+        var label = mutableStateOf("0")
+
+        // Start the app
+        composeTestRule.setContent {
+            WorktrackerTheme {
+                // A surface container using the 'background' color from the theme
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                ) {
+                    CustomDropdown(label = label.value, selectedIndex = 0, options = listOf("0", "1", "2", "3"), onChange = {label.value = it})
+                }
+            }
+        }
+
+        composeTestRule.onNodeWithTag("Expand").performClick()
+
+        composeTestRule.onNodeWithText("1").performClick()
+
+        composeTestRule.onNodeWithTag("TextField").assertTextContains("1")
     }
 }
