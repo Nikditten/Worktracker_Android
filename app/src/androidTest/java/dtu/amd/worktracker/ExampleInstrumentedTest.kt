@@ -32,9 +32,9 @@ class ExampleInstrumentedTest {
     val composeTestRule = createComposeRule()
 
     @Test
-    fun myTest() {
+    fun testCustomDropdown() {
 
-        var label = mutableStateOf("0")
+        val label = mutableStateOf("0")
 
         // Start the app
         composeTestRule.setContent {
