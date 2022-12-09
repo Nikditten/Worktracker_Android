@@ -85,7 +85,6 @@ fun TimelineItem(workItem: Work, onClick: () -> Unit = {}) {
                         color = MaterialTheme.colors.onSecondary,
                         style = MaterialTheme.typography.caption,
                         maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
                     )
                 }
 
@@ -97,7 +96,7 @@ fun TimelineItem(workItem: Work, onClick: () -> Unit = {}) {
                     Text(
                         text = "+" + workItem.paid.RoundTo2Decimals(),
                         color = MaterialTheme.colors.onSecondary,
-                        style = MaterialTheme.typography.h5,
+                        style = MaterialTheme.typography.h6,
                         fontWeight = FontWeight.Bold,
                     )
 

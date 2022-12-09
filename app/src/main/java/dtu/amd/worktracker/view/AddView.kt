@@ -43,6 +43,7 @@ fun AddView(
                 backgroundColor = MaterialTheme.colors.primary,
                 contentColor = MaterialTheme.colors.onPrimary,
                 navigationIcon = {
+                    // Stack er defineret i NavigationBar.kt
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(Icons.Filled.ArrowBack, stringResource(R.string.back))
                     }
@@ -54,6 +55,7 @@ fun AddView(
         val context = LocalContext.current
         Column(
             modifier = Modifier
+                    // Bruges til at scroll
                 .verticalScroll(rememberScrollState())
                 .fillMaxSize()
                 .padding(10.dp)

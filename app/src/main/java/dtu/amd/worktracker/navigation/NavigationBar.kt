@@ -66,6 +66,7 @@ fun NavigationBar(navController: NavHostController) {
                             Icon(
                                 Icons.Filled.FilterAlt,
                                 "Filter",
+                                // Baseret på bool værdien af showFilter
                                 tint = showFilter.value.let {
                                     if (it) Color.White else Color.Gray
                                 }
@@ -116,6 +117,8 @@ fun NavigationBar(navController: NavHostController) {
                 Spacer(modifier = Modifier.weight(1f))
             }
         }
+        // Padding -> kan bruges til at finde paddingen, der skal bruges,
+        // for at viewet ikke går ud over bottom bar
     ) { padding ->
         Box(modifier = Modifier.padding(10.dp)) {
             when (selectedIndex.value) {

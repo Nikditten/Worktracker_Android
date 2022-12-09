@@ -24,6 +24,7 @@ import org.junit.Rule
 @RunWith(AndroidJUnit4::class)
 class UITest {
 
+    // Through this rule you can set Compose content or access the activity
     @get:Rule
     val composeTestRule = createComposeRule()
 

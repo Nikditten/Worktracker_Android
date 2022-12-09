@@ -26,6 +26,9 @@ import dtu.amd.worktracker.util.PREF_KEYS.TAX_PERCENTAGE
 import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
+
+// A Hilt View Model is a Jetpack ViewModel that is constructor injected by Hilt.
+// To enable injection of a ViewModel by Hilt use the @HiltViewModel annotation
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
     private val repo: DataStoreRepository
@@ -57,6 +60,7 @@ class SettingsViewModel @Inject constructor(
 
 
     // Get values from DataStore using CoroutineScope
+    // runBlocking creates a bridge between the coroutine world and the non-coroutine world
     fun getValues() = runBlocking {
         salary = repo.getDouble(SALARY, 0.0).toString()
         tax_deduction = repo.getDouble(TAX_DEDUCTION, 0.0).toString()

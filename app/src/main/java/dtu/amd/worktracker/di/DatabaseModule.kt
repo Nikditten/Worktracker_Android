@@ -13,6 +13,8 @@ import javax.inject.Singleton
 // SOURCE: https://github.com/HenrikPihl/retrofit_room/tree/feature/add-room
 
 @Module
+//For example, to install a module so that anything in the application can use it,
+// use SingletonComponent
 @InstallIn(SingletonComponent::class)
 object DatabaseModule {
 

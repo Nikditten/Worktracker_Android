@@ -22,6 +22,8 @@ import kotlinx.coroutines.runBlocking
 import java.util.*
 import javax.inject.Inject
 
+// A Hilt View Model is a Jetpack ViewModel that is constructor injected by Hilt.
+// To enable injection of a ViewModel by Hilt use the @HiltViewModel annotation
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val workRepositoryImpl: WorkRepositoryImpl,

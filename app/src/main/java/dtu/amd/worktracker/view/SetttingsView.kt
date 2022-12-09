@@ -26,6 +26,7 @@ fun SettingsView(
 
     Column(
         modifier = Modifier
+                // til at scroll
             .verticalScroll(rememberScrollState())
             .fillMaxSize()
     ) {

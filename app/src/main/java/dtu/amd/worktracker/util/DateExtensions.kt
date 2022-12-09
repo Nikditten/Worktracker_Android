@@ -59,6 +59,7 @@ fun Date.getDiffInHours(end: Date, lunch: Boolean = false, lunch_start: Date, lu
     // Is lunch is held then subtract lunch time from total
     if (lunch) {
         val lunchDiff = lunch_end_cal.timeInMillis - lunch_start_cal.timeInMillis
+        // to hours
         val lunchTotal = lunchDiff / (60 * 60 * 1000.0)
         total -= lunchTotal
     }

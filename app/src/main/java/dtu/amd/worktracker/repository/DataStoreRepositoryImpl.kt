@@ -20,6 +20,7 @@ import javax.inject.Singleton
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
 @Singleton
+                                // Inject behøvede ikke at være der
 class DataStoreRepositoryImpl @Inject constructor(
     private val context: Context
 ) : DataStoreRepository {
@@ -63,6 +64,28 @@ class DataStoreRepositoryImpl @Inject constructor(
     // Get the salary period from the data store
     override suspend fun getSalaryPeriod(): List<Int> {
         // define salaryperiod as a list and initialize it with the current year
+        val salaryPeriod = mutableListOf<Int>()
+        // Get current month
+        val currentMonth: Int = Date().AsMonth()
+        // Get laste date of current month
+        val lastDayInMonth: Int = getInt("month_$currentMonth", -1)
+        // Check for correct salary month and insert it into the salary period list
+        if (lastDayInMonth > 0 && lastDayInMonth < Date().AsDay()) {
+            if (currentMonth == 12) {
+                salaryPeriod.add(Date().AsYear() + 1)
+                salaryPeriod.add(1)
+            } else {
+                salaryPeriod.add(Date().AsYear())
+                salaryPeriod.add(currentMonth + 1)
+            }
+        } else {
+            salaryPeriod.add(Date().AsYear())
+            salaryPeriod.add(currentMonth)
+        }
+        return salaryPeriod
+    }
+    /*override suspend fun getSalaryPeriod(): List<Int> {
+        // define salaryperiod as a list and initialize it with the current year
         val salaryPeriod = mutableListOf<Int>(Date().AsYear())
         // Get current month
         val currentMonth: Int = Date().AsMonth()
@@ -79,7 +102,7 @@ class DataStoreRepositoryImpl @Inject constructor(
             salaryPeriod.add(currentMonth)
         }
         return salaryPeriod
-    }
+    }*/
 
 
 }

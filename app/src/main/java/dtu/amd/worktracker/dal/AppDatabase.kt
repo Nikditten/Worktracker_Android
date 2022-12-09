@@ -11,7 +11,8 @@ import dtu.amd.worktracker.dal.model.Work
 // Init database with one table (Work) and version 1
 @Database(
     entities = [Work::class],
-    autoMigrations = [
+    autoMigrations = [ // her kan man f.eks. skrive at den skal automigrere
+                     // from version 1 til 2
     ],
     exportSchema = true, version = 1)
 

@@ -65,7 +65,9 @@ fun CustomDropdown(label: String, selectedIndex: Int, options: List<String>, onC
         DropdownMenu(
             expanded = mExpanded,
             onDismissRequest = { mExpanded = false },
+            // Vedholde samme størrelse som textfield
             modifier = Modifier
+                    // Brugt til at konvertere width til dp
                 .width(with(LocalDensity.current){mTextFieldSize.width.toDp()})
         ) {
             options.forEach { label ->

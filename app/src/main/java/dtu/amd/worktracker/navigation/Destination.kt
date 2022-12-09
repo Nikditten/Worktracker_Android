@@ -2,6 +2,7 @@ package dtu.amd.worktracker.navigation
 
 // Based on lecture 5
 
+// Enum af objekter/klasser
 sealed class Destination(val route: String) {
 
     // Routing for the app

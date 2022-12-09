@@ -13,6 +13,10 @@ import kotlinx.coroutines.Dispatchers
 @Module
 object CoroutinesDispatchersModule {
 
+    // Dispatcher = Defines thread pools to launch your Kotlin Coroutines in.
+    // There are majorly 4 types of Dispatchers: Main, IO, Default, Unconfined.
+
+
     @DefaultDispatcher
     @Provides
     fun providesDefaultDispatcher(): CoroutineDispatcher = Dispatchers.Default

@@ -30,6 +30,8 @@ class DatabaseUnitTest {
 
     @Before
     fun setupDatabase() {
+        // Creates a RoomDatabase.Builder for an in memory database.
+        // Information stored in an in memory database disappears when the process is killed
         database = Room.inMemoryDatabaseBuilder(
             ApplicationProvider.getApplicationContext(),
             AppDatabase::class.java

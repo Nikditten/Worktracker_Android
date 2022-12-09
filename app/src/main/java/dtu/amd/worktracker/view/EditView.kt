@@ -45,12 +45,14 @@ fun EditWorkView(
                 actions = {
                     IconButton(onClick = {
                         vm.deleteWork()
+                        // Stack defineret i TimelineView.kt
                         navController.popBackStack()
                     }) {
                         Icon(Icons.Filled.Delete, stringResource(R.string.delete))
                     }
                 },
                 navigationIcon = {
+                                    // Stack defineret i TimelineView.kt
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(Icons.Filled.ArrowBack, stringResource(R.string.back))
                     }
@@ -61,6 +63,7 @@ fun EditWorkView(
         val context = LocalContext.current
         Column(
             modifier = Modifier
+                    // til at scroll
                 .verticalScroll(rememberScrollState())
                 .fillMaxSize()
                 .padding(10.dp)
